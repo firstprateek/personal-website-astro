@@ -47,11 +47,54 @@ html[data-theme='dark'] { color-scheme: dark; }
 
 html { -webkit-text-size-adjust: 100%; }
 
+/* Metric-matched fallbacks for the serif, hand-declared.
+   Astro generates these automatically and its numbers are right for the
+   upright, but its metrics cache is keyed by family name rather than by face
+   (`this.#cache[name] ??= ...` in capsize-font-metrics-resolver), so the
+   400-upright metrics get reused for every variant. Source Serif 4 Italic has
+   an xWidthAvg of 441 against the upright's 479 — about 8% narrower — so the
+   italic fallback was rendering ~8% too wide and reflowed the line when the
+   real italic arrived.
+
+   Computed with Astro's own formula against its Times New Roman metrics, so
+   the 400-upright row below reproduces what Astro emits, digit for digit. The
+   mono is left to Astro: its fallback measured 99.98% and shifts nothing. */
+@font-face {
+  font-family: 'Source Serif Fallback';
+  src: local('Times New Roman');
+  font-weight: 400;
+  font-style: normal;
+  size-adjust: 117.9077%;
+  ascent-override: 87.8653%;
+  descent-override: 28.4121%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Source Serif Fallback';
+  src: local('Times New Roman');
+  font-weight: 400;
+  font-style: italic;
+  size-adjust: 108.5538%;
+  ascent-override: 95.4365%;
+  descent-override: 30.8603%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Source Serif Fallback';
+  src: local('Times New Roman');
+  font-weight: 600;
+  font-style: normal;
+  size-adjust: 119.6308%;
+  ascent-override: 86.5998%;
+  descent-override: 28.0028%;
+  line-gap-override: 0%;
+}
+
 body {
   margin: 0;
   background-color: var(--bg);
   color: var(--text);
-  font-family: var(--font-serif), Georgia, serif;
+  font-family: var(--font-serif), 'Source Serif Fallback', Georgia, serif;
   font-size: var(--fs-base);
   line-height: 1.65;
   font-synthesis-weight: none;

@@ -57,8 +57,11 @@ export default defineConfig({
       name: 'Source Serif 4',
       cssVariable: '--font-serif',
       provider: fontProviders.local(),
-      display: 'optional',
-      fallbacks: ['Georgia', 'serif'],
+      // Empty on purpose: the metric-matched fallbacks are hand-declared in
+      // global.css. Astro's own are wrong for the italic — see the note there.
+      // With no fallbacks, --font-serif is just the webfont name, so the
+      // stylesheet owns the whole chain.
+      fallbacks: [],
       options: {
         variants: [
           { weight: 400, style: 'normal', src: [serifFile('400-normal')] },
@@ -71,7 +74,6 @@ export default defineConfig({
       name: 'JetBrains Mono',
       cssVariable: '--font-mono',
       provider: fontProviders.local(),
-      display: 'optional',
       fallbacks: ['ui-monospace', 'SFMono-Regular', 'monospace'],
       options: {
         variants: [
