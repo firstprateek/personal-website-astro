@@ -1,0 +1,36 @@
+---
+import Base from '../layouts/Base.astro';
+import WritingList from '../components/WritingList.astro';
+import { SITE } from '../site.config';
+import { formatDate, getFeaturedProject, getPosts } from '../lib/content';
+
+const posts = await getPosts();
+const featured = await getFeaturedProject();
+---
+<Base description={SITE.description}>
+  <h1>{SITE.name}</h1>
+  {SITE.bio.map((line) => <p>{line}</p>)}
+
+  {
+    /* Omitted entirely when nothing is featured — no empty slot, no placeholder. */
+    featured && (
+      <section>
+        <h2>Current project</h2>
+        <h3>
+          <a href={`/projects/${featured.id}/`}>{featured.data.title}</a>
+        </h3>
+        <p>{featured.data.summary}</p>
+        <p class="meta">
+          <time datetime={featured.data.date}>{formatDate(featured.data.date)}</time>
+          {' · '}
+          {featured.data.status}
+        </p>
+      </section>
+    )
+  }
+
+  <section>
+    <h2>Writing</h2>
+    <WritingList posts={posts} level={3} />
+  </section>
+</Base>

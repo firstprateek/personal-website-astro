@@ -1,0 +1,46 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { formatDate, getProjects, resolveVideo } from '../../lib/content';
+
+export async function getStaticPaths() {
+  const projects = await getProjects();
+  return projects.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+// Throws at build time if the video is missing its sibling poster frame.
+const video = entry.data.video ? await resolveVideo(entry) : undefined;
+---
+<Base title={entry.data.title} description={entry.data.summary}>
+  <article>
+    <h1>{entry.data.title}</h1>
+    <p class="meta">
+      <time datetime={entry.data.date}>{formatDate(entry.data.date)}</time>
+      {' · '}
+      {entry.data.status}
+    </p>
+    <p>{entry.data.summary}</p>
+
+    {
+      /* Self-hosted, no autoplay, preload="none": not one byte of mp4 is
+         requested until the reader presses play. Intrinsic size plus the
+         16/9 aspect-ratio in CSS means it reserves its box from first paint. */
+      video && (
+        <video
+          src={video.src}
+          poster={video.poster}
+          controls
+          preload="none"
+          width="1280"
+          height="720"
+        />
+      )
+    }
+
+    <Content />
+
+    <p><a href={entry.data.repo}>Source</a></p>
+  </article>
+</Base>

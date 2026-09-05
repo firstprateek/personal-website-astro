@@ -1,0 +1,30 @@
+---
+import Base from '../../layouts/Base.astro';
+import { formatDate, getProjects } from '../../lib/content';
+
+const projects = await getProjects();
+---
+<Base title="Projects" description="Things built, and write-ups of how they work.">
+  <h1>Projects</h1>
+  {
+    projects.length === 0 ? (
+      <p class="muted">Nothing published yet.</p>
+    ) : (
+      <ul class="entries">
+        {projects.map((project) => (
+          <li>
+            <h2>
+              <a href={`/projects/${project.id}/`}>{project.data.title}</a>
+            </h2>
+            <p>{project.data.summary}</p>
+            <p class="meta">
+              <time datetime={project.data.date}>{formatDate(project.data.date)}</time>
+              {' · '}
+              {project.data.status}
+            </p>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</Base>

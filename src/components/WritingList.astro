@@ -1,0 +1,33 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { formatDate } from '../lib/content';
+
+interface Props {
+  posts: CollectionEntry<'posts'>[];
+  /** Heading level for each entry title, so the outline stays correct on both
+   *  the home page (nested under an h2) and /writing (nested under the h1). */
+  level: 2 | 3;
+}
+
+const { posts, level } = Astro.props;
+const Heading = `h${level}` as 'h2' | 'h3';
+---
+{
+  posts.length === 0 ? (
+    <p class="muted">Nothing published yet.</p>
+  ) : (
+    <ul class="entries">
+      {posts.map((post) => (
+        <li>
+          <Heading>
+            <a href={`/writing/${post.id}/`}>{post.data.title}</a>
+          </Heading>
+          <p>{post.data.description}</p>
+          <p class="meta">
+            <time datetime={post.data.date}>{formatDate(post.data.date)}</time>
+          </p>
+        </li>
+      ))}
+    </ul>
+  )
+}
