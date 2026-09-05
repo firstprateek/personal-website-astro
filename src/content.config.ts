@@ -8,6 +8,12 @@ import { z } from 'astro/zod';
  * leading-underscore file, so a fixture cannot reach a real build; setting
  * INCLUDE_FIXTURES=1 widens the pattern for local verification. One
  * conditional, no copy step, no second build path.
+ *
+ * This is the ONLY thing keeping fixtures out of production, and it depends on
+ * the `--force` in the build script. Astro caches loaded entries in
+ * node_modules/.astro/data-store.json, and that cache survives a change of
+ * pattern: without --force, a plain build run after INCLUDE_FIXTURES=1 will
+ * happily republish the fixtures. Do not drop that flag.
  */
 const pattern =
   process.env.INCLUDE_FIXTURES === '1' ? ['**/*.md'] : ['**/*.md', '!**/_*.md'];

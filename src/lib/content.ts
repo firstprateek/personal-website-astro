@@ -33,34 +33,11 @@ function newestFirst<T extends { data: { date: string } }>(a: T, b: T): number {
   return b.data.date.localeCompare(a.data.date);
 }
 
-/* -------------------------------------------------------------------------
-   Fixtures
-
-   Fixtures and templates are the `_`-prefixed files inside the collection
-   directories. content.config.ts already excludes them from the glob in a
-   production build, but Astro caches loaded entries in
-   node_modules/.astro/data-store.json and that cache survives a switch
-   between the two modes — so a developer who runs INCLUDE_FIXTURES=1 and
-   then a plain build would otherwise ship them. The same rule is therefore
-   applied again here, on the read path, where nothing is cached.
-------------------------------------------------------------------------- */
-
-const INCLUDE_FIXTURES = process.env.INCLUDE_FIXTURES === '1';
-
-function isFixture(id: string): boolean {
-  return id.split('/').some((segment) => segment.startsWith('_'));
-}
-
-function dropFixtures<T extends { id: string }>(entries: T[]): T[] {
-  return INCLUDE_FIXTURES ? entries : entries.filter((entry) => !isFixture(entry.id));
-}
-
-/* ------------------------------------------------------------------------- */
 
 /** Published posts, newest first. Drafts get no route, no listing, no feed item. */
 export async function getPosts(): Promise<CollectionEntry<'posts'>[]> {
   const posts = await getCollection('posts', ({ data }) => data.draft !== true);
-  return dropFixtures(posts).sort(newestFirst);
+  return posts.sort(newestFirst);
 }
 
 /**
@@ -68,7 +45,7 @@ export async function getPosts(): Promise<CollectionEntry<'posts'>[]> {
  * reads projects goes through here, so the guards cannot be skipped.
  */
 export async function getProjects(): Promise<CollectionEntry<'projects'>[]> {
-  const projects = dropFixtures(await getCollection('projects'));
+  const projects = await getCollection('projects');
 
   const featured = projects.filter((entry) => entry.data.featured);
   if (featured.length > 1) {
