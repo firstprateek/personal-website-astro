@@ -29,8 +29,10 @@ will push you to Workers; either is fine, and the settings are the same.
 2. Cloudflare dashboard → **Compute (Workers)** → **Create** → **Import a
    repository** (or **Workers & Pages** → **Create** → **Pages** → **Connect to
    Git** if you want Pages specifically).
-3. Pick the repo. Set the framework preset to **Astro**, or set the build
-   command and output directory by hand from the table above.
+3. Pick the repo. Set the build command and output directory by hand from the
+   table above. **Do not use the "Astro" framework preset** — presets resolve
+   to a bare `astro build`, which skips the `--force` that clears Astro's
+   content cache.
 4. Deploy. You get a `*.workers.dev` or `*.pages.dev` URL immediately.
 5. **Custom domains** → add the domain. If the domain is already in the same
    Cloudflare account, the DNS record is created for you and the certificate is
@@ -40,8 +42,10 @@ will push you to Workers; either is fine, and the settings are the same.
 
 1. Push the repo to GitHub.
 2. Netlify → **Add new site** → **Import an existing project** → pick the repo.
-3. Netlify detects Astro. Confirm the build command and publish directory
-   against the table above.
+3. Netlify will offer to detect Astro. Set the build command and publish
+   directory by hand from the table above instead — a detected preset resolves
+   to a bare `astro build`, which skips the `--force` that clears Astro's
+   content cache.
 4. Deploy. You get a `*.netlify.app` URL immediately.
 5. **Domain management** → **Add a domain**.
 

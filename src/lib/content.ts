@@ -34,10 +34,37 @@ function newestFirst<T extends { data: { date: string } }>(a: T, b: T): number {
 }
 
 
+/* -------------------------------------------------------------------------
+   Fixtures
+
+   Fixtures and templates are the `_`-prefixed files in the collection
+   directories. content.config.ts excludes them from the glob in a production
+   build, and the build script passes --force so Astro's content cache cannot
+   serve a stale one. This is the second, independent guard, and it is not
+   redundant: both of those live in places a host's framework preset or a
+   hand-run `npx astro build` bypasses entirely, and either would then
+   republish whatever the cache still holds. Shipping a fake project is the one
+   failure the client called worse than an empty page, so it gets two guards
+   that fail independently. This one runs on the read path, where nothing is
+   cached and no flag can switch it off.
+------------------------------------------------------------------------- */
+
+const INCLUDE_FIXTURES = process.env.INCLUDE_FIXTURES === '1';
+
+function isFixture(id: string): boolean {
+  return id.split('/').some((segment) => segment.startsWith('_'));
+}
+
+function dropFixtures<T extends { id: string }>(entries: T[]): T[] {
+  return INCLUDE_FIXTURES ? entries : entries.filter((entry) => !isFixture(entry.id));
+}
+
+/* ------------------------------------------------------------------------- */
+
 /** Published posts, newest first. Drafts get no route, no listing, no feed item. */
 export async function getPosts(): Promise<CollectionEntry<'posts'>[]> {
   const posts = await getCollection('posts', ({ data }) => data.draft !== true);
-  return posts.sort(newestFirst);
+  return dropFixtures(posts).sort(newestFirst);
 }
 
 /**
@@ -45,7 +72,7 @@ export async function getPosts(): Promise<CollectionEntry<'posts'>[]> {
  * reads projects goes through here, so the guards cannot be skipped.
  */
 export async function getProjects(): Promise<CollectionEntry<'projects'>[]> {
-  const projects = await getCollection('projects');
+  const projects = dropFixtures(await getCollection('projects'));
 
   const featured = projects.filter((entry) => entry.data.featured);
   if (featured.length > 1) {

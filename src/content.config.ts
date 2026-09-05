@@ -9,11 +9,13 @@ import { z } from 'astro/zod';
  * INCLUDE_FIXTURES=1 widens the pattern for local verification. One
  * conditional, no copy step, no second build path.
  *
- * This is the ONLY thing keeping fixtures out of production, and it depends on
- * the `--force` in the build script. Astro caches loaded entries in
- * node_modules/.astro/data-store.json, and that cache survives a change of
- * pattern: without --force, a plain build run after INCLUDE_FIXTURES=1 will
- * happily republish the fixtures. Do not drop that flag.
+ * This is one of two independent guards, and on its own it is not enough.
+ * Astro caches loaded entries in node_modules/.astro/data-store.json, and that
+ * cache survives a change of pattern, so a build that skips the `--force` in
+ * the npm script — a host's framework preset, or a hand-run `npx astro build`
+ * — will republish whatever fixtures the cache still holds. The second guard
+ * is on the read path in lib/content.ts and cannot be bypassed that way. Keep
+ * both, and keep the flag.
  */
 const pattern =
   process.env.INCLUDE_FIXTURES === '1' ? ['**/*.md'] : ['**/*.md', '!**/_*.md'];
