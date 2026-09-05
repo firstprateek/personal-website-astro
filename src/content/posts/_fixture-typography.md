@@ -53,6 +53,17 @@ accidentally tied to one grammar:
 }
 ```
 
+A diff, which is the one block type where the theme's own colours are not
+enough on their own:
+
+```diff
+ export function formatDate(date: string): string {
+-  return new Date(date).toLocaleDateString();
++  const [year, month, day] = date.split('-').map(Number);
++  return `${day} ${MONTHS[month - 1]} ${year}`;
+ }
+```
+
 ## Links and quotations
 
 An [outbound link](https://example.com/some/path) and a [second one](https://example.org)
