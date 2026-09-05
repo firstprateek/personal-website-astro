@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig, fontProviders } from 'astro/config';
 import { SITE } from './src/site.config.ts';
+import { codeThemeDark, codeThemeLight } from './src/lib/shiki-theme.ts';
 
 // A build must make no network requests at all. Astro's anonymous telemetry is
 // the only thing that would, and it is only switchable by environment
@@ -39,7 +40,9 @@ export default defineConfig({
   },
   markdown: {
     shikiConfig: {
-      themes: { light: 'github-light', dark: 'github-dark' },
+      // Patched theme objects, not names: token colours cannot be corrected
+      // from CSS because defaultColor:false emits no scope classes.
+      themes: { light: codeThemeLight, dark: codeThemeDark },
       // Emits only --shiki-light / --shiki-dark custom properties. Without this
       // the light colour is written as an inline `color:`, which outranks any
       // author stylesheet and would force !important on every dark rule.
@@ -49,16 +52,18 @@ export default defineConfig({
   },
   fonts: [
     {
+      // Three faces, not four: bold-italic is dropped on the client's call, to
+      // save 21.5 KB of a face that prose essentially never uses.
       name: 'Source Serif 4',
       cssVariable: '--font-serif',
       provider: fontProviders.local(),
+      display: 'optional',
       fallbacks: ['Georgia', 'serif'],
       options: {
         variants: [
           { weight: 400, style: 'normal', src: [serifFile('400-normal')] },
           { weight: 400, style: 'italic', src: [serifFile('400-italic')] },
           { weight: 600, style: 'normal', src: [serifFile('600-normal')] },
-          { weight: 600, style: 'italic', src: [serifFile('600-italic')] },
         ],
       },
     },
@@ -66,6 +71,7 @@ export default defineConfig({
       name: 'JetBrains Mono',
       cssVariable: '--font-mono',
       provider: fontProviders.local(),
+      display: 'optional',
       fallbacks: ['ui-monospace', 'SFMono-Regular', 'monospace'],
       options: {
         variants: [
