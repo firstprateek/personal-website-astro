@@ -15,11 +15,21 @@
 :root {
   color-scheme: light dark;
 
+  /* The plain light value first, then the themed one. A browser without
+     light-dark() drops the second declaration and keeps a working light
+     palette; without the pair, var(--bg) would be invalid at computed-value
+     time and the page would fall back to UA white-on-black. */
+  --bg: #fdfcfa;
   --bg: light-dark(#fdfcfa, #17181a);
+  --subtle: #f4f2ee;
   --subtle: light-dark(#f4f2ee, #1e1f22);
+  --text: #1f1d1a;
   --text: light-dark(#1f1d1a, #e4e1db);
+  --muted: #6b6660;
   --muted: light-dark(#6b6660, #99958d);
+  --rule: #e2dfd8;
   --rule: light-dark(#e2dfd8, #2c2b29);
+  --accent: #35697c;
   --accent: light-dark(#35697c, #7fb0be);
 
   /* One 1.2 ratio, five steps, no one-off sizes anywhere else. */
@@ -115,20 +125,25 @@ code, kbd, samp, pre {
 }
 
 pre {
-  padding: 1rem;
+  padding: 1rem 1.25rem;
+  background-color: var(--subtle);
+  /* subtle measures only 1.09 against bg, so the border and the padding, not
+     the tint, are what make this read as a block. A decorative container edge
+     is not a control boundary, so 1.19 does not gate here. */
+  border: 1px solid var(--rule);
   border-radius: 2px;
   overflow-x: auto;
 }
 
 /* Shiki runs with defaultColor:false, so it emits only --shiki-light /
-   --shiki-dark custom properties and no colour of its own. These four rules
-   are the entire highlighting theme; without them code is unstyled. */
+   --shiki-dark custom properties and no colour of its own. This is the entire
+   highlighting theme; without it code is unstyled. The --shiki-*-bg values are
+   deliberately unused: the block takes its surface from the site palette
+   above, and token colours are corrected in src/lib/shiki-theme.ts against
+   that surface. */
 .astro-code,
 .astro-code span {
   color: light-dark(var(--shiki-light), var(--shiki-dark));
-}
-.astro-code {
-  background-color: light-dark(var(--shiki-light-bg), var(--shiki-dark-bg));
 }
 
 /* --- Lists of entries ---------------------------------------------------- */
@@ -190,11 +205,27 @@ main { padding-block: 2rem 3rem; }
 .site-footer nav a + a,
 .site-footer .contact a + a { margin-inline-start: 1rem; }
 
+/* Footer controls need a 24x24 minimum target. The padding does that without
+   adding any visual weight, and the roomier line-height on the rows keeps the
+   enlarged targets inside their line box so adjacent rows cannot overlap. */
+.site-footer nav,
+.site-footer .contact,
+.site-footer .theme-slot {
+  line-height: 2.5;
+}
+.site-footer nav > a,
+.site-footer .contact > a,
+#theme-toggle {
+  display: inline-block;
+  min-height: 24px;
+  padding-block: 0.35rem;
+}
+
 /* The theme button is revealed by script after DOMContentLoaded. Reserving a
    full line here means that reveal moves nothing: CLS stays at 0 whether or
    not scripting is on. */
 .theme-slot {
-  min-height: calc(var(--fs-sm) * 1.65);
+  min-height: calc(var(--fs-sm) * 2.5);
 }
 #theme-toggle {
   font: inherit;
