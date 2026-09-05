@@ -1,0 +1,209 @@
+/* ---------------------------------------------------------------------------
+   Palette. Every colour in the site is one of these six, in one block.
+   light-dark() carries both themes in a single declaration, so a palette
+   correction is a one-line edit and the light/dark pair can never drift.
+
+   Theming is driven by `color-scheme`, not by a media query:
+     - :root declares `light dark`, so with scripting disabled the OS
+       preference governs on its own.
+     - The theme script sets data-theme to a concrete `light` or `dark`, and
+       the two rules below pin color-scheme accordingly. An explicit light
+       choice therefore wins on an OS-dark machine — there is no
+       prefers-color-scheme block anywhere for it to lose a specificity
+       fight against.
+--------------------------------------------------------------------------- */
+:root {
+  color-scheme: light dark;
+
+  --bg: light-dark(#fdfcfa, #17181a);
+  --subtle: light-dark(#f4f2ee, #1e1f22);
+  --text: light-dark(#1f1d1a, #e4e1db);
+  --muted: light-dark(#6b6660, #99958d);
+  --rule: light-dark(#e2dfd8, #2c2b29);
+  --accent: light-dark(#35697c, #7fb0be);
+
+  /* One 1.2 ratio, five steps, no one-off sizes anywhere else. */
+  --fs-sm: 0.875rem;
+  --fs-base: 1.0625rem;
+  --fs-md: 1.275rem;
+  --fs-lg: 1.53rem;
+  --fs-xl: 1.836rem;
+}
+
+html[data-theme='light'] { color-scheme: light; }
+html[data-theme='dark'] { color-scheme: dark; }
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: var(--fs-base);
+  line-height: 1.65;
+  font-synthesis-weight: none;
+  font-synthesis-style: none;
+}
+
+/* Content column. 68ch sits inside the 65-72ch measure at every width. */
+.wrap {
+  width: min(68ch, 100% - 3rem);
+  margin-inline: auto;
+}
+
+/* --- Type ---------------------------------------------------------------- */
+
+h1, h2, h3 {
+  font-weight: 600;
+  line-height: 1.25;
+  text-wrap: balance;
+  margin: 2rem 0 0.5rem;
+}
+h1 { font-size: var(--fs-xl); }
+h2 { font-size: var(--fs-lg); }
+h3 { font-size: var(--fs-md); }
+
+p, ul, ol, blockquote, pre, figure { margin: 0 0 1.25rem; }
+
+a {
+  color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.15em;
+}
+
+/* The one accent is reserved for links, so the ring is drawn in text colour.
+   It must never use --rule, which is decorative and would not clear 3:1. */
+:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
+}
+
+blockquote {
+  margin-inline: 0;
+  padding-inline-start: 1rem;
+  border-inline-start: 1px solid var(--rule);
+  color: var(--muted);
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--rule);
+  margin: 2rem 0;
+}
+
+.muted { color: var(--muted); }
+.meta {
+  color: var(--muted);
+  font-size: var(--fs-sm);
+  margin: 0;
+}
+
+/* --- Code ---------------------------------------------------------------- */
+
+code, kbd, samp, pre {
+  font-family: var(--font-mono), ui-monospace, SFMono-Regular, monospace;
+  font-size: var(--fs-sm);
+}
+
+:not(pre) > code {
+  background-color: var(--subtle);
+  padding: 0.1em 0.3em;
+  border-radius: 2px;
+}
+
+pre {
+  padding: 1rem;
+  border-radius: 2px;
+  overflow-x: auto;
+}
+
+/* Shiki runs with defaultColor:false, so it emits only --shiki-light /
+   --shiki-dark custom properties and no colour of its own. These four rules
+   are the entire highlighting theme; without them code is unstyled. */
+.astro-code,
+.astro-code span {
+  color: light-dark(var(--shiki-light), var(--shiki-dark));
+}
+.astro-code {
+  background-color: light-dark(var(--shiki-light-bg), var(--shiki-dark-bg));
+}
+
+/* --- Lists of entries ---------------------------------------------------- */
+
+.entries {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.entries > li {
+  margin-block: 1.5rem;
+  /* Safe here: items only exist when there is content, and `auto` lets the
+     browser keep the real measured size after first render. */
+  content-visibility: auto;
+  contain-intrinsic-size: auto 5rem;
+}
+.entries h2,
+.entries h3 {
+  margin: 0 0 0.15rem;
+  font-size: var(--fs-md);
+}
+.entries p { margin: 0 0 0.15rem; }
+
+/* --- Media --------------------------------------------------------------- */
+
+video, img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+video {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background-color: var(--subtle);
+  border-radius: 2px;
+}
+
+/* --- Frame --------------------------------------------------------------- */
+
+.site-header {
+  padding-block: 2rem 0;
+  font-size: var(--fs-sm);
+}
+.site-header a { color: var(--text); }
+
+main { padding-block: 2rem 3rem; }
+
+.site-footer {
+  border-top: 1px solid var(--rule);
+  padding-block: 1.5rem 3rem;
+  font-size: var(--fs-sm);
+  color: var(--muted);
+  content-visibility: auto;
+  contain-intrinsic-size: auto 10rem;
+}
+.site-footer p { margin: 0 0 0.5rem; }
+.site-footer a { color: var(--accent); }
+
+.site-footer nav a + a,
+.site-footer .contact a + a { margin-inline-start: 1rem; }
+
+/* The theme button is revealed by script after DOMContentLoaded. Reserving a
+   full line here means that reveal moves nothing: CLS stays at 0 whether or
+   not scripting is on. */
+.theme-slot {
+  min-height: calc(var(--fs-sm) * 1.65);
+}
+#theme-toggle {
+  font: inherit;
+  color: var(--muted);
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.15em;
+}

@@ -1,0 +1,138 @@
+---
+import { Font } from 'astro:assets';
+import { SITE } from '../site.config';
+import '../styles/global.css';
+
+interface Props {
+  /** Page title. Omitted on the home page, where the site name stands alone. */
+  title?: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+const pageTitle = title ? `${title} — ${SITE.name}` : SITE.name;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const isHome = Astro.url.pathname === '/';
+---
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--
+      The only script on the site. It runs synchronously in <head> so the theme
+      is resolved before first paint, then owns the toggle for the rest of the
+      page. No defer, no async, no module, no second tag.
+    -->
+    <script is:inline>
+      (() => {
+        const KEY = 'theme';
+        const ORDER = ['system', 'light', 'dark'];
+        const mq = matchMedia('(prefers-color-scheme: dark)');
+
+        // The preference lives in memory; localStorage is only where it is
+        // persisted. Reading it through a variable means the toggle still
+        // works for the session when storage is unavailable (private mode,
+        // blocked site data) instead of becoming a control that does nothing.
+        let preference = 'system';
+        try {
+          const stored = localStorage.getItem(KEY);
+          if (stored === 'light' || stored === 'dark') preference = stored;
+        } catch {}
+
+        // data-theme is always a concrete light or dark, never `system`, which
+        // is what keeps every themed rule a single flat selector.
+        const apply = () => {
+          document.documentElement.dataset.theme =
+            preference === 'system' ? (mq.matches ? 'dark' : 'light') : preference;
+        };
+
+        apply();
+
+        // Follow a live OS switch, but only while the user is on `system`.
+        mq.addEventListener('change', () => {
+          if (preference === 'system') apply();
+        });
+
+        const label = (button) => {
+          button.textContent = `Theme: ${preference}`;
+          button.setAttribute('aria-label', `Theme: ${preference}. Activate to change.`);
+        };
+
+        // Delegated, so it can be attached now — document already exists.
+        document.addEventListener('click', (event) => {
+          const target = event.target;
+          const button =
+            target instanceof Element ? target.closest('#theme-toggle') : null;
+          if (!button) return;
+
+          preference = ORDER[(ORDER.indexOf(preference) + 1) % ORDER.length];
+          try {
+            if (preference === 'system') localStorage.removeItem(KEY);
+            else localStorage.setItem(KEY, preference);
+          } catch {}
+
+          apply();
+          label(button);
+        });
+
+        // The button ships hidden, so with scripting off there is no dead
+        // control: hidden elements are neither focusable nor exposed to AT.
+        // Its footer slot has a reserved line height, so revealing it here
+        // shifts nothing.
+        document.addEventListener('DOMContentLoaded', () => {
+          const button = document.getElementById('theme-toggle');
+          if (!button) return;
+          label(button);
+          button.removeAttribute('hidden');
+        });
+      })();
+    </script>
+
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={SITE.name}
+      href={new URL('rss.xml', Astro.site).href}
+    />
+
+    <Font cssVariable="--font-serif" preload={[{ weight: 400, style: 'normal' }]} />
+    <Font cssVariable="--font-mono" />
+  </head>
+
+  <body>
+    {
+      !isHome && (
+        <header class="site-header">
+          <div class="wrap">
+            <a href="/">{SITE.name}</a>
+          </div>
+        </header>
+      )
+    }
+
+    <main id="main">
+      <div class="wrap">
+        <slot />
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <nav aria-label="Sections">
+          <a href="/writing/">Writing</a>
+          <a href="/projects/">Projects</a>
+          <a href="/rss.xml">Feed</a>
+        </nav>
+        <p class="contact">
+          {SITE.links.map((link) => <a href={link.href}>{link.label}</a>)}
+        </p>
+        <p class="theme-slot">
+          <button id="theme-toggle" type="button" hidden>Theme: system</button>
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
