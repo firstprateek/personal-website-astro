@@ -20,6 +20,7 @@ const PLACEHOLDER = {
     { label: 'GitHub', href: 'https://github.com/TODO_REPLACE_BEFORE_LAUNCH' },
     { label: 'Email', href: 'mailto:TODO_REPLACE_BEFORE_LAUNCH@example.com' },
   ],
+  about: ['TODO_REPLACE_BEFORE_LAUNCH — a few paragraphs about you.'],
 };
 
 /**
@@ -40,7 +41,13 @@ const DEMO = {
     'Essays on platform architecture and agentic developer tooling, by an engineer who spent seven years owning a UI framework other teams had to live with.',
   links: [
     { label: 'GitHub', href: 'https://github.com/patjosh' },
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/patjosh' },
     { label: 'Email', href: 'mailto:pat@example.com' },
+  ],
+  about: [
+    'I have spent about ten years building software for other engineers. For seven of them I owned the web UI framework behind MATLAB Desktop \u2014 the toolkit, the rendering layer, and the migration path \u2014 which a hundred-odd internal product teams shipped on top of.',
+    'That job taught me what platform work actually is. You are not building a product people chose; you are building the floor they stand on, and the whole discipline is in changing that floor without anyone falling through it. Most of what I write comes out of that.',
+    'These days I am mostly interested in agentic developer tooling: what breaks when a coding agent has to survive a closed laptop, why review is the last mile nobody has solved, and how much of that is a state problem wearing a model problem\u2019s clothes.',
   ],
 };
 

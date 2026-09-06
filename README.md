@@ -17,7 +17,10 @@ and nowhere else. Every value in it is currently a `TODO_REPLACE_BEFORE_LAUNCH`
 placeholder that renders visibly on the page and in the browser tab, so an
 unedited site looks obviously wrong rather than quietly wrong.
 
-Replace all of them: `url`, `name`, `bio`, `description`, `links`.
+Replace all of them: `url`, `name`, `bio`, `description`, `about`, `links`.
+
+`bio` is the two lines on the home page; `about` is the two or three
+paragraphs on `/about`, where `links` is also rendered as the Elsewhere list.
 
 ## Publishing a post
 
@@ -112,7 +115,8 @@ src/
   site.config.ts       every value the client edits, in one file
   content.config.ts    the two schemas and the fixture-excluding glob
   lib/content.ts       sorting, date formatting, and the build-time guards
-  layouts/Base.astro   the page shell, and the site's only script
+  layouts/Base.astro   the page shell, the header, and the site's only script
+  pages/about.astro    the about page, rendered from site.config.ts
   styles/global.css    the whole stylesheet; palette is the first block
   content/posts/       *.md
   content/projects/    *.md

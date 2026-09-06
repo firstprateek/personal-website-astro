@@ -238,17 +238,68 @@ video {
 
 /* The small size lives on the contents, never on the container. `.wrap` sizes
    itself in `ch`, which resolves against that element's own font-size, so a
-   14px container made the header and footer columns 14/17ths of the text
-   column — about 54px inboard at every width past 660px. */
-.site-header a,
-.site-footer nav,
-.site-footer p {
+   14px container made the header column 14/17ths of the text column — about
+   54px inboard at every width past 660px. */
+.site-header a {
   font-size: var(--fs-sm);
 }
 
 .site-header {
   padding-block: 2rem 0;
 }
+/* Name and nav share a row and separate to their own lines when the column is
+   too narrow for both. The nav sits on the column's left edge on the home page,
+   where there is no name beside it. */
+.site-header .wrap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: 2rem;
+  row-gap: 0.25rem;
+  justify-content: space-between;
+}
+.site-header nav a + a { margin-inline-start: 1rem; }
+.site-header nav { margin-inline-start: auto; }
+
+/* Utilities, not destinations: a subscribe link and a control, set apart from
+   the nav and rendered in muted so the accent stays on text links. */
+.site-header .utils {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  /* The hit area is 40px but the glyph inside it is 18px. Pulling the row out
+     by half the difference puts the glyphs themselves on the column's edges,
+     in line with the nav above and the text below, rather than inset by the
+     padding that makes them comfortable to tap. */
+  margin-block: 0;
+  margin-inline: -11px;
+}
+.site-header .icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  color: var(--muted);
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+.site-header .icon:hover { color: var(--text); }
+.site-header .icon svg { display: block; }
+
+/* The pair is one button: the icon shows the theme you are in, and the label
+   says where a click takes you. Driven off data-theme, which the head script
+   always resolves to a concrete light or dark. */
+.site-header .icon .i-moon { display: none; }
+html[data-theme='dark'] .site-header .icon .i-sun { display: none; }
+html[data-theme='dark'] .site-header .icon .i-moon { display: block; }
+.site-header nav a { color: var(--accent); }
+.site-header .site-name { font-weight: 600; }
+
+ul.plain { list-style: none; padding: 0; }
+ul.plain li { margin-block: 0.5rem; }
 .site-header a { color: var(--text); }
 
 main {
@@ -256,110 +307,3 @@ main {
   flex: 1;
 }
 
-.site-footer {
-  padding-block: 0 3rem;
-  color: var(--muted);
-  content-visibility: auto;
-  /* 8rem is the one-row footer. Wider than the column the footer wraps to two
-     or three rows; `auto` keeps the real height once it has rendered. */
-  contain-intrinsic-size: auto 8rem;
-  /* The band a group separator lives in: the `|` with 1rem of air each side,
-     the same 1rem that sits between links. The gaps and the negative margins
-     below must all agree on this number. */
-  --sep: 2.25rem;
-}
-/* The divider is the column's width, not the viewport's: every other
-   horizontal element on the site is bounded by the column, and one full-bleed
-   line is the thing a reader would notice. */
-.site-footer .wrap {
-  border-top: 1px solid var(--rule);
-  padding-top: 1.5rem;
-  display: flex;
-  flex-wrap: wrap;
-  column-gap: var(--sep);
-  /* A separator that lands at the start of a row sits in the strip left of the
-     column (see the groups below); this removes it. The clip is drawn 6px
-     outside the box, which clears the 2px focus ring at its 2px offset on a
-     row's first link while the `|`, centred 18px out, stays hidden. */
-  clip-path: inset(-6px);
-}
-.site-footer p { margin: 0 0 0.5rem; }
-.site-footer a { color: var(--accent); }
-
-/* The three groups share one row, `nav | contact | theme`, and collapse in
-   order: contact and theme leave the nav's row together (that is what .tail
-   is for), then split onto rows of their own. Each trailing group carries its
-   separator as a ::before band and is pulled left by exactly that band's
-   width, so the band always fills the gap in front of its group: mid-row that
-   is the gap between two groups, and at the start of a row it is the strip
-   left of the column that .wrap clips. There are no breakpoints to retune when
-   a label or the link list changes width. */
-.site-footer .tail {
-  display: flex;
-  flex-wrap: wrap;
-  column-gap: var(--sep);
-}
-.site-footer .contact,
-.site-footer .theme-slot {
-  margin-inline-start: calc(-1 * var(--sep));
-}
-.site-footer .contact::before,
-.site-footer .theme-slot::before {
-  /* The alt-text form keeps the bar out of the accessibility tree; a browser
-     without it drops that declaration and keeps the plain one. */
-  content: '|';
-  content: '|' / '';
-  display: inline-block;
-  width: var(--sep);
-  text-align: center;
-}
-/* With scripting off the toggle stays hidden and its group is empty, so its
-   separator would dangle after the contact links: drop it, and the pull-left
-   that went with it. */
-.site-footer .theme-slot:has(> [hidden]) { margin-inline-start: 0; }
-.site-footer .theme-slot:has(> [hidden])::before { content: none; }
-
-.site-footer nav a + a,
-.site-footer .contact a + a { margin-inline-start: 1rem; }
-
-/* Footer controls need a 24x24 minimum target. The padding does that without
-   adding any visual weight, and the roomier line-height on the rows keeps the
-   enlarged targets inside their line box so adjacent rows cannot overlap. */
-.site-footer nav,
-.site-footer .contact,
-.site-footer .theme-slot {
-  line-height: 2.5;
-}
-.site-footer nav > a,
-.site-footer .contact > a,
-#theme-toggle {
-  display: inline-block;
-  min-height: 24px;
-  padding-block: 0.35rem;
-}
-
-/* The theme button is revealed by script after DOMContentLoaded. Reserving
-   its full line here, line-height plus the target padding it shares with the
-   links, means that reveal moves nothing: CLS stays at 0 whether or not
-   scripting is on. */
-.theme-slot {
-  min-height: calc(var(--fs-sm) * 2.5 + 0.7rem);
-}
-#theme-toggle {
-  font: inherit;
-  color: var(--muted);
-  background: none;
-  border: 0;
-  /* Only the inline padding is reset. The block padding above is the shared
-     target padding, and it is also what keeps the label on the links'
-     baseline when the two share a row. */
-  padding-inline: 0;
-  cursor: pointer;
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.15em;
-}
-/* `display: inline-block` above outranks the browser's own `[hidden]` rule, so
-   without this the shipped-hidden button would paint as a dead control when
-   scripting is off. */
-#theme-toggle[hidden] { display: none; }

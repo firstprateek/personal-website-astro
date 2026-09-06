@@ -26,7 +26,9 @@ const isHome = Astro.url.pathname === '/';
     <script is:inline>
       (() => {
         const KEY = 'theme';
-        const ORDER = ['system', 'light', 'dark'];
+        // Two states the reader can pick, plus `system` as the default they
+        // start in. The icon shows the theme they are in; clicking moves to
+        // the other one, which is what a sun/moon pair can express honestly.
         const mq = matchMedia('(prefers-color-scheme: dark)');
 
         // The preference lives in memory; localStorage is only where it is
@@ -53,9 +55,12 @@ const isHome = Astro.url.pathname === '/';
           if (preference === 'system') apply();
         });
 
+        const current = () =>
+          preference === 'system' ? (mq.matches ? 'dark' : 'light') : preference;
+
         const label = (button) => {
-          button.textContent = `Theme: ${preference}`;
-          button.setAttribute('aria-label', `Theme: ${preference}. Activate to change.`);
+          const next = current() === 'dark' ? 'light' : 'dark';
+          button.setAttribute('aria-label', `Switch to ${next} theme`);
         };
 
         // Delegated, so it can be attached now — document already exists.
@@ -65,10 +70,9 @@ const isHome = Astro.url.pathname === '/';
             target instanceof Element ? target.closest('#theme-toggle') : null;
           if (!button) return;
 
-          preference = ORDER[(ORDER.indexOf(preference) + 1) % ORDER.length];
+          preference = current() === 'dark' ? 'light' : 'dark';
           try {
-            if (preference === 'system') localStorage.removeItem(KEY);
-            else localStorage.setItem(KEY, preference);
+            localStorage.setItem(KEY, preference);
           } catch {}
 
           apply();
@@ -106,15 +110,36 @@ const isHome = Astro.url.pathname === '/';
   </head>
 
   <body>
-    {
-      !isHome && (
-        <header class="site-header">
-          <div class="wrap">
-            <a href="/">{SITE.name}</a>
-          </div>
-        </header>
-      )
-    }
+    <header class="site-header">
+      <div class="wrap">
+        {!isHome && <a class="site-name" href="/">{SITE.name}</a>}
+        <nav aria-label="Sections">
+          <a href="/writing/">Writing</a>
+          <a href="/projects/">Projects</a>
+          <a href="/about/">About</a>
+        </nav>
+        <p class="utils">
+          <a class="icon" href="/rss.xml" aria-label="RSS feed">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+              <circle cx="6.2" cy="17.8" r="2.2" fill="currentColor" />
+              <path d="M4 11.2a8.8 8.8 0 0 1 8.8 8.8M4 4.6A15.4 15.4 0 0 1 19.4 20"
+                fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" />
+            </svg>
+          </a>
+          <button id="theme-toggle" class="icon" type="button" hidden>
+            <svg class="i-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+              <circle cx="12" cy="12" r="4.4" fill="none" stroke="currentColor" stroke-width="2" />
+              <path d="M12 1.8v2.6M12 19.6v2.6M22.2 12h-2.6M4.4 12H1.8M19.2 4.8l-1.9 1.9M6.7 17.3l-1.9 1.9M19.2 19.2l-1.9-1.9M6.7 6.7 4.8 4.8"
+                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            </svg>
+            <svg class="i-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+              <path d="M20.5 14.6A8.8 8.8 0 1 1 9.4 3.5a7 7 0 0 0 11.1 11.1Z"
+                fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+            </svg>
+          </button>
+        </p>
+      </div>
+    </header>
 
     <main id="main">
       <div class="wrap">
@@ -122,24 +147,5 @@ const isHome = Astro.url.pathname === '/';
       </div>
     </main>
 
-    <footer class="site-footer">
-      <div class="wrap">
-        <nav aria-label="Sections">
-          <a href="/writing/">Writing</a>
-          <a href="/projects/">Projects</a>
-          <a href="/rss.xml">Feed</a>
-        </nav>
-        {/* Grouped so that, when the footer row wraps, contact and theme leave
-             the nav's row together before they split onto rows of their own. */}
-        <div class="tail">
-          <p class="contact">
-            {SITE.links.map((link) => <a href={link.href}>{link.label}</a>)}
-          </p>
-          <p class="theme-slot">
-            <button id="theme-toggle" type="button" hidden>Theme: system</button>
-          </p>
-        </div>
-      </div>
-    </footer>
   </body>
 </html>
