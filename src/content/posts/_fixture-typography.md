@@ -1,7 +1,7 @@
 ---
-title: Notes on shipping a rendering pipeline
-date: 2026-09-04
-description: A fixture post. It exists to prove the rendering path end to end and is excluded from production builds.
+title: The typography of a site nobody notices
+date: 2026-08-12
+description: Rebuilding this site, and the small number of decisions that turned out to matter.
 draft: false
 ---
 
