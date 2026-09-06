@@ -86,6 +86,16 @@ from production builds — twice over, by the glob pattern in
 `src/content.config.ts` and again on the read path in `src/lib/content.ts`.
 `src/media/_demo.*` is excluded from the bundle the same way.
 
+The demo identity is part of the same mechanism. `src/site.config.ts` keeps the
+`TODO_REPLACE_BEFORE_LAUNCH` placeholders as the default and selects a "Pat
+Josh" demo block only when the flag is set, so a plausible-looking name can
+never end up in a real build by accident. Before launch, delete the
+`_fixture-*.md` files, the demo media in `src/media/`, and the demo block in
+`src/site.config.ts`.
+
+`_template.md` is excluded in both modes: a copy-me template is not a fixture
+and never becomes a route.
+
 `npm run build` therefore ships zero posts and zero projects. To see the
 rendering end to end:
 

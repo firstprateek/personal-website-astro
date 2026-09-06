@@ -55,8 +55,15 @@ function isFixture(id: string): boolean {
   return id.split('/').some((segment) => segment.startsWith('_'));
 }
 
+/** A copy-me file, not a fixture. Never a route, in either mode. */
+function isTemplate(id: string): boolean {
+  return id.split('/').some((segment) => segment === '_template');
+}
+
 function dropFixtures<T extends { id: string }>(entries: T[]): T[] {
-  return INCLUDE_FIXTURES ? entries : entries.filter((entry) => !isFixture(entry.id));
+  return entries.filter(
+    (entry) => !isTemplate(entry.id) && (INCLUDE_FIXTURES || !isFixture(entry.id)),
+  );
 }
 
 /* ------------------------------------------------------------------------- */

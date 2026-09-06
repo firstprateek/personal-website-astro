@@ -9,6 +9,9 @@ import { z } from 'astro/zod';
  * INCLUDE_FIXTURES=1 widens the pattern for local verification. One
  * conditional, no copy step, no second build path.
  *
+ * `_template.md` is excluded in both modes. A template is a copy-me file, not
+ * a fixture, and it has no business rendering as a post or a project.
+ *
  * This is one of two independent guards, and on its own it is not enough.
  * Astro caches loaded entries in node_modules/.astro/data-store.json, and that
  * cache survives a change of pattern, so a build that skips the `--force` in
@@ -18,7 +21,9 @@ import { z } from 'astro/zod';
  * both, and keep the flag.
  */
 const pattern =
-  process.env.INCLUDE_FIXTURES === '1' ? ['**/*.md'] : ['**/*.md', '!**/_*.md'];
+  process.env.INCLUDE_FIXTURES === '1'
+    ? ['**/*.md', '!**/_template.md']
+    : ['**/*.md', '!**/_*.md'];
 
 /** Plain calendar date. Deliberately a string, never a Date: see lib/content.ts. */
 const PLAIN_DATE = /^\d{4}-\d{2}-\d{2}$/;
