@@ -266,7 +266,11 @@ video {
 .site-header .utils {
   display: flex;
   align-items: center;
-  gap: 0.25rem;
+  /* Zero here is not zero space: each 40px hit area carries 11px of padding
+     around its 18px glyph, so the glyphs still sit 22px apart — close to the
+     16px rhythm of the nav links, where 0.25rem put them at 26px and the pair
+     read as two loose items rather than one group. */
+  gap: 0;
   /* The hit area is 40px but the glyph inside it is 18px. Pulling the row out
      by half the difference puts the glyphs themselves on the column's edges,
      in line with the nav above and the text below, rather than inset by the
@@ -287,7 +291,12 @@ video {
   cursor: pointer;
 }
 .site-header .icon:hover { color: var(--text); }
-.site-header .icon svg { display: block; }
+.site-header .icon svg {
+  display: block;
+  /* The nav links carry an underline, which drops their visual centre below
+     their box centre. A pixel down puts the glyphs on the same optical line. */
+  transform: translateY(1px);
+}
 
 /* The pair is one button: the icon shows the theme you are in, and the label
    says where a click takes you. Driven off data-theme, which the head script
