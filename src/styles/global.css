@@ -92,6 +92,13 @@ html { -webkit-text-size-adjust: 100%; }
 
 body {
   margin: 0;
+  /* Column layout so the footer sits at the bottom of a short page instead of
+     stranding mid-viewport. dvh with a vh fallback: dvh avoids the jump when a
+     mobile browser's toolbar retracts. */
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
   background-color: var(--bg);
   color: var(--text);
   font-family: var(--font-serif), 'Source Serif Fallback', Georgia, serif;
@@ -151,7 +158,10 @@ hr {
 .meta {
   color: var(--muted);
   font-size: var(--fs-sm);
-  margin: 0;
+  /* Tight above (the h1's own 0.5rem), normal paragraph gap below, so the date
+     pairs with the heading rather than jamming into the prose. In lists,
+     `.entries p` is more specific and keeps its own tighter rhythm. */
+  margin: 0 0 1.25rem;
 }
 
 /* --- Code ---------------------------------------------------------------- */
@@ -226,21 +236,38 @@ video {
 
 /* --- Frame --------------------------------------------------------------- */
 
+/* The small size lives on the contents, never on the container. `.wrap` sizes
+   itself in `ch`, which resolves against that element's own font-size, so a
+   14px container made the header and footer columns 14/17ths of the text
+   column — about 54px inboard at every width past 660px. */
+.site-header a,
+.site-footer nav,
+.site-footer p {
+  font-size: var(--fs-sm);
+}
+
 .site-header {
   padding-block: 2rem 0;
-  font-size: var(--fs-sm);
 }
 .site-header a { color: var(--text); }
 
-main { padding-block: 2rem 3rem; }
+main {
+  padding-block: 2rem 3rem;
+  flex: 1;
+}
 
 .site-footer {
-  border-top: 1px solid var(--rule);
-  padding-block: 1.5rem 3rem;
-  font-size: var(--fs-sm);
+  padding-block: 0 3rem;
   color: var(--muted);
   content-visibility: auto;
   contain-intrinsic-size: auto 10rem;
+}
+/* The divider is the column's width, not the viewport's: every other
+   horizontal element on the site is bounded by the column, and one full-bleed
+   line is the thing a reader would notice. */
+.site-footer .wrap {
+  border-top: 1px solid var(--rule);
+  padding-top: 1.5rem;
 }
 .site-footer p { margin: 0 0 0.5rem; }
 .site-footer a { color: var(--accent); }

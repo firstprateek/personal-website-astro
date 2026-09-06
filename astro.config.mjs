@@ -47,7 +47,26 @@ export default defineConfig({
       // the light colour is written as an inline `color:`, which outranks any
       // author stylesheet and would force !important on every dark rule.
       defaultColor: false,
-      wrap: true,
+      // Wrapping is applied per-language by the transformer below, not
+      // globally, so `diff` can opt out of it.
+      wrap: false,
+      transformers: [
+        {
+          pre(node) {
+            // Diff blocks must not wrap. A wrapped `+` line continues on the
+            // next visual line with no gutter marker, so the continuation
+            // reads as a `-` line. Left unwrapped they scroll instead, which
+            // also makes Shiki's tabindex meaningful.
+            if (this.options.lang === 'diff') return;
+
+            // Everything else wraps, and therefore never scrolls — so the
+            // tabindex Shiki adds for scrollable regions is a dead tab stop.
+            node.properties.style +=
+              'white-space:pre-wrap;word-wrap:break-word;';
+            delete node.properties.tabindex;
+          },
+        },
+      ],
     },
   },
   fonts: [
