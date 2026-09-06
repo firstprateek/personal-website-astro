@@ -260,7 +260,13 @@ main {
   padding-block: 0 3rem;
   color: var(--muted);
   content-visibility: auto;
-  contain-intrinsic-size: auto 10rem;
+  /* 8rem is the one-row footer. Wider than the column the footer wraps to two
+     or three rows; `auto` keeps the real height once it has rendered. */
+  contain-intrinsic-size: auto 8rem;
+  /* The band a group separator lives in: the `|` with 1rem of air each side,
+     the same 1rem that sits between links. The gaps and the negative margins
+     below must all agree on this number. */
+  --sep: 2.25rem;
 }
 /* The divider is the column's width, not the viewport's: every other
    horizontal element on the site is bounded by the column, and one full-bleed
@@ -268,9 +274,50 @@ main {
 .site-footer .wrap {
   border-top: 1px solid var(--rule);
   padding-top: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: var(--sep);
+  /* A separator that lands at the start of a row sits in the strip left of the
+     column (see the groups below); this removes it. The clip is drawn 6px
+     outside the box, which clears the 2px focus ring at its 2px offset on a
+     row's first link while the `|`, centred 18px out, stays hidden. */
+  clip-path: inset(-6px);
 }
 .site-footer p { margin: 0 0 0.5rem; }
 .site-footer a { color: var(--accent); }
+
+/* The three groups share one row, `nav | contact | theme`, and collapse in
+   order: contact and theme leave the nav's row together (that is what .tail
+   is for), then split onto rows of their own. Each trailing group carries its
+   separator as a ::before band and is pulled left by exactly that band's
+   width, so the band always fills the gap in front of its group: mid-row that
+   is the gap between two groups, and at the start of a row it is the strip
+   left of the column that .wrap clips. There are no breakpoints to retune when
+   a label or the link list changes width. */
+.site-footer .tail {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: var(--sep);
+}
+.site-footer .contact,
+.site-footer .theme-slot {
+  margin-inline-start: calc(-1 * var(--sep));
+}
+.site-footer .contact::before,
+.site-footer .theme-slot::before {
+  /* The alt-text form keeps the bar out of the accessibility tree; a browser
+     without it drops that declaration and keeps the plain one. */
+  content: '|';
+  content: '|' / '';
+  display: inline-block;
+  width: var(--sep);
+  text-align: center;
+}
+/* With scripting off the toggle stays hidden and its group is empty, so its
+   separator would dangle after the contact links: drop it, and the pull-left
+   that went with it. */
+.site-footer .theme-slot:has(> [hidden]) { margin-inline-start: 0; }
+.site-footer .theme-slot:has(> [hidden])::before { content: none; }
 
 .site-footer nav a + a,
 .site-footer .contact a + a { margin-inline-start: 1rem; }
@@ -291,20 +338,28 @@ main {
   padding-block: 0.35rem;
 }
 
-/* The theme button is revealed by script after DOMContentLoaded. Reserving a
-   full line here means that reveal moves nothing: CLS stays at 0 whether or
-   not scripting is on. */
+/* The theme button is revealed by script after DOMContentLoaded. Reserving
+   its full line here, line-height plus the target padding it shares with the
+   links, means that reveal moves nothing: CLS stays at 0 whether or not
+   scripting is on. */
 .theme-slot {
-  min-height: calc(var(--fs-sm) * 2.5);
+  min-height: calc(var(--fs-sm) * 2.5 + 0.7rem);
 }
 #theme-toggle {
   font: inherit;
   color: var(--muted);
   background: none;
   border: 0;
-  padding: 0;
+  /* Only the inline padding is reset. The block padding above is the shared
+     target padding, and it is also what keeps the label on the links'
+     baseline when the two share a row. */
+  padding-inline: 0;
   cursor: pointer;
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 0.15em;
 }
+/* `display: inline-block` above outranks the browser's own `[hidden]` rule, so
+   without this the shipped-hidden button would paint as a dead control when
+   scripting is off. */
+#theme-toggle[hidden] { display: none; }

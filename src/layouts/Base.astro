@@ -18,11 +18,11 @@ const isHome = Astro.url.pathname === '/';
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!--
+    {/*
       The only script on the site. It runs synchronously in <head> so the theme
       is resolved before first paint, then owns the toggle for the rest of the
       page. No defer, no async, no module, no second tag.
-    -->
+    */}
     <script is:inline>
       (() => {
         const KEY = 'theme';
@@ -91,8 +91,8 @@ const isHome = Astro.url.pathname === '/';
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <!-- Declaring an SVG icon suppresses the browser's unprompted /favicon.ico
-         request, which would otherwise 404 into the console on every page. -->
+    {/* Declaring an SVG icon suppresses the browser's unprompted /favicon.ico
+         request, which would otherwise 404 into the console on every page. */}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link
       rel="alternate"
@@ -129,12 +129,16 @@ const isHome = Astro.url.pathname === '/';
           <a href="/projects/">Projects</a>
           <a href="/rss.xml">Feed</a>
         </nav>
-        <p class="contact">
-          {SITE.links.map((link) => <a href={link.href}>{link.label}</a>)}
-        </p>
-        <p class="theme-slot">
-          <button id="theme-toggle" type="button" hidden>Theme: system</button>
-        </p>
+        {/* Grouped so that, when the footer row wraps, contact and theme leave
+             the nav's row together before they split onto rows of their own. */}
+        <div class="tail">
+          <p class="contact">
+            {SITE.links.map((link) => <a href={link.href}>{link.label}</a>)}
+          </p>
+          <p class="theme-slot">
+            <button id="theme-toggle" type="button" hidden>Theme: system</button>
+          </p>
+        </div>
       </div>
     </footer>
   </body>
