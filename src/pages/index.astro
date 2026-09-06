@@ -4,7 +4,12 @@ import WritingList from '../components/WritingList.astro';
 import { SITE } from '../site.config';
 import { formatDate, getFeaturedProject, getPosts } from '../lib/content';
 
-const posts = await getPosts();
+const allPosts = await getPosts();
+/* The home page is a front door, not an archive: the five most recent, then a
+   plain link to the rest. Below six there is nothing to link to, so no link. */
+const HOME_POSTS = 5;
+const posts = allPosts.slice(0, HOME_POSTS);
+const hasMore = allPosts.length > HOME_POSTS;
 const featured = await getFeaturedProject();
 ---
 <Base description={SITE.description}>
@@ -32,5 +37,8 @@ const featured = await getFeaturedProject();
   <section>
     <h2>Writing</h2>
     <WritingList posts={posts} level={3} />
+    {hasMore && (
+      <p><a href="/writing/">All writing</a></p>
+    )}
   </section>
 </Base>
