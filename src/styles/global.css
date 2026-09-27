@@ -247,19 +247,27 @@ video {
 .site-header {
   padding-block: 2rem 0;
 }
-/* Name and nav share a row and separate to their own lines when the column is
-   too narrow for both. The nav sits on the column's left edge on the home page,
-   where there is no name beside it. */
-.site-header .wrap {
+/* The name on the left, and the nav with its icons as one group in the
+   right-hand corner. The group is a single flex item, so when the column is too
+   narrow for both, the name and the group separate onto their own lines rather
+   than the icons wrapping away from the nav. On the home page, with no name,
+   the group sits in the same corner. */
+.site-header .wrap,
+.site-header .links {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   column-gap: 2rem;
   row-gap: 0.25rem;
-  justify-content: space-between;
+}
+.site-header .wrap { justify-content: space-between; }
+.site-header .links {
+  margin-inline-start: auto;
+  /* Reached only when the group alone outgrows the column (large text on a
+     narrow screen): the icons drop under the nav and stay in the corner. */
+  justify-content: flex-end;
 }
 .site-header nav a + a { margin-inline-start: 1rem; }
-.site-header nav { margin-inline-start: auto; }
 
 /* Utilities, not destinations: a subscribe link and a control, set apart from
    the nav and rendered in muted so the accent stays on text links. */

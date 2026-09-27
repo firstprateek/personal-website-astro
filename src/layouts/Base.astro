@@ -118,31 +118,33 @@ const isHome = Astro.url.pathname === '/';
     <header class="site-header">
       <div class="wrap">
         {!isHome && <a class="site-name" href="/">{SITE.name}</a>}
-        <nav aria-label="Sections">
-          <a href="/writing/">Writing</a>
-          <a href="/projects/">Projects</a>
-          <a href="/about/">About</a>
-        </nav>
-        <p class="utils">
-          <a class="icon" href="/rss.xml" aria-label="RSS feed">
-            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
-              <circle cx="6.2" cy="17.8" r="2.2" fill="currentColor" />
-              <path d="M4 11.2a8.8 8.8 0 0 1 8.8 8.8M4 4.6A15.4 15.4 0 0 1 19.4 20"
-                fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" />
-            </svg>
-          </a>
-          <button id="theme-toggle" class="icon" type="button" hidden>
-            <svg class="i-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
-              <circle cx="12" cy="12" r="4.4" fill="none" stroke="currentColor" stroke-width="2" />
-              <path d="M12 1.8v2.6M12 19.6v2.6M22.2 12h-2.6M4.4 12H1.8M19.2 4.8l-1.9 1.9M6.7 17.3l-1.9 1.9M19.2 19.2l-1.9-1.9M6.7 6.7 4.8 4.8"
-                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-            </svg>
-            <svg class="i-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
-              <path d="M20.5 14.6A8.8 8.8 0 1 1 9.4 3.5a7 7 0 0 0 11.1 11.1Z"
-                fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
-            </svg>
-          </button>
-        </p>
+        <div class="links">
+          <nav aria-label="Sections">
+            <a href="/writing/">Writing</a>
+            <a href="/projects/">Projects</a>
+            <a href="/about/">About</a>
+          </nav>
+          <p class="utils">
+            <a class="icon" href="/rss.xml" aria-label="RSS feed">
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+                <circle cx="6.2" cy="17.8" r="2.2" fill="currentColor" />
+                <path d="M4 11.2a8.8 8.8 0 0 1 8.8 8.8M4 4.6A15.4 15.4 0 0 1 19.4 20"
+                  fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" />
+              </svg>
+            </a>
+            <button id="theme-toggle" class="icon" type="button" hidden>
+              <svg class="i-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+                <circle cx="12" cy="12" r="4.4" fill="none" stroke="currentColor" stroke-width="2" />
+                <path d="M12 1.8v2.6M12 19.6v2.6M22.2 12h-2.6M4.4 12H1.8M19.2 4.8l-1.9 1.9M6.7 17.3l-1.9 1.9M19.2 19.2l-1.9-1.9M6.7 6.7 4.8 4.8"
+                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+              </svg>
+              <svg class="i-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+                <path d="M20.5 14.6A8.8 8.8 0 1 1 9.4 3.5a7 7 0 0 0 11.1 11.1Z"
+                  fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+              </svg>
+            </button>
+          </p>
+        </div>
       </div>
     </header>
 
