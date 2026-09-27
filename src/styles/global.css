@@ -126,7 +126,7 @@ h1 { font-size: var(--fs-xl); }
 h2 { font-size: var(--fs-lg); }
 h3 { font-size: var(--fs-md); }
 
-p, ul, ol, blockquote, pre, figure { margin: 0 0 1.25rem; }
+p, ul, ol, blockquote, pre, figure, video { margin: 0 0 1.25rem; }
 
 a {
   color: var(--accent);
