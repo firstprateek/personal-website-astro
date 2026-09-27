@@ -22,6 +22,10 @@ Replace all of them: `url`, `name`, `bio`, `description`, `about`, `links`.
 `bio` is the two lines on the home page; `about` is the two or three
 paragraphs on `/about`, where `links` is also rendered as the Elsewhere list.
 
+The link-preview image, `/og.png`, is drawn at build time from `name`,
+`description` and `url` (`src/pages/og.png.js`), so it has nothing of its own to
+edit. Until those are replaced it shows the placeholders too.
+
 ## Publishing a post
 
 Copy `src/content/posts/_template.md` to `src/content/posts/my-post.md`. The
