@@ -38,6 +38,11 @@ will push you to Workers; either is fine, and the settings are the same.
    Cloudflare account, the DNS record is created for you and the certificate is
    issued automatically.
 
+**The 404 page on Workers.** Pages and Netlify serve `dist/404.html` for any
+path with no page, on their own. A Worker's static assets do so only with
+`"not_found_handling": "404-page"` under `assets` in its Wrangler config;
+without it, an unknown path gets an empty 404.
+
 ## Netlify
 
 1. Push the repo to GitHub.
