@@ -50,11 +50,6 @@ const isHome = Astro.url.pathname === '/';
 
         apply();
 
-        // Follow a live OS switch, but only while the user is on `system`.
-        mq.addEventListener('change', () => {
-          if (preference === 'system') apply();
-        });
-
         const current = () =>
           preference === 'system' ? (mq.matches ? 'dark' : 'light') : preference;
 
@@ -62,6 +57,16 @@ const isHome = Astro.url.pathname === '/';
           const next = current() === 'dark' ? 'light' : 'dark';
           button.setAttribute('aria-label', `Switch to ${next} theme`);
         };
+
+        // Follow a live OS switch, but only while the user is on `system`.
+        // The label names the other theme, so it has to follow too, or the
+        // button announces a switch to the theme the page is already in.
+        mq.addEventListener('change', () => {
+          if (preference !== 'system') return;
+          apply();
+          const button = document.getElementById('theme-toggle');
+          if (button) label(button);
+        });
 
         // Delegated, so it can be attached now — document already exists.
         document.addEventListener('click', (event) => {
@@ -81,8 +86,8 @@ const isHome = Astro.url.pathname === '/';
 
         // The button ships hidden, so with scripting off there is no dead
         // control: hidden elements are neither focusable nor exposed to AT.
-        // Its footer slot has a reserved line height, so revealing it here
-        // shifts nothing.
+        // The RSS icon beside it already sets the header row's height, so
+        // revealing it here shifts nothing.
         document.addEventListener('DOMContentLoaded', () => {
           const button = document.getElementById('theme-toggle');
           if (!button) return;
