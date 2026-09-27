@@ -7,9 +7,11 @@ interface Props {
   /** Page title. Omitted on the home page, where the site name stands alone. */
   title?: string;
   description: string;
+  /** OpenGraph type: `article` for essays, `website` for everything else. */
+  type?: 'website' | 'article';
 }
 
-const { title, description } = Astro.props;
+const { title, description, type = 'website' } = Astro.props;
 const pageTitle = title ? `${title} — ${SITE.name}` : SITE.name;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const isHome = Astro.url.pathname === '/';
@@ -100,6 +102,14 @@ const isHome = Astro.url.pathname === '/';
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {/* Link previews (Slack, LinkedIn, X, iMessage) read these, not <title>.
+         og:url comes from the same canonical origin as the link above. */}
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:title" content={title ?? SITE.name} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary" />
     {/* Declaring an SVG icon suppresses the browser's unprompted /favicon.ico
          request, which would otherwise 404 into the console on every page. */}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
