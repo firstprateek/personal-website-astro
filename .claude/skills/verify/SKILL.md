@@ -32,7 +32,12 @@ or is empty" warnings are expected until there is real content.
 - Crawl from `/`: every page 200, every asset 200 (`.mp4` 206), `rss.xml` well-formed.
 - Must 404, with the site's own "Not found" page: `/writing/_fixture-draft-build-caches/`,
   `/writing/_template/`, `/projects/_template/`, and every `_fixture-*` route in the plain build.
-- Every page's `og:url` equals its canonical link; posts carry `og:type` `article`.
+- Every page's `og:url` equals its canonical link; posts carry `og:type` `article`. Every page's
+  `og:image` points at `/og.png`, which must be a 1200×630 PNG showing the config's name,
+  description and host. Look at it: a long name must wrap inside the card, not run off it.
+- The build must make no network requests. Prove it rather than trust it:
+  `sandbox-exec -p '(version 1)(allow default)(deny network-outbound (remote ip))' npm run build`
+  (run a `curl` under the same profile first, to see the sandbox really blocks).
 - Theme toggle: click, reload, navigate away; Enter and Space on the focused button. With no stored
   preference, switch the OS colour scheme live and read the button's `aria-label`; it must name the
   theme the page is *not* in (`theme-probe.mjs` below).
