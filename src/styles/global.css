@@ -29,11 +29,13 @@
   --muted: light-dark(#6b6660, #99958d);
   --rule: #e2dfd8;
   --rule: light-dark(#e2dfd8, #2c2b29);
-  /* Links: brand coral, from the old site and the favicon. #e65446 itself
-     is 3.6:1 on the light background, too low for body-size text, so light
-     mode uses a deeper coral (5.0:1); dark mode uses #e65446 (4.8:1). */
+  /* Links: brand coral, from the old site and the favicon. Links carry no
+     underline, so the colour alone marks them and has to clear two limits in
+     each theme: 4.5:1 against the background and 3:1 against body text.
+     Light #c4402f: 4.97 and 3.30. Dark #de5043 (a hair deeper than the
+     favicon's #e65446, which is only 2.8:1 against light text): 4.51 and 3.02. */
   --accent: #c4402f;
-  --accent: light-dark(#c4402f, #e65446);
+  --accent: light-dark(#c4402f, #de5043);
 
   /* One 1.2 ratio, five steps, no one-off sizes anywhere else. */
   --fs-sm: 0.875rem;
@@ -135,11 +137,16 @@ h3 { font-size: var(--fs-md); }
 
 p, ul, ol, blockquote, pre, figure, video { margin: 0 0 1.25rem; }
 
+/* No underline at rest (the owner's call: coral marks a link). Hover and
+   keyboard focus add one, so there is still a non-colour cue on interaction. */
 a {
   color: var(--accent);
+  text-decoration: none;
   text-decoration-thickness: 1px;
   text-underline-offset: 0.15em;
 }
+a:hover,
+a:focus-visible { text-decoration: underline; }
 
 /* The one accent is reserved for links, so the ring is drawn in text colour.
    It must never use --rule, which is decorative and would not clear 3:1. */
@@ -352,17 +359,13 @@ html[data-scrolled] .site-header { border-bottom-color: var(--rule); }
 .site-header .icon .i-moon { display: none; }
 html[data-theme='dark'] .site-header .icon .i-sun { display: none; }
 html[data-theme='dark'] .site-header .icon .i-moon { display: block; }
-/* Header links read as navigation, not prose links: no underline at rest,
-   one on hover and on the page you are in. */
-.site-header a { text-decoration: none; }
-.site-header a:hover,
-.site-header a[aria-current] { text-decoration: underline; }
-.site-header nav a { color: var(--accent); }
+/* The section you are in is shown in the text colour: still a link, but
+   marked as where you are. */
+.site-header nav a[aria-current] { color: var(--text); }
 .site-header .site-name { font-weight: 600; }
 
 ul.plain { list-style: none; padding: 0; }
 ul.plain li { margin-block: 0.5rem; }
-.site-header a { color: var(--text); }
 
 main {
   padding-block: 1.25rem 3rem;
@@ -443,3 +446,11 @@ main {
 .contact-form button:disabled { opacity: 0.6; cursor: progress; }
 .contact-form .status[data-kind='error'] { color: var(--text); font-weight: 600; }
 .contact-form .meta { margin-bottom: 0; }
+
+/* Phones: tighter gaps so the name, nav and toggle share one row down to
+   360px wide. Narrower than that, the name takes its own row. */
+@media (max-width: 40rem) {
+  .site-header .wrap,
+  .site-header .links { column-gap: 1rem; }
+  .site-header nav a + a { margin-inline-start: 0.75rem; }
+}
