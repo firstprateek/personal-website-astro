@@ -1,0 +1,152 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../site.config';
+import { getProjects } from '../lib/content';
+// One source for the choices and caps, so the form and the Worker that checks
+// it cannot drift apart.
+import { TOPICS, LIMITS } from '../../worker/src/index.js';
+
+const { endpoint, turnstileSiteKey } = SITE.contact;
+const ready = Boolean(endpoint && turnstileSiteKey);
+const projects = (await getProjects()).map((p) => p.data.title);
+const github = SITE.links.find((l) => l.label === 'GitHub');
+const description = `Send ${SITE.name} a message or feedback on a project.`;
+---
+<Base title="Contact" description={description}>
+  <h1>Contact</h1>
+  <p>
+    Questions, feedback on a project, or something you are working on: write
+    to me here. Your message reaches my phone directly. Name and email are
+    optional; leave them if you would like a reply.
+  </p>
+
+  {
+    ready ? (
+      <form
+        id="contact"
+        class="contact-form"
+        action={endpoint}
+        method="post"
+        data-endpoint={endpoint}
+      >
+        <label for="topic">What&rsquo;s this about?</label>
+        <select id="topic" name="topic" required>
+          {Object.entries(TOPICS).map(([value, label]) => (
+            <option value={value}>{label}</option>
+          ))}
+        </select>
+
+        <div id="project-field" hidden>
+          <label for="project">Which project?</label>
+          <select id="project" name="project" disabled>
+            <option value="">Choose a project</option>
+            {projects.map((title) => (
+              <option value={title}>{title}</option>
+            ))}
+          </select>
+        </div>
+
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="7" required maxlength={LIMITS.message} />
+
+        <label for="name">Name <span class="muted">(optional)</span></label>
+        <input id="name" name="name" type="text" autocomplete="name" maxlength={LIMITS.name} />
+
+        <label for="email">Email <span class="muted">(optional, if you&rsquo;d like a reply)</span></label>
+        <input id="email" name="email" type="email" autocomplete="email" maxlength={LIMITS.email} />
+
+        {/* Honeypot: hidden from people and from assistive technology. */}
+        <div class="hp" aria-hidden="true">
+          <label for="hp_x7">Leave this empty</label>
+          <input id="hp_x7" name="hp_x7" type="text" tabindex="-1" autocomplete="off" />
+        </div>
+
+        <div
+          class="cf-turnstile"
+          data-sitekey={turnstileSiteKey}
+          data-appearance="interaction-only"
+          data-size="flexible"
+          data-theme="auto"
+        />
+
+        <p class="actions">
+          <button type="submit">Send</button>
+          <span id="status" class="status" role="status" aria-live="polite" />
+        </p>
+        <p class="meta">
+          Spam protection by Cloudflare Turnstile. Nothing you send is stored
+          on this site.
+        </p>
+        <noscript>
+          <p>The form needs JavaScript for its spam check.{github && <> You can also reach me on <a href={github.href}>GitHub</a>.</>}</p>
+        </noscript>
+      </form>
+    ) : (
+      <p>
+        The contact form is not set up yet.
+        {github && <> In the meantime, you can reach me on <a href={github.href}>GitHub</a>.</>}
+      </p>
+    )
+  }
+
+  {ready && (
+    <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer />
+  )}
+  <script>
+    const form = document.getElementById('contact') as HTMLFormElement | null;
+    if (form) {
+      const topic = form.elements.namedItem('topic') as HTMLSelectElement;
+      const project = form.elements.namedItem('project') as HTMLSelectElement;
+      const projectField = document.getElementById('project-field') as HTMLElement;
+      const status = document.getElementById('status') as HTMLElement;
+      const button = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+
+      // The project list exists only for project feedback. Disabled while
+      // hidden, so it is neither required nor sent with other topics.
+      const syncProject = () => {
+        const on = topic.value === 'feedback';
+        projectField.hidden = !on;
+        project.disabled = !on;
+        project.required = on;
+      };
+      topic.addEventListener('change', syncProject);
+      syncProject();
+
+      const say = (text: string, kind: 'ok' | 'error' | '' = '') => {
+        status.textContent = text;
+        status.dataset.kind = kind;
+      };
+
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const data = new FormData(form);
+        if (!data.get('cf-turnstile-response')) {
+          say('The spam check is still running. Try again in a moment.', 'error');
+          return;
+        }
+        button.disabled = true;
+        say('Sending…');
+        try {
+          const res = await fetch(form.dataset.endpoint as string, {
+            method: 'POST',
+            body: new URLSearchParams(data as unknown as Record<string, string>),
+          });
+          const body = await res.json().catch(() => ({ ok: false }));
+          if (res.ok && body.ok) {
+            form.reset();
+            syncProject();
+            say('Thanks, your message is on its way.', 'ok');
+          } else {
+            say(body.error ?? 'Something went wrong. Please try again.', 'error');
+          }
+        } catch {
+          say('Could not reach the server. Check your connection and try again.', 'error');
+        } finally {
+          button.disabled = false;
+          // A Turnstile token is single use: get a fresh one for the next send.
+          (window as unknown as { turnstile?: { reset: () => void } }).turnstile?.reset();
+        }
+      });
+    }
+  </script>
+</Base>

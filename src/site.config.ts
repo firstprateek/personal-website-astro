@@ -21,7 +21,18 @@ const PLACEHOLDER = {
   /** Footer contact links. Plain text links, no icons. Order is preserved. */
   links: [
     { label: 'GitHub', href: 'https://github.com/firstprateek' },
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/joshi-prateek' },
   ],
+  /**
+   * The /contact/ form. `endpoint` is the Cloudflare Worker in worker/ and
+   * `turnstileSiteKey` the public Turnstile site key (the secret half lives
+   * only in the Worker). Until both are set the page renders a short note
+   * instead of a form that cannot send. Neither value is secret.
+   */
+  contact: {
+    endpoint: '',
+    turnstileSiteKey: '',
+  },
   about: [
     'I\u2019ve spent about ten years building software for other engineers, most of it on IDE extensibility and plugin frameworks: the layer other teams build on, where every change has to land without breaking someone else\u2019s work.',
     'These days I build with coding agents, and mostly on the parts around the model: sandboxes, review by a second model, proof that work is done, and recovery when CI goes red. The projects here are the tools I use every day.',
@@ -51,6 +62,12 @@ const DEMO = {
     { label: 'LinkedIn', href: 'https://www.linkedin.com/in/patjosh' },
     { label: 'Email', href: 'mailto:pat@example.com' },
   ],
+  // Turnstile's published always-pass test key, so the fixture build renders
+  // the full form. The endpoint does not exist; nothing can be sent from it.
+  contact: {
+    endpoint: 'https://contact-form.example.workers.dev/',
+    turnstileSiteKey: '1x00000000000000000000AA',
+  },
   about: [
     'I have spent about ten years building software for other engineers. For seven of them I owned the web UI framework behind MATLAB Desktop \u2014 the toolkit, the rendering layer, and the migration path \u2014 which a hundred-odd internal product teams shipped on top of.',
     'That job taught me what platform work actually is. You are not building a product people chose; you are building the floor they stand on, and the whole discipline is in changing that floor without anyone falling through it. Most of what I write comes out of that.',
