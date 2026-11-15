@@ -320,8 +320,9 @@ html[data-scrolled] .site-header { border-bottom-color: var(--rule); }
 .site-header .icon:hover { color: var(--text); }
 .site-header .icon svg {
   display: block;
-  /* The nav links carry an underline, which drops their visual centre below
-     their box centre. A pixel down puts the glyphs on the same optical line. */
+  /* Serif text sits a little low in its line box. A pixel down puts the
+     glyphs on the same optical line as the nav labels (checked by eye with
+     the underline removed). */
   transform: translateY(1px);
 }
 

@@ -59,7 +59,6 @@ status: experiment      # experiment | active | archived
 summary: One sentence.
 repo: https://github.com/you/my-project
 video: my-project.mp4   # optional
-featured: false
 ---
 ```
 
@@ -72,10 +71,10 @@ featured: false
 - The video is rendered at 1280×720 with `controls` and `preload="none"`, so
   not one byte of it is fetched until a reader presses play.
 
-At most one project across the whole collection may set `featured: true`. That
-is the one the home page shows; if nothing is featured, the home page omits the
-section entirely. Two featured projects **fail the build** rather than silently
-picking one.
+The home page's "Current projects" are the ids (filenames without `.md`)
+listed, in order, in `currentProjects` in `src/site.config.ts`. An id with no
+matching project **fails the build** rather than silently dropping a row; an
+empty list omits the section.
 
 ## Things that fail the build, on purpose
 
@@ -84,7 +83,7 @@ picking one.
 - A `status` outside the three allowed values.
 - A date that is not a real `YYYY-MM-DD` calendar date.
 - A video with no sibling poster frame.
-- More than one `featured: true` project.
+- An id in `currentProjects` with no matching project.
 
 ## Fixtures
 
