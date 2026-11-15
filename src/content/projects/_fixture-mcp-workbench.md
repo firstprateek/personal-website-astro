@@ -5,7 +5,7 @@ status: active
 summary: A local harness for developing and debugging Model Context Protocol servers, with a request inspector and a replayable transcript log.
 repo: https://github.com/patjosh/mcp-workbench
 video: _demo.mp4
-featured: true
+featured: false
 ---
 
 Writing an MCP server is easy. Debugging one is not, because the only client
