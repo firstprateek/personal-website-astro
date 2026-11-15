@@ -1,0 +1,19 @@
+# Cloudflare Worker that relays the /contact/ form to an ntfy push.
+# Secrets (never committed): `npx wrangler secret put TURNSTILE_SECRET` and
+# `npx wrangler secret put NTFY_TOPIC`. See ../DEPLOY.md, "Contact form".
+name = "contact-form"
+main = "src/index.js"
+compatibility_date = "2026-11-01"
+workers_dev = true
+preview_urls = false
+
+[vars]
+# Origins the site is served from. Add https://pjoshi.dev at the domain cutover.
+ALLOWED_ORIGINS = "https://firstprateek.github.io"
+
+# Five messages a minute per client IP. Counted per Cloudflare location, which
+# is plenty for a personal contact form.
+[[ratelimits]]
+name = "LIMITER"
+namespace_id = "1001"
+simple = { limit = 5, period = 60 }

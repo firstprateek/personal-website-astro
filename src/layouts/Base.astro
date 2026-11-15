@@ -23,7 +23,8 @@ const isHome = isHomePath(Astro.url.pathname);
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     {/*
-      The only script on the site. It runs synchronously in <head> so the theme
+      The only script on every page (the contact page adds its own form
+      script and Cloudflare Turnstile). It runs synchronously in <head> so the theme
       is resolved before first paint, then owns the toggle for the rest of the
       page. No defer, no async, no module, no second tag.
     */}
@@ -171,5 +172,15 @@ const isHome = isHomePath(Astro.url.pathname);
       </div>
     </main>
 
+    <footer class="site-footer">
+      <div class="wrap">
+        <p>
+          <a href={href('/contact/')}>Contact</a>
+          {SITE.links.map((link) => (
+            <>{' · '}<a href={link.href}>{link.label}</a></>
+          ))}
+        </p>
+      </div>
+    </footer>
   </body>
 </html>

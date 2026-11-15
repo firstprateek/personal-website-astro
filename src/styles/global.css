@@ -329,3 +329,77 @@ main {
   flex: 1;
 }
 
+
+/* --- Footer -------------------------------------------------------------- */
+
+.site-footer {
+  padding-block: 0 2rem;
+  color: var(--muted);
+}
+/* Small text on the paragraph, not the footer: .wrap is sized in ch, which
+   follows its own font-size (see the header note above). */
+.site-footer p {
+  font-size: var(--fs-sm);
+  margin: 0;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--rule);
+}
+
+/* --- Contact form -------------------------------------------------------- */
+
+.contact-form {
+  display: grid;
+  gap: 0.35rem;
+  margin-top: 1.5rem;
+}
+.contact-form label {
+  font-weight: 600;
+  margin-top: 0.75rem;
+}
+.contact-form label .muted { font-weight: 400; }
+.contact-form input,
+.contact-form select,
+.contact-form textarea,
+.contact-form button {
+  font: inherit;
+  color: var(--text);
+}
+.contact-form input,
+.contact-form select,
+.contact-form textarea {
+  width: 100%;
+  padding: 0.5rem 0.65rem;
+  background-color: var(--bg);
+  /* A control boundary, so --muted (which clears 3:1), not decorative --rule. */
+  border: 1px solid var(--muted);
+  border-radius: 2px;
+}
+.contact-form textarea { resize: vertical; min-height: 9rem; }
+.contact-form #project-field { display: grid; gap: 0.35rem; }
+.contact-form #project-field[hidden] { display: none; }
+.contact-form .hp {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.contact-form .cf-turnstile { margin-top: 0.75rem; }
+.contact-form .actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  margin: 1rem 0 0.5rem;
+}
+.contact-form button {
+  padding: 0.5rem 1.4rem;
+  color: var(--bg);
+  background-color: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 2px;
+  cursor: pointer;
+}
+.contact-form button:disabled { opacity: 0.6; cursor: progress; }
+.contact-form .status[data-kind='error'] { color: var(--text); font-weight: 600; }
+.contact-form .meta { margin-bottom: 0; }
