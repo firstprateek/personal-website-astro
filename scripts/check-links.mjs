@@ -30,6 +30,11 @@ function resolve(pathname) {
   return null;
 }
 
+if (htmlFiles.length === 0) {
+  console.error('No HTML in dist/: did the build run?');
+  process.exit(1);
+}
+
 const broken = [];
 for (const file of htmlFiles) {
   const html = readFileSync(file, 'utf8');
@@ -40,6 +45,9 @@ for (const file of htmlFiles) {
     try { url = new URL(value, site.origin + '/' + relative(DIST, file)); } catch { continue; }
     if (url.origin !== site.origin) continue;
     if (!url.pathname.startsWith(base) && url.pathname !== base.slice(0, -1)) {
+      // A full URL elsewhere on the same origin is another site (other GitHub
+      // Pages projects share github.io). Only a root-relative path is a bug.
+      if (/^[a-z][a-z0-9+.-]*:/i.test(value)) continue;
       broken.push(`${relative(DIST, file)}: ${value} (outside base ${base})`);
       continue;
     }
