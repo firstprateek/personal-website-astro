@@ -110,16 +110,6 @@
           "date": "2026-11-15",
           "title": "fix(web): sidebar views fill the window at any width or zoom (#139)",
           "url": "https://github.com/firstprateek/i-inc/commit/f1409389ce3a74402d640317dfa268165f88ddcf"
-        },
-        {
-          "date": "2026-11-15",
-          "title": "fix(desktop): pin the updater plugin, no surprise password prompt (#138)",
-          "url": "https://github.com/firstprateek/i-inc/commit/f281832f4bba88bd1ad7de59a060536faddfbebd"
-        },
-        {
-          "date": "2026-11-15",
-          "title": "feat(desktop): the app updates itself from the daemon (signed Tauri updater) (#137)",
-          "url": "https://github.com/firstprateek/i-inc/commit/cbb798c26975347da83d477a69f23e9fd5acff4a"
         }
       ],
       "pulls": [
