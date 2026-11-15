@@ -363,7 +363,8 @@ html[data-theme='dark'] .site-header .icon .i-moon { display: block; }
    in dark mode): the name on the home page, the nav item for its section
    elsewhere. Still a link, but marked as where you are. */
 .site-header a[aria-current] { color: var(--text); }
-.site-header .site-name { font-weight: 600; }
+/* Same face, size and weight as the nav links, so the two read as one row. */
+.site-header .site-name { font-weight: 400; }
 
 ul.plain { list-style: none; padding: 0; }
 ul.plain li { margin-block: 0.5rem; }
