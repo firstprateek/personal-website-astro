@@ -4,7 +4,6 @@ date: 2026-11-10
 status: active
 summary: A writing coach that interviews me and critiques in the margin, built so the AI cannot edit my article. The protocol enforces that, not the prompt.
 repo: https://github.com/firstprateek/sparring
-featured: false
 ---
 
 Language models make good editors and poor writers. Most AI writing tools blur

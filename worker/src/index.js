@@ -242,8 +242,11 @@ async function notify(env, f) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ topic: env.NTFY_TOPIC, title, message, tags: ['email'] }),
     });
+    // Logged without the message or topic: status and ntfy's error only.
+    if (!res.ok) console.log('ntfy refused', res.status, (await res.text()).slice(0, 300));
     return res.ok;
-  } catch {
+  } catch (err) {
+    console.log('ntfy unreachable', String(err));
     return false;
   }
 }

@@ -4,7 +4,6 @@ date: 2026-09-27
 status: active
 summary: A personal company of AI engineers. I file tickets; agent employees in walled sandboxes hand back work that is checked, reviewed by a different model, and proven.
 repo: https://github.com/firstprateek/i-inc
-featured: true
 ---
 
 Coding agents are good at a single task. They are bad at being trusted with a

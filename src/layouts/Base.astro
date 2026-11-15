@@ -73,6 +73,13 @@ const isHome = isHomePath(Astro.url.pathname);
           if (button) label(button);
         });
 
+        // A rule under the sticky header once the page has scrolled.
+        const onScroll = () => {
+          document.documentElement.toggleAttribute('data-scrolled', scrollY > 4);
+        };
+        addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+
         // Delegated, so it can be attached now — document already exists.
         document.addEventListener('click', (event) => {
           const target = event.target;
@@ -138,9 +145,17 @@ const isHome = isHomePath(Astro.url.pathname);
         {!isHome && <a class="site-name" href={href('/')}>{SITE.name}</a>}
         <div class="links">
           <nav aria-label="Sections">
-            <a href={href('/writing/')}>Writing</a>
-            <a href={href('/projects/')}>Projects</a>
-            <a href={href('/about/')}>About</a>
+            {[
+              ['/writing/', 'Writing'],
+              ['/projects/', 'Projects'],
+              ['/about/', 'About'],
+            ].map(([path, label]) => {
+              const target = href(path);
+              const at = Astro.url.pathname;
+              // 'page' on the section's own index, 'true' anywhere inside it.
+              const current = at === target ? 'page' : at.startsWith(target) ? 'true' : undefined;
+              return <a href={target} aria-current={current}>{label}</a>;
+            })}
           </nav>
           <p class="utils">
             <a class="icon" href={href('/rss.xml')} aria-label="RSS feed">

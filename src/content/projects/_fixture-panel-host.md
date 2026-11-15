@@ -4,7 +4,6 @@ date: 2024-10-22
 status: archived
 summary: The docking and layout container that replaced three competing implementations.
 repo: https://github.com/patjosh/panel-host
-featured: false
 ---
 
 Panel Host consolidated three separate docking implementations that had grown

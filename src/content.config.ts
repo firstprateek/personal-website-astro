@@ -74,7 +74,6 @@ const projects = defineCollection({
     repo: z.url(),
     /** Path under src/media/. Optional: not every project has a demo. */
     video: z.string().min(1).optional(),
-    featured: z.boolean(),
   }),
 });
 

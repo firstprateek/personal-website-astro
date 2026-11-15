@@ -4,7 +4,6 @@ date: 2023-05-28
 status: archived
 summary: A set of small, themeable web components from 2023, built with Lit and published to npm, each with a live demo.
 repo: https://github.com/firstprateek/minimal-navbar
-featured: false
 ---
 
 Built with [Lit](https://lit.dev/), they work in any page, framework or not,

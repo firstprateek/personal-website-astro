@@ -18,6 +18,8 @@ const PLACEHOLDER = {
   ],
   /** <meta name="description"> fallback and RSS channel description. */
   description: 'Projects and writing by Prateek Joshi on coding agents and developer tools.',
+  /** Project ids (filenames) shown under "Current projects" on /, in order. */
+  currentProjects: ['i-inc', 'sparring', 'check-in', 'orrery'],
   /** Footer contact links. Plain text links, no icons. Order is preserved. */
   links: [
     { label: 'GitHub', href: 'https://github.com/firstprateek' },
@@ -51,6 +53,7 @@ const DEMO = {
   // A sub-path on purpose, so the fixture build also proves every link honours the base.
   url: 'https://patjosh.example.com/demo/',
   name: 'Pat Josh',
+  currentProjects: ['_fixture-mcp-workbench', '_fixture-session-ledger'],
   bio: [
     'Ten years building developer-facing software. For seven of them I owned the web UI framework behind MATLAB Desktop, which a hundred-odd internal product teams shipped on top of.',
     'Now I write about platform architecture and agentic developer tooling — mostly about what breaks when a tool has to serve people who never chose it.',

@@ -4,7 +4,6 @@ date: 2026-03-27
 status: active
 summary: Attributes dropped frames to the owning product team rather than to the framework, which turned out to be the entire point.
 repo: https://github.com/patjosh/frame-budget
-featured: false
 ---
 
 When a hundred product teams render inside one shell, "the application is slow"

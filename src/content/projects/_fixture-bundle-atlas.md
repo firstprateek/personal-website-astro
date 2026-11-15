@@ -5,7 +5,6 @@ status: experiment
 summary: Tracks JavaScript bundle composition over time and attributes growth to the commit that caused it.
 repo: https://github.com/patjosh/bundle-atlas
 video: _atlas.mp4
-featured: false
 ---
 
 A bundle analyser tells you what your bundle contains today. That is the less

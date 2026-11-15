@@ -4,7 +4,6 @@ date: 2025-06-05
 status: experiment
 summary: Flags documentation whose code examples no longer compile against the current API.
 repo: https://github.com/patjosh/doc-drift
-featured: false
 ---
 
 Extracts every fenced code block from a documentation tree, type-checks it

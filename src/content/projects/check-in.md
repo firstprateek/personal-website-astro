@@ -4,7 +4,6 @@ date: 2026-11-08
 status: active
 summary: A ten-second iPhone check-in (what am I feeling, what should I be doing, what am I doing?) that turns the answers into nightly and weekly patterns.
 repo: https://github.com/firstprateek/emotion-checkin
-featured: false
 ---
 
 The problem I wanted to catch is drifting into avoidance without noticing the

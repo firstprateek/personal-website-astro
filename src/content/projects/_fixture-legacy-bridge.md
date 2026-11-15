@@ -4,7 +4,6 @@ date: 2024-05-16
 status: archived
 summary: An interop layer that let new web components mount inside the old native UI during a multi-year migration.
 repo: https://github.com/patjosh/legacy-bridge
-featured: false
 ---
 
 For about three years the desktop product was half native and half web, and

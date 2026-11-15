@@ -4,7 +4,6 @@ date: 2026-06-10
 status: experiment
 summary: A 3D swarm-survivor game built for raw browser performance, on a seeded city so friends can race the same map.
 repo: https://github.com/firstprateek/neon-swarm
-featured: false
 ---
 
 [Play it in the browser](https://firstprateek.github.io/neon-swarm/). Pick a

@@ -4,7 +4,6 @@ date: 2026-06-20
 status: experiment
 summary: A 3D solar system explorer in the browser. Zoom from the whole system down to a single moon against one physically correct shared night sky.
 repo: https://github.com/firstprateek/orrery
-featured: false
 ---
 
 [Open it in the browser](https://firstprateek.github.io/orrery/). Fly from
