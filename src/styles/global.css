@@ -284,8 +284,7 @@ html[data-scrolled] .site-header { border-bottom-color: var(--rule); }
 /* The name on the left, and the nav with its icons as one group in the
    right-hand corner. The group is a single flex item, so when the column is too
    narrow for both, the name and the group separate onto their own lines rather
-   than the icons wrapping away from the nav. On the home page, with no name,
-   the group sits in the same corner. */
+   than the icons wrapping away from the nav. */
 .site-header .wrap,
 .site-header .links {
   display: flex;
@@ -335,6 +334,9 @@ html[data-scrolled] .site-header { border-bottom-color: var(--rule); }
   cursor: pointer;
 }
 .site-header .icon:hover { color: var(--text); }
+/* inline-flex above would otherwise override the hidden attribute, leaving
+   the theme button visible and focusable with scripting off. */
+.site-header .icon[hidden] { display: none; }
 .site-header .icon svg {
   display: block;
   /* Serif text sits a little low in its line box. A pixel down puts the

@@ -54,14 +54,14 @@ for (const spec of specs) {
     });
     const tops = [...document.querySelectorAll('header a, header button')].map((e) => e.getBoundingClientRect());
     const nav = document.querySelector('header nav a').getBoundingClientRect();
-    const rss = document.querySelector('header .utils a').getBoundingClientRect();
+    const toggle = document.getElementById('theme-toggle').getBoundingClientRect();
     const v = document.querySelector('video');
     return {
       status: performance.getEntriesByType('navigation')[0].responseStatus,
       title: document.title,
       cls: +shifts.reduce((s, e) => s + (e.hadRecentInput ? 0 : e.value), 0).toFixed(4),
       headerRows: new Set(tops.map((r) => Math.round((r.top + r.height / 2) / 12))).size,
-      iconsOnNavRow: Math.abs((rss.top + rss.height / 2) - (nav.top + nav.height / 2)) < 6,
+      toggleOnNavRow: Math.abs((toggle.top + toggle.height / 2) - (nav.top + nav.height / 2)) < 6,
       overflowX: document.documentElement.scrollWidth - innerWidth,
       videoGapBelow: v ? Math.round(v.nextElementSibling.getBoundingClientRect().top - v.getBoundingClientRect().bottom) : null,
     };
