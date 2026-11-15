@@ -148,8 +148,8 @@ const ogImage = new URL('og.png', Astro.site).href;
         <div class="links">
           <nav aria-label="Sections">
             {[
-              ['/writing/', 'Writing'],
               ['/projects/', 'Projects'],
+              ['/writing/', 'Writing'],
               ['/about/', 'About'],
             ].map(([path, label]) => {
               const target = href(path);
