@@ -1,6 +1,7 @@
-# Cloudflare Worker that relays the /contact/ form to an ntfy push.
-# Secrets (never committed): `npx wrangler secret put TURNSTILE_SECRET` and
-# `npx wrangler secret put NTFY_TOPIC`. See ../DEPLOY.md, "Contact form".
+# Cloudflare Worker that relays the /contact/ form to a Telegram message.
+# Secrets (never committed): TURNSTILE_SECRET, TELEGRAM_BOT_TOKEN and
+# TELEGRAM_CHAT_ID, each set with `npx wrangler secret put <NAME>`.
+# See ../DEPLOY.md, "Contact form".
 name = "contact-form"
 main = "src/index.js"
 compatibility_date = "2026-11-01"

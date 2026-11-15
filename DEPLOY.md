@@ -51,39 +51,44 @@ Entries whose titles mention a home path or a tailnet host are dropped.
 
 ## Contact form
 
-`/contact/` posts to a Cloudflare Worker in `worker/`. The Worker checks the
-origin, body size, a per-IP rate limit (5 a minute), the fields and a
-Cloudflare Turnstile token, then sends a phone push through ntfy. The site
-never posts to the home server. Neither the site nor the Worker stores
-anything; ntfy.sh keeps a message on its server for about 12 hours.
+`/contact/` posts to a Cloudflare Worker in `worker/`, deployed at
+`https://contact-form.pjoshi.workers.dev/`. The Worker checks the origin, body
+size, a per-IP rate limit (5 a minute), the fields and a Cloudflare Turnstile
+token (valid, and solved on one of our hostnames), then sends the owner a
+Telegram message from a bot. The site never posts to the home server, and
+neither the site nor the Worker stores anything.
 
 Until `contact.endpoint` and `contact.turnstileSiteKey` are both set in
 `src/site.config.ts`, the page shows a short note instead of the form.
 
-One-time setup:
+Worker secrets (never in this repo), each set with
+`npx wrangler secret put <NAME>` from `worker/`:
 
-1. **ntfy:** install the ntfy app on the phone and subscribe to a long random
-   topic on `ntfy.sh` (for example the output of `openssl rand -hex 24`).
-   Anyone who knows a topic on ntfy.sh can read and publish to it, so it is
-   kept only as a Worker secret, never in this repo or the page.
-2. **Turnstile:** in the Cloudflare dashboard, add a Turnstile widget (managed
-   mode) for the hostname `firstprateek.github.io` (later also `pjoshi.dev`).
-   The site key is public and goes in `site.config.ts`; the secret key goes to
-   the Worker.
-3. **Worker:** from `worker/`, run `npm ci`, `npx wrangler login`, then
-   `npx wrangler deploy`. Set the secrets with
-   `npx wrangler secret put TURNSTILE_SECRET` and
-   `npx wrangler secret put NTFY_TOPIC`.
-4. Put the Worker URL (`https://contact-form.<account>.workers.dev/`) and the
-   site key in `site.config.ts` and merge.
+- `TURNSTILE_SECRET`: the secret half of the Turnstile widget
+  "Website contact form" (managed mode). The site key is public and lives in
+  `site.config.ts`.
+- `TELEGRAM_BOT_TOKEN`: the bot's token from @BotFather.
+- `TELEGRAM_CHAT_ID`: the owner's chat with the bot. After messaging the bot,
+  read it from `https://api.telegram.org/bot<token>/getUpdates`.
+
+Why Telegram and not ntfy: ntfy.sh does not answer connections from
+Cloudflare Workers (every attempt failed with 522).
+
+Deploying from a new machine: `npm ci` and `npx wrangler login` in `worker/`,
+then `npx wrangler deploy`. The secrets stay in Cloudflare. On a machine
+without a local browser, `wrangler login --browser=false` prints the link;
+after approving, paste the `localhost:8976/oauth/callback?...` address the
+browser fails to open into `curl` on that machine.
 
 At the domain cutover, add `https://pjoshi.dev` to `ALLOWED_ORIGINS` in
-`worker/wrangler.toml` and redeploy the Worker, and add the hostname to the
-Turnstile widget.
+`worker/wrangler.toml` and redeploy, and add the hostname to the Turnstile
+widget.
 
-Tests: `npm run test:worker` (Node's test runner, no Cloudflare runtime). For
-a full local run, put Turnstile's always-pass test secret
-`1x0000000000000000000000000000000AA`, a local `NTFY_SERVER`, and
+Tests: `npm run test:worker` (Node's test runner, no Cloudflare runtime; also
+part of `npm run check`). For a full local run, put Turnstile's always-pass
+test secret `1x0000000000000000000000000000000AA`, the Telegram values, and
 `ALLOWED_ORIGINS` set to the local preview origin plus `https://example.com`
-(the hostname the test secret reports) in `worker/.dev.vars` (git-ignored), run `npx wrangler dev`, and build the site
-with the test site key `1x00000000000000000000AA` and the local endpoint.
+(the hostname the test secret reports) in `worker/.dev.vars` (git-ignored),
+run `npx wrangler dev`, and build the site with the test site key
+`1x00000000000000000000AA` and the local endpoint. Headless browsers are
+stopped by the real Turnstile widget, so a live test needs a real browser.

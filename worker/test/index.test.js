@@ -8,26 +8,27 @@ const ORIGIN = 'https://site.example';
 const env = {
   ALLOWED_ORIGINS: `${ORIGIN}, https://other.example`,
   TURNSTILE_SECRET: 'secret',
-  NTFY_TOPIC: 'topic-abc',
+  TELEGRAM_BOT_TOKEN: '123:abc',
+  TELEGRAM_CHAT_ID: '42',
 };
 
 let calls;
 let turnstileOk;
-let ntfyOk;
+let sendOk;
 let solvedOn;
 const realFetch = globalThis.fetch;
 
 beforeEach(() => {
   calls = [];
   turnstileOk = true;
-  ntfyOk = true;
+  sendOk = true;
   solvedOn = 'site.example';
   globalThis.fetch = async (url, init) => {
     calls.push({ url: String(url), init });
     if (String(url).includes('siteverify')) {
       return Response.json({ success: turnstileOk, hostname: solvedOn });
     }
-    return new Response('{}', { status: ntfyOk ? 200 : 500 });
+    return new Response('{}', { status: sendOk ? 200 : 500 });
   };
 });
 afterEach(() => {
@@ -68,17 +69,17 @@ test('a valid message is verified and pushed', async () => {
   assert.equal(verify.get('secret'), 'secret');
   assert.equal(verify.get('response'), 'tok');
   assert.equal(verify.get('remoteip'), '203.0.113.9');
-  assert.equal(calls[1].url, 'https://ntfy.sh');
+  assert.equal(calls[1].url, 'https://api.telegram.org/bot123:abc/sendMessage');
   const push = JSON.parse(calls[1].init.body);
-  assert.equal(push.topic, 'topic-abc');
-  assert.equal(push.title, 'Website: General');
-  assert.match(push.message, /^From Ann <ann@example\.com>\n\nHello there$/);
+  assert.equal(push.chat_id, '42');
+  assert.equal(push.parse_mode, undefined);
+  assert.equal(push.text, 'Website: General\nFrom Ann <ann@example.com>\n\nHello there');
 });
 
 test('project feedback names the project, and requires one', async () => {
   const { res } = await send(post({ topic: 'feedback', project: 'Sparring' }));
   assert.equal(res.status, 200);
-  assert.equal(JSON.parse(calls[1].init.body).title, 'Website: Feedback: Sparring');
+  assert.match(JSON.parse(calls[1].init.body).text, /^Website: Feedback: Sparring\n/);
 
   calls = [];
   const missing = await send(post({ topic: 'feedback' }));
@@ -165,8 +166,8 @@ test('a failed Turnstile check sends nothing', async () => {
   assert.equal(calls.length, 1);
 });
 
-test('an ntfy failure is reported as 502', async () => {
-  ntfyOk = false;
+test('a Telegram failure is reported as 502', async () => {
+  sendOk = false;
   const { res } = await send(post({}));
   assert.equal(res.status, 502);
 });
@@ -181,20 +182,14 @@ test('the rate limiter is keyed by client IP and enforced', async () => {
 });
 
 test('missing secrets fail closed', async () => {
-  const { res } = await send(post({}), { ALLOWED_ORIGINS: ORIGIN });
+  const { res } = await send(post({}), { ...env, TELEGRAM_CHAT_ID: '' });
   assert.equal(res.status, 500);
   assert.equal(calls.length, 0);
 });
 
-test('a custom ntfy server is used without a trailing slash', async () => {
-  await send(post({}), { ...env, NTFY_SERVER: 'https://ntfy.example/' });
-  assert.equal(calls[1].url, 'https://ntfy.example');
-});
-
 test('anonymous messages say so', () => {
   const push = formatPush({ topic: 'other', project: '', message: 'm', name: '', email: '' });
-  assert.equal(push.message, 'From Anonymous\n\nm');
-  assert.equal(push.title, 'Website: Other');
+  assert.equal(push, 'Website: Other\nFrom Anonymous\n\nm');
 });
 
 test('a token solved on another hostname is refused', async () => {
@@ -224,14 +219,14 @@ test('a chunked body over the cap is refused without a Content-Length', async ()
   assert.equal(calls.length, 0);
 });
 
-test('long or non-ASCII pushes stay under the ntfy byte limit', () => {
+test('long or non-ASCII messages stay under the Telegram limit', () => {
   const push = formatPush({
     topic: 'general', project: '', name: 'n'.repeat(100), email: `${'e'.repeat(190)}@x.com`,
     message: 'नमस्ते '.repeat(600),
   });
-  const bytes = new TextEncoder().encode(push.message).byteLength;
+  const bytes = new TextEncoder().encode(push).byteLength;
   assert.ok(bytes <= PUSH_BYTES, String(bytes));
-  assert.ok(push.message.endsWith('(truncated)'));
+  assert.ok(push.endsWith('(truncated)'));
   assert.equal(clipBytes('short', PUSH_BYTES), 'short');
   assert.ok(!clipBytes('é'.repeat(3000), 101).includes('\uFFFD'));
 });
