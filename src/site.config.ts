@@ -38,7 +38,7 @@ const PLACEHOLDER = {
   about: [
     'I\u2019ve spent about ten years building software for other engineers, most of it on IDE extensibility and plugin frameworks: the layer other teams build on, where every change has to land without breaking someone else\u2019s work.',
     'These days I build with coding agents, and mostly on the parts around the model: sandboxes, review by a second model, proof that work is done, and recovery when CI goes red. The projects here are the tools I use every day.',
-    'The writing here starts in Sparring, a coach that interviews me and critiques in the margin. I write every word I publish myself; the coach only asks questions.',
+    'The writing here starts in Sparring, a coach that interviews me and critiques in the margin. Every word here is mine; the coach just asks the questions that help me find them.',
   ],
 };
 
