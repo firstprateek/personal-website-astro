@@ -13,16 +13,20 @@ const PLACEHOLDER = {
   name: 'Prateek Joshi',
   /** Two lines. Rendered verbatim on / as the whole of the bio. */
   bio: [
-    'TODO_REPLACE_BEFORE_LAUNCH — first line of the bio, one sentence.',
-    'TODO_REPLACE_BEFORE_LAUNCH — second line of the bio, one sentence.',
+    'I build tools for working with AI coding agents: a company of agent engineers you file tickets with, a writing coach that argues in the margin, and the plumbing that lets agents run unattended.',
+    'About ten years in, most of it on IDE extensibility and plugin frameworks. I write here about what it takes to trust an agent with real work.',
   ],
   /** <meta name="description"> fallback and RSS channel description. */
-  description: 'TODO_REPLACE_BEFORE_LAUNCH — one sentence describing the site.',
+  description: 'Projects and writing by Prateek Joshi on coding agents and developer tools.',
   /** Footer contact links. Plain text links, no icons. Order is preserved. */
   links: [
     { label: 'GitHub', href: 'https://github.com/firstprateek' },
   ],
-  about: ['TODO_REPLACE_BEFORE_LAUNCH — a few paragraphs about you.'],
+  about: [
+    'I\u2019ve spent about ten years building software for other engineers, most of it on IDE extensibility and plugin frameworks: the layer other teams build on, where every change has to land without breaking someone else\u2019s work.',
+    'These days I build with coding agents, and mostly on the parts around the model: sandboxes, review by a second model, proof that work is done, and recovery when CI goes red. The projects here are the tools I use every day.',
+    'The writing here starts in Sparring, a coach that interviews me and critiques in the margin. I write every word I publish myself; the coach only asks questions.',
+  ],
 };
 
 /**
