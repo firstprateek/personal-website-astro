@@ -2,7 +2,7 @@
 title: i.inc
 date: 2026-09-27
 status: active
-summary: A personal company of AI engineers. I file tickets; agent employees in walled sandboxes hand back work that is checked, reviewed by a different model, and proven.
+summary: A personal company of AI employees. I file tickets; agent employees work in teams, each in a walled sandbox, and hand back work that is checked and reviewed by a peer before it comes to me.
 repo: https://github.com/firstprateek/i-inc
 ---
 
