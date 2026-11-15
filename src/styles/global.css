@@ -29,14 +29,11 @@
   --muted: light-dark(#6b6660, #99958d);
   --rule: #e2dfd8;
   --rule: light-dark(#e2dfd8, #2c2b29);
-  --accent: #35697c;
-  --accent: light-dark(#35697c, #7fb0be);
-  /* Brand coral, from the old site and the favicon. Titles use it as is (it
-     clears 3:1 as large text in both themes); --brand-text is the small-text
-     version, deepened in light mode to clear 4.5:1. */
-  --brand: #e65446;
-  --brand-text: #c4402f;
-  --brand-text: light-dark(#c4402f, #e65446);
+  /* Links: brand coral, from the old site and the favicon. #e65446 itself
+     is 3.6:1 on the light background, too low for body-size text, so light
+     mode uses a deeper coral (5.0:1); dark mode uses #e65446 (4.8:1). */
+  --accent: #c4402f;
+  --accent: light-dark(#c4402f, #e65446);
 
   /* One 1.2 ratio, five steps, no one-off sizes anywhere else. */
   --fs-sm: 0.875rem;
@@ -133,7 +130,6 @@ h1, h2, h3 {
   margin: 2rem 0 0.5rem;
 }
 h1 { font-size: var(--fs-xl); }
-h1, h2 { color: var(--brand); }
 h2 { font-size: var(--fs-lg); }
 h3 { font-size: var(--fs-md); }
 
@@ -357,7 +353,7 @@ html[data-theme='dark'] .site-header .icon .i-moon { display: block; }
 .site-header a:hover,
 .site-header a[aria-current] { text-decoration: underline; }
 .site-header nav a { color: var(--accent); }
-.site-header .site-name { font-weight: 600; color: var(--brand-text); }
+.site-header .site-name { font-weight: 600; }
 
 ul.plain { list-style: none; padding: 0; }
 ul.plain li { margin-block: 0.5rem; }

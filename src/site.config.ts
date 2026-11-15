@@ -9,7 +9,7 @@ const PLACEHOLDER = {
    * og:url, and its path becomes Astro's `base` (astro.config.mjs).
    */
   url: 'https://firstprateek.github.io/personal-website-astro/',
-  /** Shown in the header on every page, in brand coral, and in page titles. */
+  /** Shown in the header on every page and in page titles. */
   name: 'Prateek Joshi',
   /** <meta name="description"> fallback and RSS channel description. */
   description: 'Projects and writing by Prateek Joshi on coding agents and developer tools.',
