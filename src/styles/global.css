@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
-   Palette. Every colour in the site is one of these six, in one block.
+   Palette. Every colour in the site is one of these, in one block.
    light-dark() carries both themes in a single declaration, so a palette
    correction is a one-line edit and the light/dark pair can never drift.
 
@@ -31,6 +31,12 @@
   --rule: light-dark(#e2dfd8, #2c2b29);
   --accent: #35697c;
   --accent: light-dark(#35697c, #7fb0be);
+  /* Brand coral, from the old site and the favicon. Titles use it as is (it
+     clears 3:1 as large text in both themes); --brand-text is the small-text
+     version, deepened in light mode to clear 4.5:1. */
+  --brand: #e65446;
+  --brand-text: #c4402f;
+  --brand-text: light-dark(#c4402f, #e65446);
 
   /* One 1.2 ratio, five steps, no one-off sizes anywhere else. */
   --fs-sm: 0.875rem;
@@ -127,6 +133,7 @@ h1, h2, h3 {
   margin: 2rem 0 0.5rem;
 }
 h1 { font-size: var(--fs-xl); }
+h1, h2 { color: var(--brand); }
 h2 { font-size: var(--fs-lg); }
 h3 { font-size: var(--fs-md); }
 
@@ -159,6 +166,14 @@ hr {
 }
 
 .muted { color: var(--muted); }
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
 .meta {
   color: var(--muted);
   font-size: var(--fs-sm);
@@ -269,8 +284,7 @@ html[data-scrolled] .site-header { border-bottom-color: var(--rule); }
 /* The name on the left, and the nav with its icons as one group in the
    right-hand corner. The group is a single flex item, so when the column is too
    narrow for both, the name and the group separate onto their own lines rather
-   than the icons wrapping away from the nav. On the home page, with no name,
-   the group sits in the same corner. */
+   than the icons wrapping away from the nav. */
 .site-header .wrap,
 .site-header .links {
   display: flex;
@@ -304,6 +318,8 @@ html[data-scrolled] .site-header { border-bottom-color: var(--rule); }
      padding that makes them comfortable to tap. */
   margin-block: 0;
   margin-inline: -11px;
+  /* Holds the theme button's height before the script reveals it. */
+  min-height: 40px;
 }
 .site-header .icon {
   display: inline-flex;
@@ -318,6 +334,9 @@ html[data-scrolled] .site-header { border-bottom-color: var(--rule); }
   cursor: pointer;
 }
 .site-header .icon:hover { color: var(--text); }
+/* inline-flex above would otherwise override the hidden attribute, leaving
+   the theme button visible and focusable with scripting off. */
+.site-header .icon[hidden] { display: none; }
 .site-header .icon svg {
   display: block;
   /* Serif text sits a little low in its line box. A pixel down puts the
@@ -338,7 +357,7 @@ html[data-theme='dark'] .site-header .icon .i-moon { display: block; }
 .site-header a:hover,
 .site-header a[aria-current] { text-decoration: underline; }
 .site-header nav a { color: var(--accent); }
-.site-header .site-name { font-weight: 600; }
+.site-header .site-name { font-weight: 600; color: var(--brand-text); }
 
 ul.plain { list-style: none; padding: 0; }
 ul.plain li { margin-block: 0.5rem; }

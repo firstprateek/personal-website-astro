@@ -14,8 +14,9 @@ const hasMore = allPosts.length > HOME_POSTS;
 const current = await getCurrentProjects(SITE.currentProjects);
 ---
 <Base description={SITE.description}>
-  <h1>{SITE.name}</h1>
-  {SITE.bio.map((line) => <p>{line}</p>)}
+  {/* The name is in the header on every page; the h1 stays for screen
+       readers and the document outline. */}
+  <h1 class="visually-hidden">{SITE.name}</h1>
 
   {
     /* Omitted entirely when the list is empty: no empty slot, no placeholder. */

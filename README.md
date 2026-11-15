@@ -17,9 +17,9 @@ and nowhere else. Every value in it is currently a `TODO_REPLACE_BEFORE_LAUNCH`
 placeholder that renders visibly on the page and in the browser tab, so an
 unedited site looks obviously wrong rather than quietly wrong.
 
-Replace all of them: `url`, `name`, `bio`, `description`, `about`, `links`.
+Replace all of them: `url`, `name`, `description`, `about`, `links`.
 
-`bio` is the two lines on the home page; `about` is the two or three
+`name` is the coral name in the header on every page; `about` is the
 paragraphs on `/about`, where `links` is also rendered as the Elsewhere list.
 
 The link-preview image, `/og.png`, is drawn at build time from `name`,

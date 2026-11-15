@@ -11,8 +11,3 @@ export function href(path: string): string {
   if (!path.startsWith('/')) throw new Error(`href() takes a site-absolute path, got "${path}"`);
   return `${BASE}${path}`;
 }
-
-/** True when `pathname` (Astro.url.pathname) is the site's home page. */
-export function isHomePath(pathname: string): boolean {
-  return pathname.replace(/\/+$/, '') === BASE;
-}

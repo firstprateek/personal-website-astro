@@ -46,8 +46,8 @@ The fixture build is served under `/demo/` (its `url` has that path), the plain 
   theme the page is *not* in (`theme-probe.mjs` below).
 - Project video: no `.mp4` request before play, plays on click, and the same 20px gap below it as
   above.
-- Widths 320, 375, 390 and 414: no horizontal overflow. On inner pages the header is one row, or
-  the name above the nav, with the RSS and theme icons always on the nav's row.
+- Widths 320, 375, 390 and 414: no horizontal overflow. On every page the header is one row, or
+  the name above the nav, with the theme toggle always on the nav's row.
 - Contrast in both themes. The syntax tokens sit near 4.6:1, the closest to the AA line, so recheck
   after any palette or Shiki theme change.
 
