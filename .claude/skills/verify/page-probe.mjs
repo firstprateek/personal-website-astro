@@ -5,7 +5,7 @@ import { spawn } from 'node:child_process';
 import { writeFileSync } from 'node:fs';
 
 const [profile, port, outDir, ...specs] = process.argv.slice(2);
-const chrome = spawn('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', [
+const chrome = spawn(process.env.CHROME || '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', [
   '--headless=new', `--remote-debugging-port=${port}`, `--user-data-dir=${profile}`,
   '--no-first-run', 'about:blank',
 ], { stdio: 'ignore' });

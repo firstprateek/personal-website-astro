@@ -4,7 +4,7 @@
 import { spawn } from 'node:child_process';
 
 const [url, profile, port] = process.argv.slice(2);
-const chrome = spawn('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', [
+const chrome = spawn(process.env.CHROME || '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', [
   '--headless=new', `--remote-debugging-port=${port}`, `--user-data-dir=${profile}`,
   '--no-first-run', '--window-size=1024,768', 'about:blank',
 ], { stdio: 'ignore' });
