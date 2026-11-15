@@ -1,17 +1,18 @@
 /**
  * Contact form relay. The static site's /contact/ page posts a form here; this
- * Worker checks it and sends the owner a phone push through ntfy.
+ * Worker checks it and sends the owner a Telegram message from a bot.
  *
  * Order of checks, cheapest first: method, origin, size, rate limit, fields,
- * then Turnstile (one outbound request), then ntfy (the second).
+ * then Turnstile (one outbound request), then Telegram (the second).
  *
  * Secrets, set with `wrangler secret put`, never in this repo:
  *   TURNSTILE_SECRET  Turnstile secret key for the site key the page uses.
- *   NTFY_TOPIC        Long random ntfy topic. Anyone who knows a topic on
- *                     ntfy.sh can read and publish to it, so it lives only here.
+ *   TELEGRAM_BOT_TOKEN  The bot's token from @BotFather. Whoever holds it
+ *                       controls the bot, so it lives only here.
+ *   TELEGRAM_CHAT_ID    The owner's chat with the bot. Not secret on its own,
+ *                       kept beside the token so all delivery config is in one place.
  * Plain vars (wrangler.toml):
  *   ALLOWED_ORIGINS   Comma-separated origins the page is served from.
- *   NTFY_SERVER       Optional, defaults to https://ntfy.sh.
  * Binding (wrangler.toml):
  *   LIMITER           Workers rate limiter, keyed by client IP. Optional.
  */
@@ -68,7 +69,7 @@ export default {
     }
     if (!allowed) return reply(403, { ok: false, error: 'Origin not allowed.' });
 
-    if (!env.TURNSTILE_SECRET || !env.NTFY_TOPIC) {
+    if (!env.TURNSTILE_SECRET || !env.TELEGRAM_BOT_TOKEN || !env.TELEGRAM_CHAT_ID) {
       return reply(500, { ok: false, error: 'The form is not configured yet.' });
     }
 
@@ -201,7 +202,10 @@ async function verifyTurnstile(secret, token, ip, hosts) {
   }
 }
 
-/** ntfy turns a message over 4096 bytes into an attachment; stay under it. */
+/**
+ * Telegram allows 4096 characters per message. A byte cap is stricter than a
+ * character cap, so clipping to 4000 bytes always fits.
+ */
 export const PUSH_BYTES = 4000;
 
 /** Truncates to at most `max` UTF-8 bytes without splitting a character. */
@@ -221,32 +225,29 @@ export function clipBytes(text, max) {
   return out + marker;
 }
 
-/** The push the owner sees. Plain text: ntfy does not render it as markup. */
+/** The message the owner sees. Plain text: no parse_mode, so nothing is markup. */
 export function formatPush(f) {
   const about = f.topic === 'feedback' ? `Feedback: ${f.project}` : TOPICS[f.topic];
   const from = [f.name, f.email && `<${f.email}>`].filter(Boolean).join(' ') || 'Anonymous';
-  return {
-    title: `Website: ${about}`,
-    message: clipBytes(`From ${from}\n\n${f.message}`, PUSH_BYTES),
-  };
+  return clipBytes(`Website: ${about}\nFrom ${from}\n\n${f.message}`, PUSH_BYTES);
 }
 
 async function notify(env, f) {
-  const server = (env.NTFY_SERVER || 'https://ntfy.sh').replace(/\/+$/, '');
-  const { title, message } = formatPush(f);
   try {
-    // JSON publishing to the server root carries UTF-8 titles safely, unlike
-    // the Title header, which must be ASCII.
-    const res = await fetch(server, {
+    const res = await fetch(`https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ topic: env.NTFY_TOPIC, title, message, tags: ['email'] }),
+      body: JSON.stringify({
+        chat_id: env.TELEGRAM_CHAT_ID,
+        text: formatPush(f),
+        link_preview_options: { is_disabled: true },
+      }),
     });
-    // Logged without the message or topic: status and ntfy's error only.
-    if (!res.ok) console.log('ntfy refused', res.status, (await res.text()).slice(0, 300));
+    // Status and Telegram's description only: never the message or the token.
+    if (!res.ok) console.log('telegram refused', res.status, (await res.text()).slice(0, 300));
     return res.ok;
   } catch (err) {
-    console.log('ntfy unreachable', String(err));
+    console.log('telegram unreachable', String(err).replace(env.TELEGRAM_BOT_TOKEN, '<token>'));
     return false;
   }
 }
