@@ -456,3 +456,28 @@ main {
   .site-header .links { column-gap: 1rem; }
   .site-header nav a + a { margin-inline-start: 0.75rem; }
 }
+
+/* --- About --------------------------------------------------------------- */
+
+.about-body { display: flow-root; }
+.about-body .portrait {
+  float: left;
+  width: 11rem;
+  height: auto;
+  margin: 0.35rem 1.5rem 0.75rem 0;
+  border-radius: 2px;
+}
+/* Drop cap: three lines tall, in the text colour, beside the portrait. */
+.about-body .drop-cap {
+  float: left;
+  font-size: 4.4em;
+  line-height: 0.85;
+  font-weight: 600;
+  margin: 0.06em 0.06em 0 0;
+}
+@media (max-width: 40rem) {
+  .about-body .portrait {
+    width: 7.5rem;
+    margin-right: 1rem;
+  }
+}
