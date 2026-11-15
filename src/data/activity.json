@@ -6,6 +6,11 @@
       "url": "https://github.com/firstprateek/duet",
       "commits": [
         {
+          "date": "2026-11-15",
+          "title": "Audit fixes: SHA-pin actions, scope permissions, bump vite/source-map-js (#9)",
+          "url": "https://github.com/firstprateek/duet/commit/85093bf3588fa83307dfa54763c1188509e96ccb"
+        },
+        {
           "date": "2026-09-26",
           "title": "chore(site): keep the hero's chips off the screenshot's words (#6)",
           "url": "https://github.com/firstprateek/duet/commit/7280140451d47b99d28647c761c514c2ba6b5b8a"
@@ -24,14 +29,15 @@
           "date": "2026-09-26",
           "title": "chore: start releases at 0.1.0 (#3)",
           "url": "https://github.com/firstprateek/duet/commit/f1b55956a72c615824c4146616033d340fb1ce3d"
-        },
-        {
-          "date": "2026-09-26",
-          "title": "feat: Duet v1, the desktop app, encrypted sync, smart sorting and the website (#1)",
-          "url": "https://github.com/firstprateek/duet/commit/5dc0c37f6e555cddcde5b60ecf5cc59312ca3113"
         }
       ],
       "pulls": [
+        {
+          "date": "2026-11-15",
+          "number": 9,
+          "title": "Audit fixes: SHA-pin actions, scope permissions, bump vite/source-map-js",
+          "url": "https://github.com/firstprateek/duet/pull/9"
+        },
         {
           "date": "2026-09-26",
           "number": 6,
@@ -55,12 +61,6 @@
           "number": 3,
           "title": "chore: start releases at 0.1.0",
           "url": "https://github.com/firstprateek/duet/pull/3"
-        },
-        {
-          "date": "2026-09-26",
-          "number": 1,
-          "title": "feat: Duet v1 — the desktop app, encrypted sync, smart sorting and the website",
-          "url": "https://github.com/firstprateek/duet/pull/1"
         }
       ],
       "releases": [
@@ -78,17 +78,24 @@
       "url": "https://github.com/firstprateek/emotion-checkin",
       "commits": [
         {
-          "date": "2026-11-08",
-          "title": "Build check-in web app: Node server with Web Push reminders and offline-first PWA client",
-          "url": "https://github.com/firstprateek/emotion-checkin/commit/7c868f406916bd766c8d619024b0acf6ec2b3049"
+          "date": "2026-11-15",
+          "title": "chore: add MIT License (#1)",
+          "url": "https://github.com/firstprateek/emotion-checkin/commit/41058e634a6a38aa00a9ade48882172359866e43"
         },
         {
-          "date": "2026-11-08",
-          "title": "Add design mockups and build spec",
-          "url": "https://github.com/firstprateek/emotion-checkin/commit/92903657163c44c9314727ad919fd503ab5bfa64"
+          "date": "2026-11-15",
+          "title": "Check-in: a private-by-design emotion check-in web app",
+          "url": "https://github.com/firstprateek/emotion-checkin/commit/a973696c5dea6b0387be552132ebe4809b11dd3e"
         }
       ],
-      "pulls": [],
+      "pulls": [
+        {
+          "date": "2026-11-15",
+          "number": 1,
+          "title": "Add MIT License",
+          "url": "https://github.com/firstprateek/emotion-checkin/pull/1"
+        }
+      ],
       "releases": []
     },
     "firstprateek/i-inc": {
@@ -98,50 +105,60 @@
       "commits": [
         {
           "date": "2026-11-15",
-          "title": "New version notice in the header, beside the account button (#141)",
-          "url": "https://github.com/firstprateek/i-inc/commit/17b79261bdcbde325acafad76a9ba3288397897f"
+          "title": "docs: record the #26 reviewer check passing on the mini (#147)",
+          "url": "https://github.com/firstprateek/i-inc/commit/cb990424462402c6b9a33379a943c88ce90643d1"
         },
         {
           "date": "2026-11-15",
-          "title": "Lenient approvals by default, a company and per-employee setting, and one-line Needs you requests (…",
-          "url": "https://github.com/firstprateek/i-inc/commit/ad0727f35a5602c1fcd2a30ebea75accf951385c"
+          "title": "chore: add GNU Affero General Public License v3.0 (#146)",
+          "url": "https://github.com/firstprateek/i-inc/commit/3017b36893e2ab9e7b47579facf762f14b13d889"
         },
         {
           "date": "2026-11-15",
-          "title": "fix(web): sidebar views fill the window at any width or zoom (#139)",
-          "url": "https://github.com/firstprateek/i-inc/commit/f1409389ce3a74402d640317dfa268165f88ddcf"
+          "title": "fix(daemon): a URL's user name alone is no credential, unless it is a token (#132)",
+          "url": "https://github.com/firstprateek/i-inc/commit/0b75e87b1fb502d532e21c16e3d91e183f670647"
+        },
+        {
+          "date": "2026-11-15",
+          "title": "fix(web): no tab stores a draft after a sign-out until the owner signs back in (#143)",
+          "url": "https://github.com/firstprateek/i-inc/commit/f41c5fae22571fbbec6c84373a67f2c3276e6939"
+        },
+        {
+          "date": "2026-11-15",
+          "title": "fix: honest ticket states after a plan change, without a push, and after an answer (#145)",
+          "url": "https://github.com/firstprateek/i-inc/commit/5d86905ca657a6e00179a0c228320493c474dc30"
         }
       ],
       "pulls": [
         {
           "date": "2026-11-15",
-          "number": 141,
-          "title": "New version notice in the header, beside the account button",
-          "url": "https://github.com/firstprateek/i-inc/pull/141"
+          "number": 147,
+          "title": "docs: record the #26 reviewer check passing on the mini",
+          "url": "https://github.com/firstprateek/i-inc/pull/147"
         },
         {
           "date": "2026-11-15",
-          "number": 140,
-          "title": "Lenient approvals by default, a company and per-employee setting, and one-line Needs you requests",
-          "url": "https://github.com/firstprateek/i-inc/pull/140"
+          "number": 146,
+          "title": "Add GNU Affero General Public License v3.0",
+          "url": "https://github.com/firstprateek/i-inc/pull/146"
         },
         {
           "date": "2026-11-15",
-          "number": 139,
-          "title": "fix(web): sidebar views fill the window at any width or zoom",
-          "url": "https://github.com/firstprateek/i-inc/pull/139"
+          "number": 132,
+          "title": "fix(daemon): a URL's user name alone is no credential, unless it is a token",
+          "url": "https://github.com/firstprateek/i-inc/pull/132"
         },
         {
           "date": "2026-11-15",
-          "number": 138,
-          "title": "fix(desktop): pin the updater plugin, no surprise password prompt",
-          "url": "https://github.com/firstprateek/i-inc/pull/138"
+          "number": 143,
+          "title": "fix(web): no tab stores a draft after a sign-out until the owner signs back in",
+          "url": "https://github.com/firstprateek/i-inc/pull/143"
         },
         {
           "date": "2026-11-15",
-          "number": 137,
-          "title": "feat(desktop): the app updates itself from the daemon (signed Tauri updater)",
-          "url": "https://github.com/firstprateek/i-inc/pull/137"
+          "number": 145,
+          "title": "fix: honest ticket states after a plan change, without a push, and after an answer",
+          "url": "https://github.com/firstprateek/i-inc/pull/145"
         }
       ],
       "releases": []
@@ -152,6 +169,21 @@
       "url": "https://github.com/firstprateek/minimal-navbar",
       "commits": [
         {
+          "date": "2026-11-15",
+          "title": "Keep the demo navbar at the top while scrolling; make the demo link prominent",
+          "url": "https://github.com/firstprateek/minimal-navbar/commit/20c83a6437cee9a2ff1cdac6882758fc6506ae18"
+        },
+        {
+          "date": "2026-11-15",
+          "title": "Install from npm now that the package is published",
+          "url": "https://github.com/firstprateek/minimal-navbar/commit/5e2143ac1041a6a98e891f2010156204f88c99d7"
+        },
+        {
+          "date": "2026-11-15",
+          "title": "Fix minimal-navbar entry point and small bugs",
+          "url": "https://github.com/firstprateek/minimal-navbar/commit/9a5ab25a1837c83e1cecf04bff71d64589f0aed7"
+        },
+        {
           "date": "2023-07-09",
           "title": "added .gitignore",
           "url": "https://github.com/firstprateek/minimal-navbar/commit/99f6f6797650cd9a9570038eaad5c8fab1f54922"
@@ -160,21 +192,6 @@
           "date": "2023-05-28",
           "title": "updated README.md",
           "url": "https://github.com/firstprateek/minimal-navbar/commit/330877461322640e6bf261809ed6983f4c9ea648"
-        },
-        {
-          "date": "2023-05-28",
-          "title": "updated README.md",
-          "url": "https://github.com/firstprateek/minimal-navbar/commit/e39525e87e860bde268bd7661d6233bace9e5c0e"
-        },
-        {
-          "date": "2023-05-28",
-          "title": "widget changes",
-          "url": "https://github.com/firstprateek/minimal-navbar/commit/8dcbea511119318cad5ba054d8a580410853f4ee"
-        },
-        {
-          "date": "2023-05-28",
-          "title": "Initial commit",
-          "url": "https://github.com/firstprateek/minimal-navbar/commit/6c819beb46396cb56f7c7112a5493fbaf0926963"
         }
       ],
       "pulls": [],
@@ -185,6 +202,16 @@
       "name": "neon-swarm",
       "url": "https://github.com/firstprateek/neon-swarm",
       "commits": [
+        {
+          "date": "2026-11-15",
+          "title": "chore: add MIT License (#2)",
+          "url": "https://github.com/firstprateek/neon-swarm/commit/db89e0727b2b615564a7363ad8da33740b909ba3"
+        },
+        {
+          "date": "2026-11-15",
+          "title": "Audit fixes: repo-relative doc paths, clear high npm vulns (#1)",
+          "url": "https://github.com/firstprateek/neon-swarm/commit/140275bde2534ac883d8a23f6d10506d374c5506"
+        },
         {
           "date": "2026-11-11",
           "title": "Fix invisible swarm after restart, quality governor, unsaved quit runs, shared RNG stream",
@@ -199,19 +226,22 @@
           "date": "2026-07-02",
           "title": "README: FOG & HAZE opt-in, meta-progression, correct manual-mode mouse bindings, test count 292",
           "url": "https://github.com/firstprateek/neon-swarm/commit/6269b00276568b2ea3bf2a6e37cdf3359220f765"
-        },
-        {
-          "date": "2026-07-02",
-          "title": "test: cover daily-isolation, dash strike, mouse-aim timeout, cheat caps, atmosphere gate",
-          "url": "https://github.com/firstprateek/neon-swarm/commit/14fd26344f6269c67c4471c234b137db13b9c2ae"
-        },
-        {
-          "date": "2026-07-02",
-          "title": "Split three.js into its own build chunk to fix 775 kB warning",
-          "url": "https://github.com/firstprateek/neon-swarm/commit/d95950c2d190bd4ebc6ec8ff1e5e39d08a37f4df"
         }
       ],
-      "pulls": [],
+      "pulls": [
+        {
+          "date": "2026-11-15",
+          "number": 2,
+          "title": "Add MIT License",
+          "url": "https://github.com/firstprateek/neon-swarm/pull/2"
+        },
+        {
+          "date": "2026-11-15",
+          "number": 1,
+          "title": "Audit fixes: repo-relative doc paths, clear high npm vulns",
+          "url": "https://github.com/firstprateek/neon-swarm/pull/1"
+        }
+      ],
       "releases": []
     },
     "firstprateek/orrery": {
@@ -220,61 +250,126 @@
       "url": "https://github.com/firstprateek/orrery",
       "commits": [
         {
-          "date": "2026-07-02",
-          "title": "Lazy-load moon textures by family (~5MB off the initial payload) (#21)",
-          "url": "https://github.com/firstprateek/orrery/commit/90e18cbb549f4fba43bd5311ddb64dfa6fc39465"
+          "date": "2026-11-15",
+          "title": "Fix body pole orientation: IAU poles in the ecliptic frame (Earth seasons, Saturn rings) (#28)",
+          "url": "https://github.com/firstprateek/orrery/commit/32ceb18541d36bff18cf721f275be808fa3afa33"
         },
         {
-          "date": "2026-07-02",
-          "title": "Polish: FXAA on composer tiers, help overlay, auto-overview on zoom-out (#20)",
-          "url": "https://github.com/firstprateek/orrery/commit/b03cd3d869a0c38a1710189dd3c53c770a9a58c3"
+          "date": "2026-11-15",
+          "title": "Fix Milky Way orientation (rotate galactic panorama into the ecliptic frame) (#26)",
+          "url": "https://github.com/firstprateek/orrery/commit/353240cd155745edc4f95eec3d476bab3dfee4c0"
         },
         {
-          "date": "2026-07-02",
-          "title": "Deploy via GitHub Actions Pages workflow (auto-deploy on main) (#19)",
-          "url": "https://github.com/firstprateek/orrery/commit/5330fa9da330ec5f9fd8bb2b41e0930e44003b4d"
+          "date": "2026-11-15",
+          "title": "Layer groundwork: FrameState, scene layers, targets, label/pick registries, Show menu (no behaviour…",
+          "url": "https://github.com/firstprateek/orrery/commit/962e2490c211e59cd780955189dfbeacfbcc2764"
         },
         {
-          "date": "2026-07-02",
-          "title": "Saturn ring shadows: analytic planet↔ring mutual shadowing (#18)",
-          "url": "https://github.com/firstprateek/orrery/commit/b5dae78083d826276ce247ba1b6bf89325638951"
+          "date": "2026-11-15",
+          "title": "Fix trackpad pinch, add zoom panel, ⌘ +/− zoom, ‹ › body arrows (#25)",
+          "url": "https://github.com/firstprateek/orrery/commit/02c418f6b5c64601729713444bef597e4848cd0e"
         },
         {
-          "date": "2026-07-02",
-          "title": "Real texture maps for 12 moons + Pluto (#17)",
-          "url": "https://github.com/firstprateek/orrery/commit/0dd3a39653b54e30b7bc88d36c102816fb14d959"
+          "date": "2026-11-15",
+          "title": "Polish: opening glide, better default quality, belt fade, phone layout (#24)",
+          "url": "https://github.com/firstprateek/orrery/commit/a2d6453314c6a7e33eb725339bc4641aaf3a0249"
         }
       ],
       "pulls": [
         {
-          "date": "2026-07-02",
-          "number": 21,
-          "title": "Lazy-load moon textures by family (~5MB off the initial payload)",
-          "url": "https://github.com/firstprateek/orrery/pull/21"
+          "date": "2026-11-15",
+          "number": 28,
+          "title": "Fix body pole orientation: IAU poles in the ecliptic frame (Earth seasons, Saturn rings)",
+          "url": "https://github.com/firstprateek/orrery/pull/28"
         },
         {
-          "date": "2026-07-02",
-          "number": 20,
-          "title": "Polish: FXAA on composer tiers, help overlay, auto-overview on zoom-out",
-          "url": "https://github.com/firstprateek/orrery/pull/20"
+          "date": "2026-11-15",
+          "number": 26,
+          "title": "Fix Milky Way orientation (rotate galactic panorama into the ecliptic frame)",
+          "url": "https://github.com/firstprateek/orrery/pull/26"
         },
         {
-          "date": "2026-07-02",
-          "number": 19,
-          "title": "Deploy via GitHub Actions Pages workflow (auto-deploy on main)",
-          "url": "https://github.com/firstprateek/orrery/pull/19"
+          "date": "2026-11-15",
+          "number": 27,
+          "title": "Layer groundwork: FrameState, scene layers, targets, label/pick registries, Show menu (no behaviour…",
+          "url": "https://github.com/firstprateek/orrery/pull/27"
         },
         {
-          "date": "2026-07-02",
-          "number": 18,
-          "title": "Saturn ring shadows: analytic planet↔ring mutual shadowing",
-          "url": "https://github.com/firstprateek/orrery/pull/18"
+          "date": "2026-11-15",
+          "number": 25,
+          "title": "Fix trackpad pinch, add zoom panel, ⌘ +/− zoom, ‹ › body arrows",
+          "url": "https://github.com/firstprateek/orrery/pull/25"
         },
         {
-          "date": "2026-07-02",
-          "number": 17,
-          "title": "Real texture maps for 12 moons + Pluto",
-          "url": "https://github.com/firstprateek/orrery/pull/17"
+          "date": "2026-11-15",
+          "number": 24,
+          "title": "Polish: opening glide, better default quality, belt fade, phone layout",
+          "url": "https://github.com/firstprateek/orrery/pull/24"
+        }
+      ],
+      "releases": []
+    },
+    "firstprateek/slingstar": {
+      "project": "slingstar",
+      "name": "slingstar",
+      "url": "https://github.com/firstprateek/slingstar",
+      "commits": [
+        {
+          "date": "2026-11-15",
+          "title": "Merge pull request #5 from firstprateek/roadmap",
+          "url": "https://github.com/firstprateek/slingstar/commit/cae14f761ed2a8ec43c3e4a248dfd1e62fab6f91"
+        },
+        {
+          "date": "2026-11-15",
+          "title": "Add docs/ROADMAP.md: next steps for the next agent or contributor",
+          "url": "https://github.com/firstprateek/slingstar/commit/e8e8077cfa6802922a2797e2aab60727f02e4c4d"
+        },
+        {
+          "date": "2026-11-15",
+          "title": "Merge pull request #4 from firstprateek/brace",
+          "url": "https://github.com/firstprateek/slingstar/commit/3926f253afef6757d6104c8e6942dc690a82c7f2"
+        },
+        {
+          "date": "2026-11-15",
+          "title": "Review fixes: brace re-latch, held brace, core slingshot, stale press, window",
+          "url": "https://github.com/firstprateek/slingstar/commit/8e954184dbd8370e3475ed75126226dffc6f1d36"
+        },
+        {
+          "date": "2026-11-15",
+          "title": "Brace: press near an impact to bounce off instead of dying",
+          "url": "https://github.com/firstprateek/slingstar/commit/6750eb72d0b537a23c129fabfa340188a31e64de"
+        }
+      ],
+      "pulls": [
+        {
+          "date": "2026-11-15",
+          "number": 5,
+          "title": "Add docs/ROADMAP.md with next steps",
+          "url": "https://github.com/firstprateek/slingstar/pull/5"
+        },
+        {
+          "date": "2026-11-15",
+          "number": 4,
+          "title": "Brace: press near an impact to bounce off instead of dying",
+          "url": "https://github.com/firstprateek/slingstar/pull/4"
+        },
+        {
+          "date": "2026-11-15",
+          "number": 2,
+          "title": "Wide windows: play in a centred portrait column",
+          "url": "https://github.com/firstprateek/slingstar/pull/2"
+        },
+        {
+          "date": "2026-11-15",
+          "number": 3,
+          "title": "Add MIT License",
+          "url": "https://github.com/firstprateek/slingstar/pull/3"
+        },
+        {
+          "date": "2026-11-15",
+          "number": 1,
+          "title": "Gentler start, run missions, desktop controls and a play link",
+          "url": "https://github.com/firstprateek/slingstar/pull/1"
         }
       ],
       "releases": []
@@ -284,6 +379,11 @@
       "name": "sparring",
       "url": "https://github.com/firstprateek/sparring",
       "commits": [
+        {
+          "date": "2026-11-15",
+          "title": "chore: add GNU Affero General Public License v3.0 (#1)",
+          "url": "https://github.com/firstprateek/sparring/commit/f380627e97b9dec41cb418701a22ebedc271607f"
+        },
         {
           "date": "2026-11-15",
           "title": "Record the M2 and M3 results and the first real publish",
@@ -303,11 +403,47 @@
           "date": "2026-11-15",
           "title": "Desktop updater: a silent check also needs the bundle folder writable",
           "url": "https://github.com/firstprateek/sparring/commit/79fa5eb335f16c5ad935f1fa8c427edf72cf5a79"
+        }
+      ],
+      "pulls": [
+        {
+          "date": "2026-11-15",
+          "number": 1,
+          "title": "Add GNU Affero General Public License v3.0",
+          "url": "https://github.com/firstprateek/sparring/pull/1"
+        }
+      ],
+      "releases": []
+    },
+    "firstprateek/vastu": {
+      "project": "vastu",
+      "name": "vastu",
+      "url": "https://github.com/firstprateek/vastu",
+      "commits": [
+        {
+          "date": "2026-11-15",
+          "title": "Update visual baselines",
+          "url": "https://github.com/firstprateek/vastu/commit/a97b83c83320eb8c79450597e6b4000dc1e71b5a"
         },
         {
           "date": "2026-11-15",
-          "title": "Desktop app updates itself with Tauri's signed updater",
-          "url": "https://github.com/firstprateek/sparring/commit/2ebe7a8044eaa83c3036e04894af0dc6908ab9d1"
+          "title": "Eval run 2, findings write-up and M2 notes",
+          "url": "https://github.com/firstprateek/vastu/commit/cf48635ddd23be26c96b40b8c79c7ea937e218fb"
+        },
+        {
+          "date": "2026-11-15",
+          "title": "Eval run 1 and the three problems it found",
+          "url": "https://github.com/firstprateek/vastu/commit/d00adaad41697dbd1f73b11dcc62216882e3964d"
+        },
+        {
+          "date": "2026-11-15",
+          "title": "Add the agent eval; fix a lost-click bug it found",
+          "url": "https://github.com/firstprateek/vastu/commit/8942e350f3972f480d0c64a7593eb3e007326271"
+        },
+        {
+          "date": "2026-11-15",
+          "title": "Publish llms.txt and llms-full.txt; boolean attributes must default to false",
+          "url": "https://github.com/firstprateek/vastu/commit/9e698d1ef99726ccc03c92eb385cc05cf8cac7a0"
         }
       ],
       "pulls": [],
