@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 import { SITE } from '../site.config';
 import { href } from '../lib/paths';
 ---
-<Base title="About" description={SITE.description}>
+<Base title="About" description={SITE.description} footer={false}>
   <h1>About</h1>
   {SITE.about.map((line) => <p>{line}</p>)}
 

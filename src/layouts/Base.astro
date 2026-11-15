@@ -10,9 +10,12 @@ interface Props {
   description: string;
   /** OpenGraph type: `article` for essays, `website` for everything else. */
   type?: 'website' | 'article';
+  /** The footer repeats the contact links; About already lists them. */
+  footer?: boolean;
 }
 
-const { title, description, type = 'website' } = Astro.props;
+const { title, description, type = 'website', footer = true } = Astro.props;
+const onHome = Astro.url.pathname === href('/');
 const pageTitle = title ? `${title} — ${SITE.name}` : SITE.name;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const ogImage = new URL('og.png', Astro.site).href;
@@ -141,7 +144,7 @@ const ogImage = new URL('og.png', Astro.site).href;
   <body>
     <header class="site-header">
       <div class="wrap">
-        <a class="site-name" href={href('/')}>{SITE.name}</a>
+        <a class="site-name" href={href('/')} aria-current={onHome ? 'page' : undefined}>{SITE.name}</a>
         <div class="links">
           <nav aria-label="Sections">
             {[
@@ -179,7 +182,7 @@ const ogImage = new URL('og.png', Astro.site).href;
       </div>
     </main>
 
-    <footer class="site-footer">
+    {footer && <footer class="site-footer">
       <div class="wrap">
         <p>
           <a href={href('/contact/')}>Contact</a>
@@ -188,6 +191,6 @@ const ogImage = new URL('og.png', Astro.site).href;
           ))}
         </p>
       </div>
-    </footer>
+    </footer>}
   </body>
 </html>
