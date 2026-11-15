@@ -14,7 +14,7 @@ const PLACEHOLDER = {
   /** <meta name="description"> fallback and RSS channel description. */
   description: 'Projects and writing by Prateek Joshi on coding agents and developer tools.',
   /** Project ids (filenames) shown under "Current projects" on /, in order. */
-  currentProjects: ['i-inc', 'sparring', 'check-in', 'orrery'],
+  currentProjects: ['i-inc', 'sparring', 'vastu', 'check-in', 'orrery'],
   /** Footer contact links. Plain text links, no icons. Order is preserved. */
   links: [
     { label: 'GitHub', href: 'https://github.com/firstprateek' },
