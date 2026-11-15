@@ -271,7 +271,7 @@ video {
   position: sticky;
   top: 0;
   z-index: 10;
-  padding-block: 1.25rem 0.75rem;
+  padding-block: 1rem;
   background-color: var(--bg);
   border-bottom: 1px solid transparent;
   transition: border-color 0.15s;
@@ -290,6 +290,15 @@ html[data-scrolled] .site-header { border-bottom-color: var(--rule); }
   row-gap: 0.25rem;
 }
 .site-header .wrap { justify-content: space-between; }
+/* The name, the nav and the 40px icon row each get the same 40px row with
+   centred contents, so their text shares one centre line rather than each
+   sitting wherever its own line box puts it. */
+.site-header .site-name,
+.site-header nav {
+  display: flex;
+  align-items: center;
+  min-height: 40px;
+}
 .site-header .links {
   margin-inline-start: auto;
   /* Reached only when the group alone outgrows the column (large text on a
@@ -335,10 +344,6 @@ html[data-scrolled] .site-header { border-bottom-color: var(--rule); }
 .site-header .icon[hidden] { display: none; }
 .site-header .icon svg {
   display: block;
-  /* Serif text sits a little low in its line box. A pixel down puts the
-     glyphs on the same optical line as the nav labels (checked by eye with
-     the underline removed). */
-  transform: translateY(1px);
 }
 
 /* The pair is one button: the icon shows the theme you are in, and the label
