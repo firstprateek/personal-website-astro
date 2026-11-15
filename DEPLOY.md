@@ -40,3 +40,11 @@ is honoured on every template.
    the certificate is issued.
 
 `public/_headers` is a Cloudflare/Netlify file; GitHub Pages ignores it.
+
+## GitHub activity
+
+`src/data/activity.json` holds recent commits, merged PRs and releases for the
+public repos the project pages link to. `.github/workflows/activity.yml` refreshes
+it daily (or on demand from the Actions tab), commits only when it changed, and then
+starts the Site workflow. Locally: `GITHUB_TOKEN=$(gh auth token) node scripts/fetch-activity.mjs`.
+Entries whose titles mention a home path or a tailnet host are dropped.

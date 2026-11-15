@@ -1,0 +1,53 @@
+# Refreshes src/data/activity.json (recent public GitHub activity for the repos
+# the project pages link to) once a day. The file holds content only, so a run
+# commits only when there is new activity. The site build itself never fetches.
+#
+# A push made with GITHUB_TOKEN does not trigger other workflows, so after a
+# commit this run starts the deploy itself with `gh workflow run`.
+name: Activity
+
+on:
+  schedule:
+    - cron: '17 9 * * *' # daily, 09:17 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write # commit the refreshed data
+  actions: write # start the Site workflow
+
+concurrency:
+  group: activity
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - name: Fetch activity
+        run: node scripts/fetch-activity.mjs
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+      - id: diff
+        run: git diff --quiet -- src/data/activity.json && echo "changed=false" >> "$GITHUB_OUTPUT" || echo "changed=true" >> "$GITHUB_OUTPUT"
+      # Never commit data that would break the site.
+      - if: steps.diff.outputs.changed == 'true'
+        run: |
+          npm ci
+          npm run build
+          npm run check:links
+      - if: steps.diff.outputs.changed == 'true'
+        name: Commit and deploy
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add src/data/activity.json
+          git commit -m 'Refresh GitHub activity'
+          git push origin HEAD:main
+          gh workflow run site.yml --ref main

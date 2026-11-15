@@ -3,7 +3,8 @@ import Base from '../layouts/Base.astro';
 import { href } from '../lib/paths';
 import WritingList from '../components/WritingList.astro';
 import { SITE } from '../site.config';
-import { formatDate, getFeaturedProject, getPosts } from '../lib/content';
+import { formatDate, getFeaturedProject, getPosts, getProjects } from '../lib/content';
+import { recentActivity } from '../lib/activity';
 
 const allPosts = await getPosts();
 /* The home page is a front door, not an archive: the five most recent, then a
@@ -12,6 +13,9 @@ const HOME_POSTS = 5;
 const posts = allPosts.slice(0, HOME_POSTS);
 const hasMore = allPosts.length > HOME_POSTS;
 const featured = await getFeaturedProject();
+const titles = new Map((await getProjects()).map((p) => [p.id, p.data.title]));
+// Only activity from repos with a published project page, so every row links home.
+const recent = recentActivity().filter((item) => titles.has(item.project));
 ---
 <Base description={SITE.description}>
   <h1>{SITE.name}</h1>
@@ -31,6 +35,29 @@ const featured = await getFeaturedProject();
           {' · '}
           {featured.data.status}
         </p>
+      </section>
+    )
+  }
+
+  {
+    /* Omitted when there is no activity data, like the featured slot above. */
+    recent.length > 0 && (
+      <section>
+        <h2>Recently</h2>
+        <ul class="entries activity">
+          {recent.map((item) => (
+            <li>
+              <p><a href={item.url}>{item.title}</a></p>
+              <p class="meta">
+                <time datetime={item.date}>{formatDate(item.date)}</time>
+                {' · '}
+                <a href={href(`/projects/${item.project}/`)}>{titles.get(item.project)}</a>
+                {' · '}
+                {item.label}
+              </p>
+            </li>
+          ))}
+        </ul>
       </section>
     )
   }
