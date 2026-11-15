@@ -30,10 +30,11 @@ const PLACEHOLDER = {
     endpoint: 'https://contact-form.pjoshi.workers.dev/',
     turnstileSiteKey: '0x4AAAAAAGCbzMfrLexOVeFv',
   },
+  /** About paragraphs. Trusted HTML, written here by hand: inline links only. */
   about: [
     'I\u2019ve spent about ten years building software, and the most fun has always been building the software other engineers use.',
-    'These days I build with coding agents, and mostly think about how to make software that other agents can build on. I\u2019m interested in work that lets agents develop with less human involvement, so people can spend their time on the higher-level questions: the project, the product, the business.',
-    'On the side, I build the tools I use every day. The articles here, for example, start in Sparring, an AI coach that interviews me and critiques my drafts. Every word has to be mine; the coach just asks the questions that help me find them.',
+    'These days I build with coding agents, and mostly think about how to make software that other agents can build on. I\u2019m interested in topics and projects that explore how agents can collaborate safely on software and reach human goals with fewer interruptions, so people can focus on the higher levels: the project, the product, the business.',
+    'On the side, I build the tools I use every day. The articles here, for example, start in <a href="https://github.com/firstprateek/sparring">Sparring</a>, an AI coach that interviews me and critiques my drafts. Every word has to be mine; the coach just asks the questions that help me find them.',
   ],
 };
 

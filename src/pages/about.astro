@@ -20,7 +20,7 @@ import portrait from '../assets/portrait.jpg';
       class="portrait"
       loading="eager"
     />
-    {SITE.about.map((line) => <p>{line}</p>)}
+    {SITE.about.map((line) => <p set:html={line} />)}
   </div>
 
   <h2>Elsewhere</h2>
