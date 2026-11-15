@@ -2,6 +2,7 @@ import rss from '@astrojs/rss';
 import MarkdownIt from 'markdown-it';
 import sanitizeHtml from 'sanitize-html';
 import { SITE } from '../site.config';
+import { href } from '../lib/paths';
 import { getPosts, toPubDate } from '../lib/content';
 
 const markdown = new MarkdownIt();
@@ -17,7 +18,7 @@ export async function GET(context) {
       title: post.data.title,
       description: post.data.description,
       pubDate: toPubDate(post.data.date),
-      link: `/writing/${post.id}/`,
+      link: href(`/writing/${post.id}/`),
       // Full text. This re-parses the raw markdown, so the feed carries plain
       // <pre><code> with no Shiki highlighting — which is the right thing for
       // a reader that applies its own styles.

@@ -2,6 +2,10 @@
 import { defineConfig, fontProviders } from 'astro/config';
 import { SITE } from './src/site.config.ts';
 import { codeThemeDark, codeThemeLight } from './src/lib/shiki-theme.ts';
+import { satteri } from '@astrojs/markdown-satteri';
+import baseLinks from './src/lib/base-links.mjs';
+
+const base = new URL(SITE.url).pathname;
 
 // A build must make no network requests at all. Astro's anonymous telemetry is
 // the only thing that would, and it is only switchable by environment
@@ -26,6 +30,9 @@ const serifFile = (v) => `@fontsource/source-serif-4/files/source-serif-4-latin-
 
 export default defineConfig({
   site: SITE.url,
+  // A project site on GitHub Pages lives under /<repo>/; a custom domain at /.
+  // Deriving base from the url keeps the two from ever disagreeing.
+  base,
   vite: {
     // Replaced with a literal so Rollup can eliminate the unused branch of the
     // media glob in src/lib/content.ts — see the comment there.
@@ -39,6 +46,7 @@ export default defineConfig({
     inlineStylesheets: 'always',
   },
   markdown: {
+    processor: satteri({ hastPlugins: [baseLinks(base)] }),
     shikiConfig: {
       // Patched theme objects, not names: token colours cannot be corrected
       // from CSS because defaultColor:false emits no scope classes.

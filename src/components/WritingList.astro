@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import { href } from '../lib/paths';
 import { formatDate } from '../lib/content';
 
 interface Props {
@@ -20,7 +21,7 @@ const Heading = `h${level}` as 'h2' | 'h3';
       {posts.map((post) => (
         <li>
           <Heading>
-            <a href={`/writing/${post.id}/`}>{post.data.title}</a>
+            <a href={href(`/writing/${post.id}/`)}>{post.data.title}</a>
           </Heading>
           <p>{post.data.description}</p>
           <p class="meta">

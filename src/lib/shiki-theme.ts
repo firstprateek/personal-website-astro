@@ -18,7 +18,9 @@ import githubDark from 'shiki/themes/github-dark.mjs';
  * To swap the theme pair, change the two imports and re-measure the table.
  */
 
-type Theme = typeof githubLight;
+/** Mutable: structuredClone gives a fresh copy, but the import is typed readonly. */
+type DeepMutable<T> = { -readonly [K in keyof T]: DeepMutable<T[K]> };
+type Theme = DeepMutable<typeof githubLight>;
 
 /** Foreground hex -> replacement, applied to every scope that uses it. */
 type Corrections = Record<string, string>;

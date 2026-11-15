@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import { href } from '../lib/paths';
 import WritingList from '../components/WritingList.astro';
 import { SITE } from '../site.config';
 import { formatDate, getFeaturedProject, getPosts } from '../lib/content';
@@ -22,7 +23,7 @@ const featured = await getFeaturedProject();
       <section>
         <h2>Current project</h2>
         <h3>
-          <a href={`/projects/${featured.id}/`}>{featured.data.title}</a>
+          <a href={href(`/projects/${featured.id}/`)}>{featured.data.title}</a>
         </h3>
         <p>{featured.data.summary}</p>
         <p class="meta">
@@ -38,7 +39,7 @@ const featured = await getFeaturedProject();
     <h2>Writing</h2>
     <WritingList posts={posts} level={3} />
     {hasMore && (
-      <p><a href="/writing/">All writing</a></p>
+      <p><a href={href('/writing/')}>All writing</a></p>
     )}
   </section>
 </Base>

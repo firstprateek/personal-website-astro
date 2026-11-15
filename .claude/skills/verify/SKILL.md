@@ -29,6 +29,9 @@ or is empty" warnings are expected until there is real content.
 
 ## Flows worth driving
 
+The fixture build is served under `/demo/` (its `url` has that path), the plain build under
+`/personal-website-astro/`; the paths below are relative to those.
+
 - Crawl from `/`: every page 200, every asset 200 (`.mp4` 206), `rss.xml` well-formed.
 - Must 404, with the site's own "Not found" page: `/writing/_fixture-draft-build-caches/`,
   `/writing/_template/`, `/projects/_template/`, and every `_fixture-*` route in the plain build.
@@ -54,10 +57,10 @@ Both drive headless Chrome over the DevTools protocol with Node's built-in `WebS
 needs installing. Give each run its own profile dir and port.
 
 ```sh
-node .claude/skills/verify/theme-probe.mjs http://127.0.0.1:4391/writing/ "$T/cdp-theme" 9333
+node .claude/skills/verify/theme-probe.mjs http://127.0.0.1:4391/demo/writing/ "$T/cdp-theme" 9333
 node .claude/skills/verify/page-probe.mjs "$T/cdp-pages" 9334 "$T/shots" \
-  "workbench-375=http://127.0.0.1:4391/projects/_fixture-mcp-workbench/@375" \
-  "notfound-375=http://127.0.0.1:4391/no-such-page/@375"
+  "workbench-375=http://127.0.0.1:4391/demo/projects/_fixture-mcp-workbench/@375" \
+  "notfound-375=http://127.0.0.1:4391/demo/no-such-page/@375"
 ```
 
 `theme-probe` flips the emulated OS scheme live and presses the button with a real mouse event;

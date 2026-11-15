@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import { href } from '../../lib/paths';
 import { formatDate, getProjects } from '../../lib/content';
 
 const projects = await getProjects();
@@ -14,7 +15,7 @@ const projects = await getProjects();
         {projects.map((project) => (
           <li>
             <h2>
-              <a href={`/projects/${project.id}/`}>{project.data.title}</a>
+              <a href={href(`/projects/${project.id}/`)}>{project.data.title}</a>
             </h2>
             <p>{project.data.summary}</p>
             <p class="meta">

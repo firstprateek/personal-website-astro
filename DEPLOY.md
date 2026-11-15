@@ -1,79 +1,42 @@
 # Deploying
 
-The host is not chosen yet, so there is no `wrangler.jsonc` and no
-`netlify.toml` in this repo — two rival configs for an undecided host is more
-confusing than none. Everything either host needs is the same:
+The site is hosted on **GitHub Pages**, built and deployed by
+`.github/workflows/site.yml`:
 
-| | |
-|---|---|
-| Build command | `npm run build` |
-| Output directory | `dist` |
-| Node version | 22.12 or newer (Astro 7 requires it) |
-| Install command | `npm ci` |
+- **Pull requests:** `npm run check` (astro check), `npm run build`, then
+  `npm run check:links` (every internal link and asset in `dist/` must resolve),
+  and the same build + link check with `INCLUDE_FIXTURES=1` so every template is
+  exercised. Any failure fails the PR.
+- **Push to `main`:** the same checks, then `dist/` is uploaded and deployed with
+  `actions/deploy-pages`. Pages' source is set to "GitHub Actions" in the repo
+  settings; there is no `gh-pages` branch.
 
-`public/_headers` is copied verbatim into `dist/` and uses the identical syntax
-on both hosts. It sets a one-year immutable cache on `/_astro/*`, which is safe
-because every filename in there is content-hashed.
+Actions are pinned to commit SHAs (tag in the comment beside each). Node comes
+from `.nvmrc`.
 
-**Before the first deploy**, set `url` in `src/site.config.ts` to the real
-domain. It is what the canonical links, the RSS feed and `og:url` are built
-from, and it is currently a loud placeholder.
+## URL and base path
 
-## Cloudflare
+`url` in `src/site.config.ts` is the one place the address lives. Its path becomes
+Astro's `base` (see `astro.config.mjs`):
 
-Cloudflare now steers new projects towards **Workers** rather than Pages. Pages
-still exists and still works for a static site like this one, but the dashboard
-will push you to Workers; either is fine, and the settings are the same.
+| Served at | `url` | `base` |
+|---|---|---|
+| Project site (now) | `https://firstprateek.github.io/personal-website-astro/` | `/personal-website-astro/` |
+| Custom domain (later) | `https://pjoshi.dev/` | `/` |
 
-1. Push the repo to GitHub.
-2. Cloudflare dashboard → **Compute (Workers)** → **Create** → **Import a
-   repository** (or **Workers & Pages** → **Create** → **Pages** → **Connect to
-   Git** if you want Pages specifically).
-3. Pick the repo. Set the build command and output directory by hand from the
-   table above. **Do not use the "Astro" framework preset** — presets resolve
-   to a bare `astro build`, which skips the `--force` that clears Astro's
-   content cache.
-4. Deploy. You get a `*.workers.dev` or `*.pages.dev` URL immediately.
-5. **Custom domains** → add the domain. If the domain is already in the same
-   Cloudflare account, the DNS record is created for you and the certificate is
-   issued automatically.
+Every internal link goes through `href()` in `src/lib/paths.ts`, and site-absolute
+links inside Markdown (`[x](/writing/foo/)`) are prefixed by the hast plugin in
+`src/lib/base-links.mjs`. Write content links as `/writing/...`; never hard-code
+the base. The fixture build runs under `/demo/` on purpose, so CI proves the base
+is honoured on every template.
 
-**The 404 page on Workers.** Pages and Netlify serve `dist/404.html` for any
-path with no page, on their own. A Worker's static assets do so only with
-`"not_found_handling": "404-page"` under `assets` in its Wrangler config;
-without it, an unknown path gets an empty 404.
+## Custom domain cutover
 
-## Netlify
+1. Set `url` to `https://pjoshi.dev/` and add `public/CNAME` containing `pjoshi.dev`.
+2. DNS for the apex: `A` 185.199.108.153, .109.153, .110.153, .111.153 and `AAAA`
+   2606:50c0:8000::153, 8001::153, 8002::153, 8003::153. Optionally `www` as a
+   `CNAME` to `firstprateek.github.io`.
+3. Repo Settings → Pages → custom domain `pjoshi.dev`, then **Enforce HTTPS** once
+   the certificate is issued.
 
-1. Push the repo to GitHub.
-2. Netlify → **Add new site** → **Import an existing project** → pick the repo.
-3. Netlify will offer to detect Astro. Set the build command and publish
-   directory by hand from the table above instead — a detected preset resolves
-   to a bare `astro build`, which skips the `--force` that clears Astro's
-   content cache.
-4. Deploy. You get a `*.netlify.app` URL immediately.
-5. **Domain management** → **Add a domain**.
-
-Two things about the apex domain (`example.com`, with no `www.`):
-
-- **It cannot be a CNAME.** The DNS spec does not allow a CNAME at the zone
-  apex. Use your registrar's `ALIAS`/`ANAME` record if it has one, or the plain
-  `A` record pointing at Netlify's load balancer (`75.2.60.5` at the time of
-  writing — check Netlify's docs, it does change). A `www.` subdomain has no
-  such restriction and can be a normal CNAME.
-- **HTTPS cannot be issued until DNS resolves.** Netlify provisions the Let's
-  Encrypt certificate by verifying the domain, so the certificate step will sit
-  there failing until the records have propagated. This is normal; wait for
-  propagation, then retry the certificate from **Domain management → HTTPS**.
-
-## Verifying a build
-
-The build must succeed with no network access at all — no font CDN, no
-telemetry. Astro's telemetry is switched off in `astro.config.mjs` for exactly
-this reason. From a clean clone:
-
-```sh
-npm ci && npm run build
-find dist -name '*.js'          # must print nothing
-grep -rc '<script' dist/index.html   # must be 1 — the theme script
-```
+`public/_headers` is a Cloudflare/Netlify file; GitHub Pages ignores it.
