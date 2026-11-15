@@ -1,7 +1,7 @@
 ---
 import { Font } from 'astro:assets';
 import { SITE } from '../site.config';
-import { href, isHomePath } from '../lib/paths';
+import { href } from '../lib/paths';
 import '../styles/global.css';
 
 interface Props {
@@ -16,7 +16,6 @@ const { title, description, type = 'website' } = Astro.props;
 const pageTitle = title ? `${title} — ${SITE.name}` : SITE.name;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const ogImage = new URL('og.png', Astro.site).href;
-const isHome = isHomePath(Astro.url.pathname);
 ---
 <html lang="en">
   <head>
@@ -98,8 +97,8 @@ const isHome = isHomePath(Astro.url.pathname);
 
         // The button ships hidden, so with scripting off there is no dead
         // control: hidden elements are neither focusable nor exposed to AT.
-        // The RSS icon beside it already sets the header row's height, so
-        // revealing it here shifts nothing.
+        // .utils reserves the button's 40px height, so revealing it here
+        // shifts nothing.
         document.addEventListener('DOMContentLoaded', () => {
           const button = document.getElementById('theme-toggle');
           if (!button) return;
@@ -142,7 +141,7 @@ const isHome = isHomePath(Astro.url.pathname);
   <body>
     <header class="site-header">
       <div class="wrap">
-        {!isHome && <a class="site-name" href={href('/')}>{SITE.name}</a>}
+        <a class="site-name" href={href('/')}>{SITE.name}</a>
         <div class="links">
           <nav aria-label="Sections">
             {[
@@ -158,13 +157,6 @@ const isHome = isHomePath(Astro.url.pathname);
             })}
           </nav>
           <p class="utils">
-            <a class="icon" href={href('/rss.xml')} aria-label="RSS feed">
-              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
-                <circle cx="6.2" cy="17.8" r="2.2" fill="currentColor" />
-                <path d="M4 11.2a8.8 8.8 0 0 1 8.8 8.8M4 4.6A15.4 15.4 0 0 1 19.4 20"
-                  fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" />
-              </svg>
-            </a>
             <button id="theme-toggle" class="icon" type="button" hidden>
               <svg class="i-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
                 <circle cx="12" cy="12" r="4.4" fill="none" stroke="currentColor" stroke-width="2" />
