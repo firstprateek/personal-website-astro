@@ -2,6 +2,7 @@
 import { render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import { formatDate, getProjects, resolveVideo } from '../../lib/content';
+import { projectActivity } from '../../lib/activity';
 
 export async function getStaticPaths() {
   const projects = await getProjects();
@@ -12,6 +13,7 @@ const { entry } = Astro.props;
 const { Content } = await render(entry);
 // Throws at build time if the video is missing its sibling poster frame.
 const video = entry.data.video ? await resolveVideo(entry) : undefined;
+const activity = projectActivity(entry.id);
 ---
 <Base title={entry.data.title} description={entry.data.summary}>
   <article>
@@ -21,6 +23,21 @@ const video = entry.data.video ? await resolveVideo(entry) : undefined;
       {' · '}
       {entry.data.status}
     </p>
+    {
+      activity?.lastCommit && (
+        <p class="meta activity-line">
+          <a href={activity.lastCommit.url}>Last commit</a>{' '}
+          <time datetime={activity.lastCommit.date}>{formatDate(activity.lastCommit.date)}</time>
+          {activity.release && (
+            <>
+              {' · '}
+              <a href={activity.release.url}>{activity.release.tag}</a>{' released '}
+              <time datetime={activity.release.date}>{formatDate(activity.release.date)}</time>
+            </>
+          )}
+        </p>
+      )
+    }
     <p>{entry.data.summary}</p>
 
     {

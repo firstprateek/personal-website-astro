@@ -164,6 +164,11 @@ hr {
   margin: 0 0 1.25rem;
 }
 
+/* The activity line sits right under a project's date line, as one block. */
+.meta:has(+ .activity-line) { margin-bottom: 0.25rem; }
+/* A date never breaks across lines ("26 / September 2026"). */
+.meta time { white-space: nowrap; }
+
 /* --- Code ---------------------------------------------------------------- */
 
 code, kbd, samp, pre {

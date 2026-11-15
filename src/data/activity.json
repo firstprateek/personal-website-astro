@@ -1,0 +1,327 @@
+{
+  "repos": {
+    "firstprateek/duet": {
+      "project": "duet",
+      "name": "duet",
+      "url": "https://github.com/firstprateek/duet",
+      "commits": [
+        {
+          "date": "2026-09-26",
+          "title": "chore(site): keep the hero's chips off the screenshot's words (#6)",
+          "url": "https://github.com/firstprateek/duet/commit/7280140451d47b99d28647c761c514c2ba6b5b8a"
+        },
+        {
+          "date": "2026-09-26",
+          "title": "ci: sign releases with Duet's self-signed certificate by name (#5)",
+          "url": "https://github.com/firstprateek/duet/commit/36f9e937797ca119fe085b4a7ca0626febd68fcc"
+        },
+        {
+          "date": "2026-09-26",
+          "title": "chore: let Release Please lay out the files it bumps (#4)",
+          "url": "https://github.com/firstprateek/duet/commit/2bda309ecf16c67a018ebff77ad32bb2899f505f"
+        },
+        {
+          "date": "2026-09-26",
+          "title": "chore: start releases at 0.1.0 (#3)",
+          "url": "https://github.com/firstprateek/duet/commit/f1b55956a72c615824c4146616033d340fb1ce3d"
+        },
+        {
+          "date": "2026-09-26",
+          "title": "feat: Duet v1, the desktop app, encrypted sync, smart sorting and the website (#1)",
+          "url": "https://github.com/firstprateek/duet/commit/5dc0c37f6e555cddcde5b60ecf5cc59312ca3113"
+        }
+      ],
+      "pulls": [
+        {
+          "date": "2026-09-26",
+          "number": 6,
+          "title": "fix(site): keep the hero's chips off the screenshot's words",
+          "url": "https://github.com/firstprateek/duet/pull/6"
+        },
+        {
+          "date": "2026-09-26",
+          "number": 5,
+          "title": "ci: sign releases with Duet's self-signed certificate by name",
+          "url": "https://github.com/firstprateek/duet/pull/5"
+        },
+        {
+          "date": "2026-09-26",
+          "number": 4,
+          "title": "chore: let Release Please lay out the files it bumps",
+          "url": "https://github.com/firstprateek/duet/pull/4"
+        },
+        {
+          "date": "2026-09-26",
+          "number": 3,
+          "title": "chore: start releases at 0.1.0",
+          "url": "https://github.com/firstprateek/duet/pull/3"
+        },
+        {
+          "date": "2026-09-26",
+          "number": 1,
+          "title": "feat: Duet v1 — the desktop app, encrypted sync, smart sorting and the website",
+          "url": "https://github.com/firstprateek/duet/pull/1"
+        }
+      ],
+      "releases": [
+        {
+          "date": "2026-09-26",
+          "tag": "v0.1.0",
+          "title": "v0.1.0",
+          "url": "https://github.com/firstprateek/duet/releases/tag/v0.1.0"
+        }
+      ]
+    },
+    "firstprateek/emotion-checkin": {
+      "project": "check-in",
+      "name": "emotion-checkin",
+      "url": "https://github.com/firstprateek/emotion-checkin",
+      "commits": [
+        {
+          "date": "2026-11-08",
+          "title": "Build check-in web app: Node server with Web Push reminders and offline-first PWA client",
+          "url": "https://github.com/firstprateek/emotion-checkin/commit/7c868f406916bd766c8d619024b0acf6ec2b3049"
+        },
+        {
+          "date": "2026-11-08",
+          "title": "Add design mockups and build spec",
+          "url": "https://github.com/firstprateek/emotion-checkin/commit/92903657163c44c9314727ad919fd503ab5bfa64"
+        }
+      ],
+      "pulls": [],
+      "releases": []
+    },
+    "firstprateek/i-inc": {
+      "project": "i-inc",
+      "name": "i-inc",
+      "url": "https://github.com/firstprateek/i-inc",
+      "commits": [
+        {
+          "date": "2026-11-15",
+          "title": "New version notice in the header, beside the account button (#141)",
+          "url": "https://github.com/firstprateek/i-inc/commit/17b79261bdcbde325acafad76a9ba3288397897f"
+        },
+        {
+          "date": "2026-11-15",
+          "title": "Lenient approvals by default, a company and per-employee setting, and one-line Needs you requests (…",
+          "url": "https://github.com/firstprateek/i-inc/commit/ad0727f35a5602c1fcd2a30ebea75accf951385c"
+        },
+        {
+          "date": "2026-11-15",
+          "title": "fix(web): sidebar views fill the window at any width or zoom (#139)",
+          "url": "https://github.com/firstprateek/i-inc/commit/f1409389ce3a74402d640317dfa268165f88ddcf"
+        },
+        {
+          "date": "2026-11-15",
+          "title": "fix(desktop): pin the updater plugin, no surprise password prompt (#138)",
+          "url": "https://github.com/firstprateek/i-inc/commit/f281832f4bba88bd1ad7de59a060536faddfbebd"
+        },
+        {
+          "date": "2026-11-15",
+          "title": "feat(desktop): the app updates itself from the daemon (signed Tauri updater) (#137)",
+          "url": "https://github.com/firstprateek/i-inc/commit/cbb798c26975347da83d477a69f23e9fd5acff4a"
+        }
+      ],
+      "pulls": [
+        {
+          "date": "2026-11-15",
+          "number": 141,
+          "title": "New version notice in the header, beside the account button",
+          "url": "https://github.com/firstprateek/i-inc/pull/141"
+        },
+        {
+          "date": "2026-11-15",
+          "number": 140,
+          "title": "Lenient approvals by default, a company and per-employee setting, and one-line Needs you requests",
+          "url": "https://github.com/firstprateek/i-inc/pull/140"
+        },
+        {
+          "date": "2026-11-15",
+          "number": 139,
+          "title": "fix(web): sidebar views fill the window at any width or zoom",
+          "url": "https://github.com/firstprateek/i-inc/pull/139"
+        },
+        {
+          "date": "2026-11-15",
+          "number": 138,
+          "title": "fix(desktop): pin the updater plugin, no surprise password prompt",
+          "url": "https://github.com/firstprateek/i-inc/pull/138"
+        },
+        {
+          "date": "2026-11-15",
+          "number": 137,
+          "title": "feat(desktop): the app updates itself from the daemon (signed Tauri updater)",
+          "url": "https://github.com/firstprateek/i-inc/pull/137"
+        }
+      ],
+      "releases": []
+    },
+    "firstprateek/minimal-navbar": {
+      "project": "lit-widgets",
+      "name": "minimal-navbar",
+      "url": "https://github.com/firstprateek/minimal-navbar",
+      "commits": [
+        {
+          "date": "2023-07-09",
+          "title": "added .gitignore",
+          "url": "https://github.com/firstprateek/minimal-navbar/commit/99f6f6797650cd9a9570038eaad5c8fab1f54922"
+        },
+        {
+          "date": "2023-05-28",
+          "title": "updated README.md",
+          "url": "https://github.com/firstprateek/minimal-navbar/commit/330877461322640e6bf261809ed6983f4c9ea648"
+        },
+        {
+          "date": "2023-05-28",
+          "title": "updated README.md",
+          "url": "https://github.com/firstprateek/minimal-navbar/commit/e39525e87e860bde268bd7661d6233bace9e5c0e"
+        },
+        {
+          "date": "2023-05-28",
+          "title": "widget changes",
+          "url": "https://github.com/firstprateek/minimal-navbar/commit/8dcbea511119318cad5ba054d8a580410853f4ee"
+        },
+        {
+          "date": "2023-05-28",
+          "title": "Initial commit",
+          "url": "https://github.com/firstprateek/minimal-navbar/commit/6c819beb46396cb56f7c7112a5493fbaf0926963"
+        }
+      ],
+      "pulls": [],
+      "releases": []
+    },
+    "firstprateek/neon-swarm": {
+      "project": "neon-swarm",
+      "name": "neon-swarm",
+      "url": "https://github.com/firstprateek/neon-swarm",
+      "commits": [
+        {
+          "date": "2026-11-11",
+          "title": "Fix invisible swarm after restart, quality governor, unsaved quit runs, shared RNG stream",
+          "url": "https://github.com/firstprateek/neon-swarm/commit/885df04887706d410f580a3798ef22db7f89314d"
+        },
+        {
+          "date": "2026-07-02",
+          "title": "Add ESLint (flat config) + wire lint/typecheck gate into the Pages deploy",
+          "url": "https://github.com/firstprateek/neon-swarm/commit/554e58b522cdb450e475752fc4a4341493bd1a52"
+        },
+        {
+          "date": "2026-07-02",
+          "title": "README: FOG & HAZE opt-in, meta-progression, correct manual-mode mouse bindings, test count 292",
+          "url": "https://github.com/firstprateek/neon-swarm/commit/6269b00276568b2ea3bf2a6e37cdf3359220f765"
+        },
+        {
+          "date": "2026-07-02",
+          "title": "test: cover daily-isolation, dash strike, mouse-aim timeout, cheat caps, atmosphere gate",
+          "url": "https://github.com/firstprateek/neon-swarm/commit/14fd26344f6269c67c4471c234b137db13b9c2ae"
+        },
+        {
+          "date": "2026-07-02",
+          "title": "Split three.js into its own build chunk to fix 775 kB warning",
+          "url": "https://github.com/firstprateek/neon-swarm/commit/d95950c2d190bd4ebc6ec8ff1e5e39d08a37f4df"
+        }
+      ],
+      "pulls": [],
+      "releases": []
+    },
+    "firstprateek/orrery": {
+      "project": "orrery",
+      "name": "orrery",
+      "url": "https://github.com/firstprateek/orrery",
+      "commits": [
+        {
+          "date": "2026-07-02",
+          "title": "Lazy-load moon textures by family (~5MB off the initial payload) (#21)",
+          "url": "https://github.com/firstprateek/orrery/commit/90e18cbb549f4fba43bd5311ddb64dfa6fc39465"
+        },
+        {
+          "date": "2026-07-02",
+          "title": "Polish: FXAA on composer tiers, help overlay, auto-overview on zoom-out (#20)",
+          "url": "https://github.com/firstprateek/orrery/commit/b03cd3d869a0c38a1710189dd3c53c770a9a58c3"
+        },
+        {
+          "date": "2026-07-02",
+          "title": "Deploy via GitHub Actions Pages workflow (auto-deploy on main) (#19)",
+          "url": "https://github.com/firstprateek/orrery/commit/5330fa9da330ec5f9fd8bb2b41e0930e44003b4d"
+        },
+        {
+          "date": "2026-07-02",
+          "title": "Saturn ring shadows: analytic planet↔ring mutual shadowing (#18)",
+          "url": "https://github.com/firstprateek/orrery/commit/b5dae78083d826276ce247ba1b6bf89325638951"
+        },
+        {
+          "date": "2026-07-02",
+          "title": "Real texture maps for 12 moons + Pluto (#17)",
+          "url": "https://github.com/firstprateek/orrery/commit/0dd3a39653b54e30b7bc88d36c102816fb14d959"
+        }
+      ],
+      "pulls": [
+        {
+          "date": "2026-07-02",
+          "number": 21,
+          "title": "Lazy-load moon textures by family (~5MB off the initial payload)",
+          "url": "https://github.com/firstprateek/orrery/pull/21"
+        },
+        {
+          "date": "2026-07-02",
+          "number": 20,
+          "title": "Polish: FXAA on composer tiers, help overlay, auto-overview on zoom-out",
+          "url": "https://github.com/firstprateek/orrery/pull/20"
+        },
+        {
+          "date": "2026-07-02",
+          "number": 19,
+          "title": "Deploy via GitHub Actions Pages workflow (auto-deploy on main)",
+          "url": "https://github.com/firstprateek/orrery/pull/19"
+        },
+        {
+          "date": "2026-07-02",
+          "number": 18,
+          "title": "Saturn ring shadows: analytic planet↔ring mutual shadowing",
+          "url": "https://github.com/firstprateek/orrery/pull/18"
+        },
+        {
+          "date": "2026-07-02",
+          "number": 17,
+          "title": "Real texture maps for 12 moons + Pluto",
+          "url": "https://github.com/firstprateek/orrery/pull/17"
+        }
+      ],
+      "releases": []
+    },
+    "firstprateek/sparring": {
+      "project": "sparring",
+      "name": "sparring",
+      "url": "https://github.com/firstprateek/sparring",
+      "commits": [
+        {
+          "date": "2026-11-15",
+          "title": "Record the M2 and M3 results and the first real publish",
+          "url": "https://github.com/firstprateek/sparring/commit/392f1aa9fa78b8846b0bd240090cc82827792997"
+        },
+        {
+          "date": "2026-11-15",
+          "title": "New version line follows the room into the interview and back; a bigger tap target on phones",
+          "url": "https://github.com/firstprateek/sparring/commit/0f9798d5dc662c7e5eab2950e448aca87d8e65f0"
+        },
+        {
+          "date": "2026-11-15",
+          "title": "New version notice at the right end of the head",
+          "url": "https://github.com/firstprateek/sparring/commit/11d9ab18a73eda1cd9cc1d9fbd822033bff19c31"
+        },
+        {
+          "date": "2026-11-15",
+          "title": "Desktop updater: a silent check also needs the bundle folder writable",
+          "url": "https://github.com/firstprateek/sparring/commit/79fa5eb335f16c5ad935f1fa8c427edf72cf5a79"
+        },
+        {
+          "date": "2026-11-15",
+          "title": "Desktop app updates itself with Tauri's signed updater",
+          "url": "https://github.com/firstprateek/sparring/commit/2ebe7a8044eaa83c3036e04894af0dc6908ab9d1"
+        }
+      ],
+      "pulls": [],
+      "releases": []
+    }
+  }
+}
