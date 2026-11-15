@@ -45,7 +45,11 @@ html[data-theme='dark'] { color-scheme: dark; }
 
 *, *::before, *::after { box-sizing: border-box; }
 
-html { -webkit-text-size-adjust: 100%; }
+html {
+  -webkit-text-size-adjust: 100%;
+  /* Anchor jumps land below the sticky header, not under it. */
+  scroll-padding-top: 6rem;
+}
 
 /* Metric-matched fallbacks for the serif, hand-declared.
    Astro generates these automatically and its numbers are right for the
@@ -249,9 +253,19 @@ video {
   font-size: var(--fs-sm);
 }
 
+/* Sticky, so the nav stays in reach on long pages. It carries the page
+   background so text scrolls under it, and a rule appears once the page has
+   scrolled (set by the theme script), so at rest it reads exactly as before. */
 .site-header {
-  padding-block: 2rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  padding-block: 1.25rem 0.75rem;
+  background-color: var(--bg);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s;
 }
+html[data-scrolled] .site-header { border-bottom-color: var(--rule); }
 /* The name on the left, and the nav with its icons as one group in the
    right-hand corner. The group is a single flex item, so when the column is too
    narrow for both, the name and the group separate onto their own lines rather
@@ -317,6 +331,11 @@ video {
 .site-header .icon .i-moon { display: none; }
 html[data-theme='dark'] .site-header .icon .i-sun { display: none; }
 html[data-theme='dark'] .site-header .icon .i-moon { display: block; }
+/* Header links read as navigation, not prose links: no underline at rest,
+   one on hover and on the page you are in. */
+.site-header a { text-decoration: none; }
+.site-header a:hover,
+.site-header a[aria-current] { text-decoration: underline; }
 .site-header nav a { color: var(--accent); }
 .site-header .site-name { font-weight: 600; }
 
@@ -325,7 +344,7 @@ ul.plain li { margin-block: 0.5rem; }
 .site-header a { color: var(--text); }
 
 main {
-  padding-block: 2rem 3rem;
+  padding-block: 1.25rem 3rem;
   flex: 1;
 }
 

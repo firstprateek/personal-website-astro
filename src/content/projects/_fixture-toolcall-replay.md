@@ -5,7 +5,6 @@ status: experiment
 summary: Records agent tool calls and replays them against a changed implementation, so you can tell whether a prompt edit actually helped.
 repo: https://github.com/patjosh/toolcall-replay
 video: _replay.mp4
-featured: false
 ---
 
 An experiment in making prompt changes falsifiable.

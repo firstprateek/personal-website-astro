@@ -3,67 +3,42 @@ import Base from '../layouts/Base.astro';
 import { href } from '../lib/paths';
 import WritingList from '../components/WritingList.astro';
 import { SITE } from '../site.config';
-import { formatDate, getFeaturedProject, getPosts, getProjects } from '../lib/content';
-import { recentActivity } from '../lib/activity';
+import { getCurrentProjects, getPosts } from '../lib/content';
 
 const allPosts = await getPosts();
-/* The home page is a front door, not an archive: the five most recent, then a
-   plain link to the rest. Below six there is nothing to link to, so no link. */
-const HOME_POSTS = 5;
+/* The home page is a front door, not an archive: the three most recent, then
+   a plain link to the rest when there are more. */
+const HOME_POSTS = 3;
 const posts = allPosts.slice(0, HOME_POSTS);
 const hasMore = allPosts.length > HOME_POSTS;
-const featured = await getFeaturedProject();
-const titles = new Map((await getProjects()).map((p) => [p.id, p.data.title]));
-// Only activity from repos with a published project page, so every row links home.
-const recent = recentActivity().filter((item) => titles.has(item.project));
+const current = await getCurrentProjects(SITE.currentProjects);
 ---
 <Base description={SITE.description}>
   <h1>{SITE.name}</h1>
   {SITE.bio.map((line) => <p>{line}</p>)}
 
   {
-    /* Omitted entirely when nothing is featured — no empty slot, no placeholder. */
-    featured && (
+    /* Omitted entirely when the list is empty: no empty slot, no placeholder. */
+    current.length > 0 && (
       <section>
-        <h2>Current project</h2>
-        <h3>
-          <a href={href(`/projects/${featured.id}/`)}>{featured.data.title}</a>
-        </h3>
-        <p>{featured.data.summary}</p>
-        <p class="meta">
-          <time datetime={featured.data.date}>{formatDate(featured.data.date)}</time>
-          {' · '}
-          {featured.data.status}
-        </p>
-      </section>
-    )
-  }
-
-  {
-    /* Omitted when there is no activity data, like the featured slot above. */
-    recent.length > 0 && (
-      <section>
-        <h2>Recently</h2>
-        <ul class="entries activity">
-          {recent.map((item) => (
+        <h2>Current projects</h2>
+        <ul class="entries">
+          {current.map((project) => (
             <li>
-              <p><a href={item.url}>{item.title}</a></p>
-              <p class="meta">
-                <time datetime={item.date}>{formatDate(item.date)}</time>
-                {' · '}
-                <a href={href(`/projects/${item.project}/`)}>{titles.get(item.project)}</a>
-                {' · '}
-                {item.label}
-              </p>
+              <h3>
+                <a href={href(`/projects/${project.id}/`)}>{project.data.title}</a>
+              </h3>
+              <p>{project.data.summary}</p>
             </li>
           ))}
         </ul>
+        <p><a href={href('/projects/')}>All projects</a></p>
       </section>
     )
   }
 
   <section>
-    <h2>Writing</h2>
+    <h2>Recent articles</h2>
     <WritingList posts={posts} level={3} />
     {hasMore && (
       <p><a href={href('/writing/')}>All writing</a></p>

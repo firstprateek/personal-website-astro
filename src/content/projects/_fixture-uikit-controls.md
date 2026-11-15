@@ -4,7 +4,6 @@ date: 2024-01-09
 status: archived
 summary: The original component library.
 repo: https://github.com/patjosh/uikit-controls
-featured: false
 ---
 
 The first component library, built before there was a platform team to own one.

@@ -5,7 +5,6 @@ status: active
 summary: Durable, resumable state for long-running coding agents — stores decisions rather than snapshots, and reconciles against the repository on resume.
 repo: https://github.com/patjosh/session-ledger
 video: _demo.mp4
-featured: false
 ---
 
 Ledger came out of a specific frustration: closing a laptop mid-task and losing

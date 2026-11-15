@@ -4,7 +4,6 @@ date: 2026-09-25
 status: active
 summary: A private, local-first desktop money app for couples who share some costs but not all, synced end-to-end encrypted through a small relay at home.
 repo: https://github.com/firstprateek/duet
-featured: false
 ---
 
 Couples who share some costs but not all of them end up with a spreadsheet, or

@@ -22,34 +22,6 @@ interface Repo {
 
 const repos = Object.values((data as { repos: Record<string, Repo> }).repos ?? {});
 
-/** Squash-merge commits end in " (#123)"; the PR number adds nothing on the page. */
-const tidy = (title: string) => title.replace(/\s*\(#\d+\)$/, '');
-
-export interface FeedItem extends Item {
-  repo: string;
-  project: string;
-  kind: 'release' | 'pull' | 'commit';
-  label: string;
-}
-
-/**
- * The home page's "Recently": merged PRs and releases, or commits for a repo
- * that works straight on main. At most `perRepo` from any one repo, so one busy
- * project cannot crowd out the rest.
- */
-export function recentActivity(limit = 5, perRepo = 2): FeedItem[] {
-  const all = repos.flatMap((r) => {
-    const items: FeedItem[] = [
-      ...r.releases.map((x) => ({ ...x, kind: 'release' as const, label: `Released ${x.tag}` })),
-      ...(r.pulls.length
-        ? r.pulls.map((x) => ({ ...x, kind: 'pull' as const, label: `Merged #${x.number}` }))
-        : r.commits.map((x) => ({ ...x, kind: 'commit' as const, label: 'Committed' }))),
-    ].map((x) => ({ ...x, title: tidy(x.title), repo: r.name, project: r.project }));
-    return items.sort((a, b) => b.date.localeCompare(a.date)).slice(0, perRepo);
-  });
-  return all.sort((a, b) => b.date.localeCompare(a.date)).slice(0, limit);
-}
-
 export interface ProjectActivity {
   lastCommit?: Item;
   release?: Item & { tag: string };

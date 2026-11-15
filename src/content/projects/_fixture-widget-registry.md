@@ -4,7 +4,6 @@ date: 2025-09-14
 status: active
 summary: A versioned catalogue of every UI component in use across the desktop product, built to make deprecations schedulable instead of aspirational.
 repo: https://github.com/patjosh/widget-registry
-featured: false
 ---
 
 You cannot deprecate what you cannot count. Before the registry, answering "who

@@ -81,15 +81,6 @@ export async function getPosts(): Promise<CollectionEntry<'posts'>[]> {
 export async function getProjects(): Promise<CollectionEntry<'projects'>[]> {
   const projects = dropFixtures(await getCollection('projects'));
 
-  const featured = projects.filter((entry) => entry.data.featured);
-  if (featured.length > 1) {
-    throw new Error(
-      `Only one project may set \`featured: true\`, found ${featured.length}: ` +
-        `${featured.map((entry) => entry.id).join(', ')}. ` +
-        'The home page shows exactly one, so this would silently pick a winner.',
-    );
-  }
-
   for (const entry of projects) {
     if (entry.data.video) await resolveVideo(entry);
   }
@@ -97,9 +88,20 @@ export async function getProjects(): Promise<CollectionEntry<'projects'>[]> {
   return projects.sort(newestFirst);
 }
 
-export async function getFeaturedProject(): Promise<CollectionEntry<'projects'> | undefined> {
-  const projects = await getProjects();
-  return projects.find((entry) => entry.data.featured);
+/**
+ * The home page's "Current projects", in the order site.config.ts lists them.
+ * An id with no matching project fails the build rather than quietly
+ * dropping a row.
+ */
+export async function getCurrentProjects(ids: readonly string[]): Promise<CollectionEntry<'projects'>[]> {
+  const byId = new Map((await getProjects()).map((entry) => [entry.id, entry]));
+  return ids.map((id) => {
+    const entry = byId.get(id);
+    if (!entry) {
+      throw new Error(`site.config.ts lists current project "${id}", but there is no src/content/projects/${id}.md.`);
+    }
+    return entry;
+  });
 }
 
 /* -------------------------------------------------------------------------

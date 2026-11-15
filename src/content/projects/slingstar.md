@@ -4,7 +4,6 @@ date: 2026-11-11
 status: experiment
 summary: A one-thumb orbital slingshot game for the iPhone home screen. Hold to orbit a planet, let go to fling off, and stay ahead of the light rising from below.
 repo: https://github.com/firstprateek/slingstar
-featured: false
 ---
 
 [Play it in the browser](https://firstprateek.github.io/slingstar/). On an
