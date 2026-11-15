@@ -137,16 +137,16 @@ h3 { font-size: var(--fs-md); }
 
 p, ul, ol, blockquote, pre, figure, video { margin: 0 0 1.25rem; }
 
-/* No underline at rest (the owner's call: coral marks a link). Hover and
-   keyboard focus add one, so there is still a non-colour cue on interaction. */
+/* Links never carry an underline (the owner's call: coral marks a link).
+   Hover and keyboard focus make the link bolder instead. The extra weight is
+   a stroke drawn around the glyphs, not a heavier font-weight: a real bold
+   is wider, so it would nudge neighbouring nav links and re-wrap prose. */
 a {
   color: var(--accent);
   text-decoration: none;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.15em;
 }
 a:hover,
-a:focus-visible { text-decoration: underline; }
+a:focus-visible { -webkit-text-stroke: 0.045em currentColor; }
 
 /* The one accent is reserved for links, so the ring is drawn in text colour.
    It must never use --rule, which is decorative and would not clear 3:1. */
@@ -359,9 +359,10 @@ html[data-scrolled] .site-header { border-bottom-color: var(--rule); }
 .site-header .icon .i-moon { display: none; }
 html[data-theme='dark'] .site-header .icon .i-sun { display: none; }
 html[data-theme='dark'] .site-header .icon .i-moon { display: block; }
-/* The section you are in is shown in the text colour: still a link, but
-   marked as where you are. */
-.site-header nav a[aria-current] { color: var(--text); }
+/* The page you are on is shown in the text colour (dark in light mode, light
+   in dark mode): the name on the home page, the nav item for its section
+   elsewhere. Still a link, but marked as where you are. */
+.site-header a[aria-current] { color: var(--text); }
 .site-header .site-name { font-weight: 600; }
 
 ul.plain { list-style: none; padding: 0; }
