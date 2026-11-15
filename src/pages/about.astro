@@ -1,11 +1,33 @@
 ---
+import { Picture } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import { SITE } from '../site.config';
 import { href } from '../lib/paths';
+import portrait from '../assets/portrait.jpg';
+
+const [first, ...rest] = SITE.about;
 ---
 <Base title="About" description={SITE.description} footer={false}>
   <h1>About</h1>
-  {SITE.about.map((line) => <p>{line}</p>)}
+  {/* Newspaper layout: the portrait floats left, the text wraps beside and
+       then under it, and the first paragraph opens with a drop cap.
+       flow-root keeps the float inside this block, so Elsewhere below always
+       starts on a clean line. */}
+  <div class="about-body">
+    <Picture
+      src={portrait}
+      formats={['avif', 'webp']}
+      widths={[176, 352, 528]}
+      sizes="(max-width: 40rem) 7.5rem, 11rem"
+      alt={`Portrait of ${SITE.name}`}
+      class="portrait"
+      loading="eager"
+    />
+    {/* The drop cap is a real element, not ::first-letter, which would also
+         take the apostrophe in "I've" and set "I'" large. */}
+    <p><span class="drop-cap">{first.charAt(0)}</span>{first.slice(1)}</p>
+    {rest.map((line) => <p>{line}</p>)}
+  </div>
 
   <h2>Elsewhere</h2>
   <ul class="plain">
