@@ -30,8 +30,8 @@ const PLACEHOLDER = {
    * instead of a form that cannot send. Neither value is secret.
    */
   contact: {
-    endpoint: '',
-    turnstileSiteKey: '',
+    endpoint: 'https://contact-form.pjoshi.workers.dev/',
+    turnstileSiteKey: '0x4AAAAAAGCbzMfrLexOVeFv',
   },
   about: [
     'I\u2019ve spent about ten years building software for other engineers, most of it on IDE extensibility and plugin frameworks: the layer other teams build on, where every change has to land without breaking someone else\u2019s work.',
