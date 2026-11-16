@@ -21,8 +21,8 @@ Astro's `base` (see `astro.config.mjs`):
 
 | Served at | `url` | `base` |
 |---|---|---|
-| Project site (now) | `https://firstprateek.github.io/personal-website-astro/` | `/personal-website-astro/` |
-| Custom domain (later) | `https://pjoshi.dev/` | `/` |
+| Custom domain (now, since 2026-11-15) | `https://pjoshi.dev/` | `/` |
+| Project site (before) | `https://firstprateek.github.io/personal-website-astro/` | `/personal-website-astro/` |
 
 Every internal link goes through `href()` in `src/lib/paths.ts`, and site-absolute
 links inside Markdown (`[x](/writing/foo/)`) are prefixed by the hast plugin in
@@ -30,7 +30,11 @@ links inside Markdown (`[x](/writing/foo/)`) are prefixed by the hast plugin in
 the base. The fixture build runs under `/demo/` on purpose, so CI proves the base
 is honoured on every template.
 
-## Custom domain cutover
+## Custom domain (done 2026-11-15)
+
+The registrar is Squarespace; DNS is hosted on Cloudflare (the domain's
+nameservers point there), so records are edited in Cloudflare, set to DNS only.
+The old github.io address redirects to `pjoshi.dev`.
 
 1. Set `url` to `https://pjoshi.dev/` and add `public/CNAME` containing `pjoshi.dev`.
 2. DNS for the apex: `A` 185.199.108.153, .109.153, .110.153, .111.153 and `AAAA`

@@ -8,7 +8,7 @@ const PLACEHOLDER = {
    * Canonical URL, with a trailing slash. Used for RSS, canonical links and
    * og:url, and its path becomes Astro's `base` (astro.config.mjs).
    */
-  url: 'https://firstprateek.github.io/personal-website-astro/',
+  url: 'https://pjoshi.dev/',
   /** Shown in the header on every page and in page titles. */
   name: 'Prateek Joshi',
   /** <meta name="description"> fallback and RSS channel description. */

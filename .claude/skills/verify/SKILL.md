@@ -29,8 +29,8 @@ or is empty" warnings are expected until there is real content.
 
 ## Flows worth driving
 
-The fixture build is served under `/demo/` (its `url` has that path), the plain build under
-`/personal-website-astro/`; the paths below are relative to those.
+The fixture build is served under `/demo/` (its `url` has that path), the plain build at
+the root `/` (the site is served from `https://pjoshi.dev/`); the paths below are relative to those.
 
 - Crawl from `/`: every page 200, every asset 200 (`.mp4` 206), `rss.xml` well-formed.
 - Must 404, with the site's own "Not found" page: `/writing/_fixture-draft-build-caches/`,
