@@ -250,6 +250,11 @@
       "url": "https://github.com/firstprateek/orrery",
       "commits": [
         {
+          "date": "2026-11-16",
+          "title": "Camera up = ecliptic north (+Z) app-wide (#29)",
+          "url": "https://github.com/firstprateek/orrery/commit/b59e438d834e6329ac0756344042d9daa09f7275"
+        },
+        {
           "date": "2026-11-15",
           "title": "Fix body pole orientation: IAU poles in the ecliptic frame (Earth seasons, Saturn rings) (#28)",
           "url": "https://github.com/firstprateek/orrery/commit/32ceb18541d36bff18cf721f275be808fa3afa33"
@@ -268,14 +273,15 @@
           "date": "2026-11-15",
           "title": "Fix trackpad pinch, add zoom panel, ⌘ +/− zoom, ‹ › body arrows (#25)",
           "url": "https://github.com/firstprateek/orrery/commit/02c418f6b5c64601729713444bef597e4848cd0e"
-        },
-        {
-          "date": "2026-11-15",
-          "title": "Polish: opening glide, better default quality, belt fade, phone layout (#24)",
-          "url": "https://github.com/firstprateek/orrery/commit/a2d6453314c6a7e33eb725339bc4641aaf3a0249"
         }
       ],
       "pulls": [
+        {
+          "date": "2026-11-16",
+          "number": 29,
+          "title": "Camera up = ecliptic north (+Z) app-wide",
+          "url": "https://github.com/firstprateek/orrery/pull/29"
+        },
         {
           "date": "2026-11-15",
           "number": 28,
@@ -299,12 +305,6 @@
           "number": 25,
           "title": "Fix trackpad pinch, add zoom panel, ⌘ +/− zoom, ‹ › body arrows",
           "url": "https://github.com/firstprateek/orrery/pull/25"
-        },
-        {
-          "date": "2026-11-15",
-          "number": 24,
-          "title": "Polish: opening glide, better default quality, belt fade, phone layout",
-          "url": "https://github.com/firstprateek/orrery/pull/24"
         }
       ],
       "releases": []
@@ -421,29 +421,29 @@
       "url": "https://github.com/firstprateek/vastu",
       "commits": [
         {
-          "date": "2026-11-15",
-          "title": "Update visual baselines",
-          "url": "https://github.com/firstprateek/vastu/commit/a97b83c83320eb8c79450597e6b4000dc1e71b5a"
+          "date": "2026-11-16",
+          "title": "Add AGENTS.md (with CLAUDE.md importing it) and CONTRIBUTING.md",
+          "url": "https://github.com/firstprateek/vastu/commit/614e1910da3d0e84cc082802a6973307f2b651e9"
         },
         {
-          "date": "2026-11-15",
-          "title": "Eval run 2, findings write-up and M2 notes",
-          "url": "https://github.com/firstprateek/vastu/commit/cf48635ddd23be26c96b40b8c79c7ea937e218fb"
+          "date": "2026-11-16",
+          "title": "Design doc: how 1.0.0 was published and how releases work from now on",
+          "url": "https://github.com/firstprateek/vastu/commit/6c7df76b64a30c464761f39c0699c15072da0a5c"
         },
         {
-          "date": "2026-11-15",
-          "title": "Eval run 1 and the three problems it found",
-          "url": "https://github.com/firstprateek/vastu/commit/d00adaad41697dbd1f73b11dcc62216882e3964d"
+          "date": "2026-11-16",
+          "title": "Version 1.0.0",
+          "url": "https://github.com/firstprateek/vastu/commit/364e5617a177da46a51bb35a07ee46cde988450e"
         },
         {
-          "date": "2026-11-15",
-          "title": "Add the agent eval; fix a lost-click bug it found",
-          "url": "https://github.com/firstprateek/vastu/commit/8942e350f3972f480d0c64a7593eb3e007326271"
+          "date": "2026-11-16",
+          "title": "Settle the API for 1.0 (from an independent pre-1.0 review)",
+          "url": "https://github.com/firstprateek/vastu/commit/5ae6a86cb2e884ef74cc2d2c10f5931df1858c37"
         },
         {
-          "date": "2026-11-15",
-          "title": "Publish llms.txt and llms-full.txt; boolean attributes must default to false",
-          "url": "https://github.com/firstprateek/vastu/commit/9e698d1ef99726ccc03c92eb385cc05cf8cac7a0"
+          "date": "2026-11-16",
+          "title": "Prepare the packages for npm and add the release workflow",
+          "url": "https://github.com/firstprateek/vastu/commit/b210858a3b697e4d39a2dfe103a86105396c89f6"
         }
       ],
       "pulls": [],
