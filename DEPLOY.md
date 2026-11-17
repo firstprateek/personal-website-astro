@@ -100,7 +100,10 @@ stopped by the real Turnstile widget, so a live test needs a real browser.
 ## Visit stats
 
 `stats/` is a second Cloudflare Worker, `site-pulse`, at
-`https://site-pulse.pjoshi.workers.dev/`. It counts visits and serves a private
+**`https://stats.pjoshi.dev/`** (a Worker custom domain: Cloudflare owns that
+one DNS record; the apex and www stay on GitHub Pages), also reachable at
+`site-pulse.pjoshi.workers.dev`. **`pjoshi.dev/stats/`** forwards to it
+(`src/pages/stats.astro`, from `stats.dashboard`). It counts visits and serves a private
 dashboard; there are no cookies on the site and nothing that names a reader.
 
 - **What the site sends.** The head script in `Base.astro` sends beacons to

@@ -7,12 +7,17 @@ compatibility_date = "2026-11-01"
 workers_dev = true
 preview_urls = false
 
+# The dashboard's permanent address. Cloudflare creates and manages the DNS
+# record for it; the apex and www (GitHub Pages) are untouched. workers.dev
+# stays on so old links and home-screen shortcuts keep working.
+routes = [{ pattern = "stats.pjoshi.dev", custom_domain = true }]
+
 [vars]
 # Origins the site is served from; beacons from anywhere else are refused.
 # The first one names the site in the dashboard and the digest.
 ALLOWED_ORIGINS = "https://pjoshi.dev"
 # Where the dashboard lives, for the link in the weekly digest.
-DASHBOARD_ORIGIN = "https://site-pulse.pjoshi.workers.dev"
+DASHBOARD_ORIGIN = "https://stats.pjoshi.dev"
 
 [[d1_databases]]
 binding = "DB"

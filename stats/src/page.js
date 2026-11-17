@@ -12,6 +12,7 @@ export function page(title, body) {
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex">
 <meta name="color-scheme" content="light dark">
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Site stats">
 <meta name="theme-color" content="#fdfcfa" media="(prefers-color-scheme: light)">
