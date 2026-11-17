@@ -250,6 +250,16 @@
       "url": "https://github.com/firstprateek/orrery",
       "commits": [
         {
+          "date": "2026-11-17",
+          "title": "Agents act as the owner; nothing in Orrery needs approval (#31)",
+          "url": "https://github.com/firstprateek/orrery/commit/73f0c6b3c78bbe9d17a1610e879275de7012566f"
+        },
+        {
+          "date": "2026-11-17",
+          "title": "Adopt agent-git-workflow (bot mode) (#30)",
+          "url": "https://github.com/firstprateek/orrery/commit/f40714c9d5d972ab6d612ccf39515c28128bff48"
+        },
+        {
           "date": "2026-11-16",
           "title": "Camera up = ecliptic north (+Z) app-wide (#29)",
           "url": "https://github.com/firstprateek/orrery/commit/b59e438d834e6329ac0756344042d9daa09f7275"
@@ -263,19 +273,21 @@
           "date": "2026-11-15",
           "title": "Fix Milky Way orientation (rotate galactic panorama into the ecliptic frame) (#26)",
           "url": "https://github.com/firstprateek/orrery/commit/353240cd155745edc4f95eec3d476bab3dfee4c0"
-        },
-        {
-          "date": "2026-11-15",
-          "title": "Layer groundwork: FrameState, scene layers, targets, label/pick registries, Show menu (no behaviour…",
-          "url": "https://github.com/firstprateek/orrery/commit/962e2490c211e59cd780955189dfbeacfbcc2764"
-        },
-        {
-          "date": "2026-11-15",
-          "title": "Fix trackpad pinch, add zoom panel, ⌘ +/− zoom, ‹ › body arrows (#25)",
-          "url": "https://github.com/firstprateek/orrery/commit/02c418f6b5c64601729713444bef597e4848cd0e"
         }
       ],
       "pulls": [
+        {
+          "date": "2026-11-17",
+          "number": 31,
+          "title": "Agents act as the owner; nothing in Orrery needs approval",
+          "url": "https://github.com/firstprateek/orrery/pull/31"
+        },
+        {
+          "date": "2026-11-17",
+          "number": 30,
+          "title": "Adopt agent-git-workflow (bot mode)",
+          "url": "https://github.com/firstprateek/orrery/pull/30"
+        },
         {
           "date": "2026-11-16",
           "number": 29,
@@ -293,18 +305,6 @@
           "number": 26,
           "title": "Fix Milky Way orientation (rotate galactic panorama into the ecliptic frame)",
           "url": "https://github.com/firstprateek/orrery/pull/26"
-        },
-        {
-          "date": "2026-11-15",
-          "number": 27,
-          "title": "Layer groundwork: FrameState, scene layers, targets, label/pick registries, Show menu (no behaviour…",
-          "url": "https://github.com/firstprateek/orrery/pull/27"
-        },
-        {
-          "date": "2026-11-15",
-          "number": 25,
-          "title": "Fix trackpad pinch, add zoom panel, ⌘ +/− zoom, ‹ › body arrows",
-          "url": "https://github.com/firstprateek/orrery/pull/25"
         }
       ],
       "releases": []
