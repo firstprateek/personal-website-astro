@@ -96,3 +96,49 @@ test secret `1x0000000000000000000000000000000AA`, the Telegram values, and
 run `npx wrangler dev`, and build the site with the test site key
 `1x00000000000000000000AA` and the local endpoint. Headless browsers are
 stopped by the real Turnstile widget, so a live test needs a real browser.
+
+## Visit stats
+
+`stats/` is a second Cloudflare Worker, `site-pulse`, at
+`https://site-pulse.pjoshi.workers.dev/`. It counts visits and serves a private
+dashboard; there are no cookies on the site and nothing that names a reader.
+
+- **What the site sends.** The head script in `Base.astro` sends beacons to
+  `stats.endpoint` in `src/site.config.ts`, only when the page is served from
+  `url`'s host (so previews and the fixture build send nothing): one when a page
+  opens (path, referrer, `utm_source`/`ref`), one when it is hidden (seconds on
+  screen, furthest scroll), one per link off the site that is clicked.
+- **What the Worker stores** (D1 database `site-pulse`): path, source, country,
+  region and city (from Cloudflare), device, browser and OS, time and scroll. Not
+  the IP. A visit is keyed by a hash of IP and user agent salted with a random
+  value that is replaced every UTC day and deleted, so one person cannot be
+  followed across days. Bots and headless browsers are dropped.
+- **Opting a device out.** Open any page with `?notrack` (the dashboard footer
+  links it); `?track` opts back in. Stored in that browser's localStorage.
+- **Dashboard.** Open the Worker's URL, press "Send me a link", and open the link
+  the Telegram bot sends (once, within 10 minutes) **in the browser you want to
+  stay signed in on**: in Telegram on iPhone, long-press the link and choose Open
+  in Safari, then Share → Add to Home Screen. The session lasts 90 days. Days are
+  counted in the time zone Cloudflare reports for the viewer.
+- **What it shows.** Ranges Today, 7, 30, 90 days and a year. A world map of
+  visits by country (Natural Earth 1:110m, generated into `stats/src/world.js`
+  by `stats/scripts/make-map.mjs`); tapping a country, or a page in Content,
+  narrows the whole dashboard to it (`?country=IN`, `?path=/writing/x/`), and
+  the chips at the top clear it. Then content (views, visits, time on screen,
+  share read to the end), links clicked off the site, sources, countries,
+  cities, devices, and the latest visits as page trails.
+- **Digest.** An hourly cron sends a summary of the last 7 days to the same
+  Telegram chat on Mondays at 09:00 in the dashboard's last-seen time zone.
+
+Secrets (never in this repo), set from `stats/` with
+`npx wrangler secret put <NAME>`: `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHAT_ID`,
+the same bot as the contact form.
+
+Deploying: `npm ci` in `stats/`, `npm run migrate` (applies
+`migrations/` to the remote D1), then `npx wrangler deploy`. Tests:
+`npm run test:worker` from the repo root runs both Workers' tests; `node:sqlite`
+stands in for D1. For a local run, `npx wrangler d1 migrations apply site-pulse
+--local` and `npx wrangler dev --var ALLOWED_ORIGINS:<preview origin>`, and build
+the site with `url` and `stats.endpoint` pointing at the two local servers. A
+headless browser is filtered as a bot unless it is started with a normal
+`--user-agent`.

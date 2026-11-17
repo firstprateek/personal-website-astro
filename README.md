@@ -1,7 +1,9 @@
 # Site
 
 A static, text-first personal site. Astro, no client-side JavaScript beyond a
-single theme script, no external requests at build time or run time.
+single head script (theme and visit counting), no external requests at build
+time, and at run time only the visit beacons to our own Worker (`stats/`) and
+the contact form's.
 
 ```sh
 npm ci

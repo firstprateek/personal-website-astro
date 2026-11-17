@@ -1,0 +1,31 @@
+# Cloudflare Worker that counts visits to the site and serves a private
+# dashboard. Secrets (never committed): TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID,
+# each set with `npx wrangler secret put <NAME>`. See ../DEPLOY.md, "Visit stats".
+name = "site-pulse"
+main = "src/index.js"
+compatibility_date = "2026-11-01"
+workers_dev = true
+preview_urls = false
+
+[vars]
+# Origins the site is served from; beacons from anywhere else are refused.
+# The first one names the site in the dashboard and the digest.
+ALLOWED_ORIGINS = "https://pjoshi.dev"
+# Where the dashboard lives, for the link in the weekly digest.
+DASHBOARD_ORIGIN = "https://site-pulse.pjoshi.workers.dev"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "site-pulse"
+database_id = "2a542ac0-6c16-44e2-b72c-8a5781c3fdad"
+migrations_dir = "migrations"
+
+# Hourly: token cleanup, and the Monday 09:00 digest in the owner's time zone.
+[triggers]
+crons = ["0 * * * *"]
+
+# Beacons per client IP. A reader sends two or three per page.
+[[ratelimits]]
+name = "LIMITER"
+namespace_id = "1002"
+simple = { limit = 120, period = 60 }
