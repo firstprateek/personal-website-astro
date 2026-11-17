@@ -267,6 +267,7 @@ const statsHost = stats ? new URL(SITE.url).host : undefined;
           {SITE.links.map((link) => (
             <>{' · '}<a href={link.href}>{link.label}</a></>
           ))}
+          {' · '}<a href={href('/rss.xml')}>RSS</a>
         </p>
       </div>
     </footer>}
