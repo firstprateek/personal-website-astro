@@ -29,5 +29,6 @@ import portrait from '../assets/portrait.jpg';
     {SITE.links.map((link) => (
       <li><a href={link.href}>{link.label}</a></li>
     ))}
+    <li><a href={href('/rss.xml')}>RSS feed</a></li>
   </ul>
 </Base>
