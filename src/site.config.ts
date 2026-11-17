@@ -42,7 +42,7 @@ const PLACEHOLDER = {
   about: [
     'I\u2019ve spent about ten years building software, and the most fun has always been building the software other engineers use.',
     'These days I build with coding agents, and mostly think about how to use them to build software safely and efficiently. I\u2019m interested in building software that other agents can use, and in how agents can work together toward human-set goals with as little waste and as few interruptions as possible, so people can focus on the higher levels: the project, the product, the business.',
-    'On the side, I build the tools I use every day. The articles here, for example, start in <a href="https://github.com/firstprateek/sparring">Sparring</a>, an AI coach that interviews me and critiques my drafts. Every word has to be mine; the coach just asks the questions that help me find them.',
+    'On the side, I build the tools I use every day. Most articles here start in <a href="https://github.com/firstprateek/sparring">Sparring</a>, an AI coach that interviews me and critiques my drafts. Others I draft with coding agents, then edit until they say what I mean.',
   ],
 };
 
