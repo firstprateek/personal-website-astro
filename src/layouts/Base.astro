@@ -19,8 +19,10 @@ const onHome = Astro.url.pathname === href('/');
 const pageTitle = title ? `${title} — ${SITE.name}` : SITE.name;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const ogImage = new URL('og.png', Astro.site).href;
+const stats = SITE.stats.endpoint || undefined;
+const statsHost = stats ? new URL(SITE.url).host : undefined;
 ---
-<html lang="en">
+<html lang="en" data-pulse={stats} data-pulse-host={statsHost}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -28,7 +30,8 @@ const ogImage = new URL('og.png', Astro.site).href;
       The only script on every page (the contact page adds its own form
       script and Cloudflare Turnstile). It runs synchronously in <head> so the theme
       is resolved before first paint, then owns the toggle for the rest of the
-      page. No defer, no async, no module, no second tag.
+      page, and counts the visit (stats/ in the repo). No defer, no async, no
+      module, no second tag.
     */}
     <script is:inline>
       (() => {
@@ -81,6 +84,75 @@ const ogImage = new URL('og.png', Astro.site).href;
         };
         addEventListener('scroll', onScroll, { passive: true });
         onScroll();
+
+        // Visit counting: no cookies, nothing that names the reader. One beacon
+        // when the page opens, one each time it is hidden (seconds on screen
+        // and how far down it was read), one per link off the site. Only on
+        // the real host, and never on a device opted out with ?notrack
+        // (?track opts back in). The Worker is in stats/; DEPLOY.md has more.
+        // Wrapped whole, so nothing here can stop the theme toggle below.
+        try {
+        const root = document.documentElement;
+        const endpoint = root.dataset.pulse;
+        let counted = Boolean(endpoint) && location.host === root.dataset.pulseHost;
+        try {
+          const query = new URLSearchParams(location.search);
+          if (query.has('notrack')) localStorage.setItem('notrack', '1');
+          if (query.has('track')) localStorage.removeItem('notrack');
+          if (localStorage.getItem('notrack') === '1') counted = false;
+        } catch {}
+        if (counted && navigator.sendBeacon) {
+          const id = Array.from(crypto.getRandomValues(new Uint8Array(16)), (b) =>
+            b.toString(16).padStart(2, '0')).join('');
+          const send = (data) => {
+            try {
+              navigator.sendBeacon(endpoint, JSON.stringify({ id, ...data }));
+            } catch {}
+          };
+          const query = new URLSearchParams(location.search);
+          send({
+            t: 'view',
+            p: location.pathname,
+            r: document.referrer,
+            s: query.get('utm_source') || query.get('ref') || '',
+          });
+
+          let shownAt = document.visibilityState === 'visible' ? performance.now() : null;
+          let shown = 0;
+          let depth = 0;
+          const measure = () => {
+            const height = root.scrollHeight;
+            const seen = height ? ((scrollY + innerHeight) / height) * 100 : 100;
+            depth = Math.max(depth, Math.min(100, Math.round(seen)));
+          };
+          addEventListener('scroll', measure, { passive: true });
+          addEventListener('load', measure);
+          // Sent on hide and again on pagehide, which is the one that fires
+          // reliably when a link leads to another page. The Worker keeps the
+          // largest values, so a repeat changes nothing.
+          const leave = () => {
+            if (shownAt !== null) shown += performance.now() - shownAt;
+            shownAt = null;
+            measure();
+            send({ t: 'leave', sec: Math.round(shown / 1000), d: depth });
+          };
+          document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'hidden') leave();
+            else shownAt = performance.now();
+          });
+          addEventListener('pagehide', leave);
+
+          const outbound = (event) => {
+            const link =
+              event.target instanceof Element ? event.target.closest('a[href]') : null;
+            if (link && /^https?:$/.test(link.protocol) && link.host !== location.host) {
+              send({ t: 'out', h: link.href });
+            }
+          };
+          document.addEventListener('click', outbound);
+          document.addEventListener('auxclick', outbound);
+        }
+        } catch {}
 
         // Delegated, so it can be attached now — document already exists.
         document.addEventListener('click', (event) => {

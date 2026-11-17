@@ -8,7 +8,7 @@
     "check": "astro check && npm run test:worker",
     "check:links": "node scripts/check-links.mjs",
     "test": "npm run check && npm run build && npm run check:links",
-    "test:worker": "node --test 'worker/test/*.test.js'"
+    "test:worker": "node --test 'worker/test/*.test.js' 'stats/test/*.test.js'"
   },
   "type": "module",
   "dependencies": {

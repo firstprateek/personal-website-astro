@@ -30,6 +30,14 @@ const PLACEHOLDER = {
     endpoint: 'https://contact-form.pjoshi.workers.dev/',
     turnstileSiteKey: '0x4AAAAAAGCbzMfrLexOVeFv',
   },
+  /**
+   * Visit counting. `endpoint` is the beacon URL of the Cloudflare Worker in
+   * stats/; the head script sends to it only when the page is served from
+   * `url`'s host, so local builds and previews count nothing. Empty turns it off.
+   */
+  stats: {
+    endpoint: 'https://site-pulse.pjoshi.workers.dev/p',
+  },
   /** About paragraphs. Trusted HTML, written here by hand: inline links only. */
   about: [
     'I\u2019ve spent about ten years building software, and the most fun has always been building the software other engineers use.',
@@ -62,6 +70,10 @@ const DEMO = {
   contact: {
     endpoint: 'https://contact-form.example.workers.dev/',
     turnstileSiteKey: '1x00000000000000000000AA',
+  },
+  // No counting in the demo.
+  stats: {
+    endpoint: '',
   },
   about: [
     'I have spent about ten years building software for other engineers. For seven of them I owned the web UI framework behind MATLAB Desktop \u2014 the toolkit, the rendering layer, and the migration path \u2014 which a hundred-odd internal product teams shipped on top of.',
