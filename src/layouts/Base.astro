@@ -34,7 +34,7 @@ const ogImage = new URL('og.png', Astro.site).href;
       (() => {
         const KEY = 'theme';
         // Two states the reader can pick, plus `system` as the default they
-        // start in. The icon shows the theme they are in; clicking moves to
+        // start in (and return to by picking the OS's own theme). The icon shows the theme they are in; clicking moves to
         // the other one, which is what a sun/moon pair can express honestly.
         const mq = matchMedia('(prefers-color-scheme: dark)');
 
@@ -89,9 +89,15 @@ const ogImage = new URL('og.png', Astro.site).href;
             target instanceof Element ? target.closest('#theme-toggle') : null;
           if (!button) return;
 
-          preference = current() === 'dark' ? 'light' : 'dark';
+          // A choice that matches the OS is no choice at all: go back to
+          // `system` and forget the stored value, so the page follows the OS
+          // again. Only a theme that differs from the OS is remembered.
+          const next = current() === 'dark' ? 'light' : 'dark';
+          const os = mq.matches ? 'dark' : 'light';
+          preference = next === os ? 'system' : next;
           try {
-            localStorage.setItem(KEY, preference);
+            if (preference === 'system') localStorage.removeItem(KEY);
+            else localStorage.setItem(KEY, preference);
           } catch {}
 
           apply();

@@ -34,13 +34,13 @@ const evaluate = async (expression) =>
 const scheme = (value) => send('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-color-scheme', value }] });
 const load = async () => { await send('Page.navigate', { url }); await new Promise((r) => setTimeout(r, 800)); };
 // Two animation frames guarantee a rendering update ran, which is when media query `change` fires.
-const state = (step) => evaluate(`(async () => {
+const state = async (step, expect = {}) => ({ expect, ...(await evaluate(`(async () => {
   await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
   const b = document.getElementById('theme-toggle');
   return { step: ${JSON.stringify(step)}, osDark: matchMedia('(prefers-color-scheme: dark)').matches,
     theme: document.documentElement.dataset.theme, stored: localStorage.getItem('theme'),
     label: b.getAttribute('aria-label') };
-})()`);
+})()`)) });
 const press = async () => {
   const { x, y } = await evaluate(`(() => { const r = document.getElementById('theme-toggle').getBoundingClientRect();
     return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; })()`);
@@ -59,6 +59,10 @@ await press(); out.push(await state('A3 pressed the button'));
 // B: once the reader has chosen, OS switches change nothing.
 await scheme('light'); out.push(await state('B1 OS switched to light after an explicit choice'));
 await scheme('dark'); out.push(await state('B2 OS switched back to dark'));
+// D: picking the OS's own theme forgets the choice, so the page follows the OS again.
+await press(); out.push(await state('D1 pressed again, back to the OS theme', { stored: null }));
+await scheme('light'); out.push(await state('D2 OS switched to light after that', { theme: 'light', stored: null }));
+await load(); out.push(await state('D3 reloaded', { theme: 'light', stored: null }));
 // C: a first-time visitor on a dark OS, then two flips.
 await evaluate(`localStorage.removeItem('theme')`); await scheme('dark'); await load();
 out.push(await state('C1 fresh visitor, OS dark'));
@@ -66,7 +70,8 @@ await scheme('light'); out.push(await state('C2 OS switched to light'));
 await scheme('dark'); out.push(await state('C3 OS switched back to dark'));
 
 for (const s of out) {
-  const ok = s.label === `Switch to ${s.theme === 'dark' ? 'light' : 'dark'} theme`;
+  const ok = s.label === `Switch to ${s.theme === 'dark' ? 'light' : 'dark'} theme`
+    && Object.entries(s.expect).every(([k, v]) => s[k] === v);
   console.log(`${ok ? 'ok  ' : 'BAD '} ${s.step.padEnd(50)} os=${s.osDark ? 'dark ' : 'light'} page=${s.theme.padEnd(5)} stored=${String(s.stored).padEnd(5)} label="${s.label}"`);
 }
 ws.close();
