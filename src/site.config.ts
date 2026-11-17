@@ -34,9 +34,11 @@ const PLACEHOLDER = {
    * Visit counting. `endpoint` is the beacon URL of the Cloudflare Worker in
    * stats/; the head script sends to it only when the page is served from
    * `url`'s host, so local builds and previews count nothing. Empty turns it off.
+   * `dashboard` is where /stats/ forwards to; empty leaves /stats/ a plain note.
    */
   stats: {
-    endpoint: 'https://site-pulse.pjoshi.workers.dev/p',
+    endpoint: 'https://stats.pjoshi.dev/p',
+    dashboard: 'https://stats.pjoshi.dev/',
   },
   /** About paragraphs. Trusted HTML, written here by hand: inline links only. */
   about: [
@@ -74,6 +76,7 @@ const DEMO = {
   // No counting in the demo.
   stats: {
     endpoint: '',
+    dashboard: '',
   },
   about: [
     'I have spent about ten years building software for other engineers. For seven of them I owned the web UI framework behind MATLAB Desktop \u2014 the toolkit, the rendering layer, and the migration path \u2014 which a hundred-odd internal product teams shipped on top of.',
