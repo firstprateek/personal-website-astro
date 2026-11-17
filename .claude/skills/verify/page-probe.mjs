@@ -1,6 +1,6 @@
 // Loads pages in headless Chrome at a true device width (CDP metrics override, so no ~500px window
 // floor) and reports layout shift, console errors, header rows, the gap under any video, and a PNG.
-// usage: node .claude/skills/verify/page-probe.mjs <profile-dir> <debug-port> <out-dir> <name=url@width> ...
+// usage: [SCHEME=light|dark] node .claude/skills/verify/page-probe.mjs <profile-dir> <debug-port> <out-dir> <name=url@width> ...
 import { spawn } from 'node:child_process';
 import { writeFileSync } from 'node:fs';
 
@@ -38,6 +38,10 @@ const evaluate = async (expression) =>
 await send('Page.enable');
 await send('Runtime.enable');
 await send('Log.enable');
+// SCHEME=light|dark emulates the OS colour scheme, for screenshots of each theme.
+if (process.env.SCHEME) {
+  await send('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-color-scheme', value: process.env.SCHEME }] });
+}
 for (const spec of specs) {
   const [name, rest] = spec.split('=');
   const at = rest.lastIndexOf('@');

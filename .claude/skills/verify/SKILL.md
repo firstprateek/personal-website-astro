@@ -43,7 +43,8 @@ the root `/` (the site is served from `https://pjoshi.dev/`); the paths below ar
   (run a `curl` under the same profile first, to see the sandbox really blocks).
 - Theme toggle: click, reload, navigate away; Enter and Space on the focused button. With no stored
   preference, switch the OS colour scheme live and read the button's `aria-label`; it must name the
-  theme the page is *not* in (`theme-probe.mjs` below).
+  theme the page is *not* in, and picking the OS's own theme must clear the stored choice
+  (`theme-probe.mjs` below).
 - Project video: no `.mp4` request before play, plays on click, and the same 20px gap below it as
   above.
 - Widths 320, 375, 390 and 414: no horizontal overflow. On every page the header is one row, or
