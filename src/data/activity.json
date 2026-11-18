@@ -216,6 +216,21 @@
       "url": "https://github.com/firstprateek/orrery",
       "commits": [
         {
+          "date": "2026-11-18",
+          "title": "Light-speed jump between star systems (#34)",
+          "url": "https://github.com/firstprateek/orrery/commit/997eda4dd0d6e4a0beb19d12238078d5946816f8"
+        },
+        {
+          "date": "2026-11-18",
+          "title": "Stop native drags from hijacking the camera drag (#33)",
+          "url": "https://github.com/firstprateek/orrery/commit/4324afa3e9fd06cf961a0723e4ff794833019959"
+        },
+        {
+          "date": "2026-11-18",
+          "title": "Visit other star systems; sky guide with distances (#32)",
+          "url": "https://github.com/firstprateek/orrery/commit/0bdb47f826cc9c9c6e993c220eae36b414768d72"
+        },
+        {
           "date": "2026-11-17",
           "title": "Agents act as the owner; nothing in Orrery needs approval (#31)",
           "url": "https://github.com/firstprateek/orrery/commit/73f0c6b3c78bbe9d17a1610e879275de7012566f"
@@ -224,24 +239,27 @@
           "date": "2026-11-17",
           "title": "Adopt agent-git-workflow (bot mode) (#30)",
           "url": "https://github.com/firstprateek/orrery/commit/f40714c9d5d972ab6d612ccf39515c28128bff48"
-        },
-        {
-          "date": "2026-11-16",
-          "title": "Camera up = ecliptic north (+Z) app-wide (#29)",
-          "url": "https://github.com/firstprateek/orrery/commit/b59e438d834e6329ac0756344042d9daa09f7275"
-        },
-        {
-          "date": "2026-11-15",
-          "title": "Fix body pole orientation: IAU poles in the ecliptic frame (Earth seasons, Saturn rings) (#28)",
-          "url": "https://github.com/firstprateek/orrery/commit/32ceb18541d36bff18cf721f275be808fa3afa33"
-        },
-        {
-          "date": "2026-11-15",
-          "title": "Fix Milky Way orientation (rotate galactic panorama into the ecliptic frame) (#26)",
-          "url": "https://github.com/firstprateek/orrery/commit/353240cd155745edc4f95eec3d476bab3dfee4c0"
         }
       ],
       "pulls": [
+        {
+          "date": "2026-11-18",
+          "number": 34,
+          "title": "Light-speed jump between star systems",
+          "url": "https://github.com/firstprateek/orrery/pull/34"
+        },
+        {
+          "date": "2026-11-18",
+          "number": 33,
+          "title": "Stop native drags from hijacking the camera drag",
+          "url": "https://github.com/firstprateek/orrery/pull/33"
+        },
+        {
+          "date": "2026-11-18",
+          "number": 32,
+          "title": "Visit other star systems; sky guide with distances",
+          "url": "https://github.com/firstprateek/orrery/pull/32"
+        },
         {
           "date": "2026-11-17",
           "number": 31,
@@ -253,24 +271,6 @@
           "number": 30,
           "title": "Adopt agent-git-workflow (bot mode)",
           "url": "https://github.com/firstprateek/orrery/pull/30"
-        },
-        {
-          "date": "2026-11-16",
-          "number": 29,
-          "title": "Camera up = ecliptic north (+Z) app-wide",
-          "url": "https://github.com/firstprateek/orrery/pull/29"
-        },
-        {
-          "date": "2026-11-15",
-          "number": 28,
-          "title": "Fix body pole orientation: IAU poles in the ecliptic frame (Earth seasons, Saturn rings)",
-          "url": "https://github.com/firstprateek/orrery/pull/28"
-        },
-        {
-          "date": "2026-11-15",
-          "number": 26,
-          "title": "Fix Milky Way orientation (rotate galactic panorama into the ecliptic frame)",
-          "url": "https://github.com/firstprateek/orrery/pull/26"
         }
       ],
       "releases": []
@@ -387,32 +387,39 @@
       "url": "https://github.com/firstprateek/vastu",
       "commits": [
         {
-          "date": "2026-11-16",
-          "title": "Add AGENTS.md (with CLAUDE.md importing it) and CONTRIBUTING.md",
-          "url": "https://github.com/firstprateek/vastu/commit/614e1910da3d0e84cc082802a6973307f2b651e9"
+          "date": "2026-11-18",
+          "title": "Design doc: M4 done, old widget repos private and archived, packages deprecated",
+          "url": "https://github.com/firstprateek/vastu/commit/c2eb4cf729973ef81c804166c493e8c2bb5d519a"
         },
         {
-          "date": "2026-11-16",
-          "title": "Design doc: how 1.0.0 was published and how releases work from now on",
-          "url": "https://github.com/firstprateek/vastu/commit/6c7df76b64a30c464761f39c0699c15072da0a5c"
+          "date": "2026-11-18",
+          "title": "Design doc: how the first trusted-publishing release went",
+          "url": "https://github.com/firstprateek/vastu/commit/0168278be6847096c2f684939c6323f3d4ea961e"
         },
         {
-          "date": "2026-11-16",
-          "title": "Version 1.0.0",
-          "url": "https://github.com/firstprateek/vastu/commit/364e5617a177da46a51bb35a07ee46cde988450e"
+          "date": "2026-11-18",
+          "title": "Version 1.1.0",
+          "url": "https://github.com/firstprateek/vastu/commit/f166d648d5089c6d2c588bf79b91c7414635a7d6"
         },
         {
-          "date": "2026-11-16",
-          "title": "Settle the API for 1.0 (from an independent pre-1.0 review)",
-          "url": "https://github.com/firstprateek/vastu/commit/5ae6a86cb2e884ef74cc2d2c10f5931df1858c37"
+          "date": "2026-11-18",
+          "title": "Merge M4: rebuild the 2023 widgets as va-navbar, va-poll and va-bar-chart (#1)",
+          "url": "https://github.com/firstprateek/vastu/commit/1d04040f68c1f73d61ca07d4c4c5bc0da326f9f5"
         },
         {
-          "date": "2026-11-16",
-          "title": "Prepare the packages for npm and add the release workflow",
-          "url": "https://github.com/firstprateek/vastu/commit/b210858a3b697e4d39a2dfe103a86105396c89f6"
+          "date": "2026-11-18",
+          "title": "Fix what the pre-merge review found in the M4 components",
+          "url": "https://github.com/firstprateek/vastu/commit/2ed410539bdc810abd165b58117f335658990b17"
         }
       ],
-      "pulls": [],
+      "pulls": [
+        {
+          "date": "2026-11-18",
+          "number": 1,
+          "title": "M4: rebuild the 2023 widgets as va-navbar, va-poll and va-bar-chart",
+          "url": "https://github.com/firstprateek/vastu/pull/1"
+        }
+      ],
       "releases": []
     }
   }
