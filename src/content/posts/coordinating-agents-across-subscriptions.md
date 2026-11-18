@@ -5,7 +5,7 @@ description: I split my coding work across Claude, Codex and Gemini. Coordinatin
 draft: false
 ---
 
-> **The server in this post:** [agent-team-up](https://github.com/firstprateek/agent-team-up)
+> **The MCP server in this post:** [agent-team-up](https://github.com/firstprateek/agent-team-up)
 
 To experiment and compare, I got the cheapest plan for Claude, Gemini and Codex. On the lower tiers the tokens run out pretty fast, especially if you use anything better than the smallest model.
 
