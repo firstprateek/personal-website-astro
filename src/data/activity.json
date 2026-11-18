@@ -163,40 +163,6 @@
       ],
       "releases": []
     },
-    "firstprateek/minimal-navbar": {
-      "project": "lit-widgets",
-      "name": "minimal-navbar",
-      "url": "https://github.com/firstprateek/minimal-navbar",
-      "commits": [
-        {
-          "date": "2026-11-15",
-          "title": "Keep the demo navbar at the top while scrolling; make the demo link prominent",
-          "url": "https://github.com/firstprateek/minimal-navbar/commit/20c83a6437cee9a2ff1cdac6882758fc6506ae18"
-        },
-        {
-          "date": "2026-11-15",
-          "title": "Install from npm now that the package is published",
-          "url": "https://github.com/firstprateek/minimal-navbar/commit/5e2143ac1041a6a98e891f2010156204f88c99d7"
-        },
-        {
-          "date": "2026-11-15",
-          "title": "Fix minimal-navbar entry point and small bugs",
-          "url": "https://github.com/firstprateek/minimal-navbar/commit/9a5ab25a1837c83e1cecf04bff71d64589f0aed7"
-        },
-        {
-          "date": "2023-07-09",
-          "title": "added .gitignore",
-          "url": "https://github.com/firstprateek/minimal-navbar/commit/99f6f6797650cd9a9570038eaad5c8fab1f54922"
-        },
-        {
-          "date": "2023-05-28",
-          "title": "updated README.md",
-          "url": "https://github.com/firstprateek/minimal-navbar/commit/330877461322640e6bf261809ed6983f4c9ea648"
-        }
-      ],
-      "pulls": [],
-      "releases": []
-    },
     "firstprateek/neon-swarm": {
       "project": "neon-swarm",
       "name": "neon-swarm",
