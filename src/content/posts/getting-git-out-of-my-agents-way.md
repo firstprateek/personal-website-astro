@@ -1,5 +1,5 @@
 ---
-title: Getting git out of my agents' way
+title: Making git workflows more efficient when working with agents
 date: 2026-11-17
 description: A small skill that lets coding agents ship on their own, and asks me only about the parts that matter.
 draft: false
